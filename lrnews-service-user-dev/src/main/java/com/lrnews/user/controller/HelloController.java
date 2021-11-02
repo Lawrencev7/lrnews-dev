@@ -1,5 +1,6 @@
 package com.lrnews.user.controller;
 
+import graceresult.JsonResultObject;
 import com.lrnews.api.controller.user.HelloControllerApi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,6 @@ public class HelloController implements HelloControllerApi {
     final static Logger logger = LoggerFactory.getLogger(HelloController.class);
 
     public Object hello(){
-        return "hello";
+        return JsonResultObject.error();
     }
 }
