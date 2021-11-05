@@ -1,4 +1,4 @@
-package graceresult;
+package com.lrnews.graceresult;
 
 import java.util.Map;
 

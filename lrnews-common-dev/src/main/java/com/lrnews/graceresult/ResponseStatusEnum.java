@@ -1,4 +1,4 @@
-package graceresult;
+package com.lrnews.graceresult;
 
 /**
  * 响应结果枚举，用于提供给GraceJSONResult返回给前端的
