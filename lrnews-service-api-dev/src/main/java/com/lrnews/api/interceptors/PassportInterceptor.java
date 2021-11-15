@@ -15,6 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static com.lrnews.values.CommonValueInteger.*;
+import static com.lrnews.values.CommonValueStrings.*;
+
 @Configuration
 public class PassportInterceptor implements HandlerInterceptor {
     private static final Logger logger = LoggerFactory.getLogger(PassportInterceptor.class);
@@ -30,7 +33,7 @@ public class PassportInterceptor implements HandlerInterceptor {
                              @NotNull HttpServletResponse response,
                              @NotNull Object handler) throws Exception {
         String IP = IPUtil.getRequestIp(request);
-        if(redis.keyExist(BaseController.REQUEST_LIMIT_IP + ":" + IP)){
+        if(redis.keyExist(REQUEST_LIMIT_IP + ":" + IP)){
             logger.info("Block user request: User request has been rejected due to over frequent apply");
             CustomExceptionFactory.onException(ResponseStatusEnum.SMS_OVER_FREQUENT_ERROR);
             return false;
