@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @Api(value = "Passport related server controller", tags = {"Passport server controller"})
@@ -20,5 +21,5 @@ public interface PassportControllerApi {
 
     @PostMapping("/login")
     @ApiOperation(value = "Login/register interface", notes = "Do login or register in this interface")
-    JsonResultObject doLogin(@Valid @RequestBody UserInfoBO userInfo, BindingResult result);
+    JsonResultObject doLogin(@Valid @RequestBody UserInfoBO userInfo, BindingResult result, HttpServletRequest request, HttpServletResponse response);
 }

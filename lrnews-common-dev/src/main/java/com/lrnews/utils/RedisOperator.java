@@ -1,5 +1,6 @@
 package com.lrnews.utils;
 
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.redis.connection.StringRedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -48,6 +49,10 @@ public class RedisOperator {
         redisTemplate.delete(key);
     }
 
+    public void set(String key, String value) {
+        redisTemplate.opsForValue().set(key, value);
+    }
+
     public void set(String key, String value, long timeout) {
         redisTemplate.opsForValue().set(key, value, timeout, TimeUnit.SECONDS);
     }
@@ -69,12 +74,11 @@ public class RedisOperator {
     }
 
     public List<Object> batchGet(List<String> keys) {
-        List<Object> result = redisTemplate.executePipelined((RedisCallback<String>) connection -> {
+        return redisTemplate.executePipelined((RedisCallback<String>) connection -> {
             StringRedisConnection src = (StringRedisConnection)connection;
             keys.forEach(src::get);
             return null;
         });
-        return result;
     }
 
     public void hset(String key, String field, Object value) {
@@ -98,7 +102,7 @@ public class RedisOperator {
     }
 
     public String lpop(String key) {
-        return (String)redisTemplate.opsForList().leftPop(key);
+        return redisTemplate.opsForList().leftPop(key);
     }
 
     public Long rpush(String key, String value) {

@@ -19,10 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Random;
+import javax.servlet.http.HttpServletResponse;
+import java.net.ServerSocket;
+import java.util.*;
 
 import static com.lrnews.values.CommonValueInteger.*;
 import static com.lrnews.values.CommonValueStrings.*;
@@ -53,7 +52,8 @@ public class PassportController extends BaseController implements PassportContro
     }
 
     @Override
-    public JsonResultObject doLogin(UserInfoBO userInfo, @NotNull BindingResult result) {
+    public JsonResultObject doLogin(UserInfoBO userInfo, @NotNull BindingResult result,
+                                    HttpServletRequest request, HttpServletResponse response) {
         if (result.hasErrors()) {
             Map<String, String> errors = getErrors(result);
             return JsonResultObject.errorMap(errors);
@@ -66,42 +66,41 @@ public class PassportController extends BaseController implements PassportContro
         if (redis.keyExist(requestVerifyParam)) {
             String cachedCode = redis.get(requestVerifyParam);
             if (StringUtils.isBlank(cachedCode) || !code.equals(cachedCode)) {
-                //logger
-                return JsonResultObject.errorCustom(ResponseStatusEnum.SMS_CODE_ERROR);
+                logger.info("Block login request for: invalid verify code.");
+                return JsonResultObject.errorCustom(ResponseStatusEnum.VERIFY_CODE_INCORRECT);
             }
+        }else {
+            logger.info("Block login request for: verify code expired.");
+            return JsonResultObject.errorCustom(ResponseStatusEnum.VERIFY_CODE_EXPIRED);
         }
+
+        redis.delete(requestVerifyParam);
+        redis.delete(REQUEST_LIMIT_IP + ":" + IPUtil.getRequestIp(request));
 
         AppUser user = userService.queryUserExist(phone);
         if(user != null){
             if(Objects.equals(user.getActiveStatus(), UserStatus.FROZEN.type)) {
-                //logger
+                logger.info("Block login request for: invalid user status.");
                 return JsonResultObject.errorCustom(ResponseStatusEnum.USER_FROZEN);
+            }else {
+                logger.info("Login for user: " + user.getMobile() + " success");
+                String token = UUID.randomUUID().toString();
+                redis.set(USER_TOKEN_KEY + ':' + user.getId(), token);
+
+                setCookie(response,"utoken", token, DEFAULT_COOKIE_MAX_AGE, false);
+                setCookie(response, "uid", user.getId(), DEFAULT_COOKIE_MAX_AGE, true);
+                return JsonResultObject.ok();
             }
         }else {
             user = userService.createUser(phone);
              if(user != null){
-                 //logger
+                 logger.info("Login for new phone number: Create user success");
                  return JsonResultObject.ok(user);
              }else {
-                 //logger
+                 logger.info("Login for new phone number: Create user failed");
                  return JsonResultObject.errorCustom(ResponseStatusEnum.SYSTEM_ERROR);
              }
         }
-
-        return JsonResultObject.ok("?");
     }
 
-    /**
-     * Unboxing errors in result which is generated while verifying userInfo
-     *
-     * @param result BindingResult from http request
-     */
-    @NotNull
-    private Map<String, String> getErrors(@NotNull BindingResult result) {
-        Map<String, String> errorMap = new HashMap<>();
-        result.getFieldErrors().forEach(e -> {
-            errorMap.put(e.getField(), e.getDefaultMessage());
-        });
-        return errorMap;
-    }
 }
