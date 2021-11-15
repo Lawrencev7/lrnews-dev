@@ -19,4 +19,12 @@ public class AliyunResource {
     public String getAccessSecret() {
         return accessSecret;
     }
+
+    public void setAccessKeyId(String accessKeyId) {
+        this.accessKeyId = accessKeyId;
+    }
+
+    public void setAccessSecret(String accessSecret) {
+        this.accessSecret = accessSecret;
+    }
 }

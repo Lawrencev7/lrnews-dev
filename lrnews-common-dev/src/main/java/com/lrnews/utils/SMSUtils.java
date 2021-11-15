@@ -8,12 +8,16 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.lrnews.utils.extend.AliyunResource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 
 
 @Component
 public class SMSUtils {
+
+    private final Logger logger = LoggerFactory.getLogger(SMSUtils.class);
 
     private final AliyunResource resource;
 
@@ -44,6 +48,14 @@ public class SMSUtils {
         } catch (ClientException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Mock SMS service
+     * @param code verify code to be sent.
+     */
+    public void sendVerifyCode(String code){
+        logger.info("Mock SMS service: get a verify code: [{}]", code);
     }
 
 }

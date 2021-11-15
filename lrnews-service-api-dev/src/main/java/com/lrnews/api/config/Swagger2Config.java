@@ -41,11 +41,11 @@ public class Swagger2Config {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("慕课新闻·自媒体接口api") // 文档页标题
+                .title("Lawrence News Api Test Integration") // 文档页标题
                 .contact(new Contact("lrnews",
                         "https://www.lrnews.com",
                         "lawrence@lrnews.com")) // 联系人信息
-                .description("专为慕课新闻·自媒体平台提供的api文档") // 详细信息
+                .description("Api document for news platform of lawrence") // 详细信息
                 .version("1.0.1") // 文档版本号
                 .termsOfServiceUrl("https://www.lrnews.com") // 网站地址
                 .build();

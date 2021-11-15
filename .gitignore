@@ -1,4 +1,3 @@
 # Project exclude paths
-/lrnews-service-api-dev/target/
-/lrnews-service-user-dev/target/
+/*/target
 .idea
