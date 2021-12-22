@@ -6,7 +6,7 @@ public enum ResponseStatusEnum {
     FAILED(500, false, "操作失败！"),
 
     // 50x
-    USER_NOT_LOGIN(501,false,"请登录后再继续操作！"),
+    USER_NOT_LOGIN(501,false,"User is not login"),
     TICKET_INVALID(502,false,"会话失效，请重新登录！"),
     NO_AUTH(503,false,"Access denied"),
     MOBILE_ERROR(504,false,"短信发送失败，请稍后重试！"),
@@ -23,7 +23,7 @@ public enum ResponseStatusEnum {
 
     USER_FROZEN(521,false,"用户已被冻结，请联系管理员！"),
     USER_UPDATE_ERROR(522,false,"用户信息更新失败，请联系管理员！"),
-    USER_INACTIVE_ERROR(523,false,"请前往[账号设置]修改信息激活后再进行后续操作！"),
+    USER_INACTIVE_ERROR(523,false,"User is still inactive, please modify user info and activate your account"),
 
     // 自定义系统级别异常 54x
     SYSTEM_INDEX_OUT_OF_BOUNDS(541, false, "系统错误，数组越界！"),

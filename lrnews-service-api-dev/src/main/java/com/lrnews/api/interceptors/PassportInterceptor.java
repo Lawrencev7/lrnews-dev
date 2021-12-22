@@ -19,14 +19,8 @@ import static com.lrnews.values.CommonValueInteger.*;
 import static com.lrnews.values.CommonValueStrings.*;
 
 @Configuration
-public class PassportInterceptor implements HandlerInterceptor {
+public class PassportInterceptor extends BaseInterceptor implements HandlerInterceptor {
     private static final Logger logger = LoggerFactory.getLogger(PassportInterceptor.class);
-
-    RedisOperator redis;
-
-    public PassportInterceptor(RedisOperator r){
-        redis = r;
-    }
 
     @Override
     public boolean preHandle(@NotNull HttpServletRequest request,
@@ -39,19 +33,5 @@ public class PassportInterceptor implements HandlerInterceptor {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public void postHandle(@NotNull HttpServletRequest request,
-                           @NotNull HttpServletResponse response,
-                           @NotNull Object handler, ModelAndView modelAndView) throws Exception {
-
-    }
-
-    @Override
-    public void afterCompletion(@NotNull HttpServletRequest request,
-                                @NotNull HttpServletResponse response,
-                                @NotNull Object handler, Exception ex) throws Exception {
-
     }
 }
