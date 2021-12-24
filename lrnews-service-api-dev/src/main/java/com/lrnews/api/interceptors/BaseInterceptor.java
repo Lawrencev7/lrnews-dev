@@ -17,7 +17,7 @@ public class BaseInterceptor {
             return false;
         }
 
-        String redisToken = redis.get(CommonValueStrings.USER_TOKEN_KEY + uid);
+        String redisToken = redis.get(CommonValueStrings.REDIS_USER_TOKEN_KEY + uid);
         if(StringUtils.isBlank(redisToken) || !redisToken.equalsIgnoreCase(uToken)){
             CustomExceptionFactory.onException(ResponseStatusEnum.TICKET_INVALID);
             return false;

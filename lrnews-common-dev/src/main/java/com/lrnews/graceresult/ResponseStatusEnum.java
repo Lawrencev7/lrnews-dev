@@ -2,8 +2,9 @@ package com.lrnews.graceresult;
 
 public enum ResponseStatusEnum {
 
-    SUCCESS(200, true, "操作成功！"),
-    FAILED(500, false, "操作失败！"),
+    SUCCESS(200, true, "Success！"),
+    REGISTER_SUCCESS(200, true, "Register new user success"),
+    FAILED(500, false, "Failed！"),
 
     // 50x
     USER_NOT_LOGIN(501,false,"User is not login"),
@@ -11,7 +12,7 @@ public enum ResponseStatusEnum {
     NO_AUTH(503,false,"Access denied"),
     MOBILE_ERROR(504,false,"短信发送失败，请稍后重试！"),
     SMS_OVER_FREQUENT_ERROR(505,false,"短信发送太快啦~请稍后再试！"),
-    VERIFY_CODE_INCORRECT(506,false,"验证码过期或不匹配，请稍后再试！"),
+    VERIFY_CODE_INCORRECT(506,false,"Verify code is not match"),
     VERIFY_CODE_EXPIRED(507, false, "The verify code is expired"),
     FILE_UPLOAD_NULL_ERROR(510,false,"文件不能为空，请选择一个文件再上传！"),
     FILE_UPLOAD_FAILD(511,false,"文件上传失败！"),

@@ -22,4 +22,8 @@ public interface PassportControllerApi {
     @PostMapping("/login")
     @ApiOperation(value = "Login/register interface", notes = "Do login or register in this interface")
     JsonResultObject doLogin(@Valid @RequestBody UserInfoBO userInfo, BindingResult result, HttpServletRequest request, HttpServletResponse response);
+
+    @PostMapping("/logout")
+    @ApiOperation(value = "Logout interface", notes = "Delete cached user information with this interface")
+    JsonResultObject doLogout(String userId,  BindingResult result, HttpServletRequest request, HttpServletResponse response);
 }

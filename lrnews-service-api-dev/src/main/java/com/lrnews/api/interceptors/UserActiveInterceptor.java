@@ -5,12 +5,9 @@ import com.lrnews.exception.CustomExceptionFactory;
 import com.lrnews.graceresult.ResponseStatusEnum;
 import com.lrnews.pojo.AppUser;
 import com.lrnews.utils.JsonUtils;
-import com.lrnews.utils.RedisOperator;
-import com.lrnews.values.CommonValueStrings;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -20,9 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
 import static com.lrnews.values.CommonApiDefStrings.SESSION_HEADER_USER_ID;
-import static com.lrnews.values.CommonApiDefStrings.SESSION_HEADER_USER_TOKEN;
 import static com.lrnews.values.CommonValueStrings.REDIS_USER_CACHE_TAG;
-import static com.lrnews.values.CommonValueStrings.USER_TOKEN_KEY;
 
 @Configuration
 public class UserActiveInterceptor extends BaseInterceptor implements HandlerInterceptor {
