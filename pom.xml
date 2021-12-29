@@ -13,6 +13,7 @@
         <module>lrnews-service-api-dev</module>
         <module>lrnews-service-user-dev</module>
         <module>mybatis-generator-database</module>
+        <module>lrnews-service-file-dev</module>
     </modules>
 
     <packaging>pom</packaging>

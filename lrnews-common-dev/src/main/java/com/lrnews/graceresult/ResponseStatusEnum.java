@@ -14,7 +14,7 @@ public enum ResponseStatusEnum {
     SMS_OVER_FREQUENT_ERROR(505,false,"短信发送太快啦~请稍后再试！"),
     VERIFY_CODE_INCORRECT(506,false,"Verify code is not match"),
     VERIFY_CODE_EXPIRED(507, false, "The verify code is expired"),
-    FILE_UPLOAD_NULL_ERROR(510,false,"文件不能为空，请选择一个文件再上传！"),
+    FILE_UPLOAD_NULL_ERROR(510,false,"Upload a null file"),
     FILE_UPLOAD_FAILD(511,false,"文件上传失败！"),
     FILE_FORMATTER_FAILD(512,false,"文件图片格式不支持！"),
     FILE_MAX_SIZE_ERROR(513,false,"仅支持500kb大小以下的图片上传！"),

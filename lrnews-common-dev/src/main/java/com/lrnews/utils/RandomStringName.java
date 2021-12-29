@@ -2,7 +2,7 @@ package com.lrnews.utils;
 
 import java.util.Random;
 
-public class RandomUsername {
+public class RandomStringName {
     public static final int COMMON_USERNAME_LENGTH = 8;
 
     public static String getRandomName() {

@@ -16,15 +16,16 @@ import javax.validation.Valid;
 @RequestMapping("/user")
 public interface UserInfoControllerApi {
 
-    @ApiOperation(value = "Interface for obtain user info", tags = {"Get user info"})
+    @ApiOperation(value = "Interface for obtaining user full info", tags = {"Get user info"})
     @PostMapping("/get-user-info")
     JsonResultObject getUserInfo(@RequestParam String userId);
 
-    @ApiOperation(value = "Interface for obtain user common info", tags = {"Get user common info"})
+    @ApiOperation(value = "Interface for obtaining user common info", tags = {"Get user common info"})
     @PostMapping("/get-common-info")
     JsonResultObject getUserCommonInfo(@RequestParam String userId);
 
-    @ApiOperation(value = "Interface for update user info", tags = {"Update user info"})
+    @ApiOperation(value = "Interface for updating user info", tags = {"Update user info"})
     @PostMapping("/update-user-info")
     JsonResultObject updateUserInfo(@RequestBody @Valid UpdateUserInfoBO updateUserInfoBO, BindingResult result);
+
 }
