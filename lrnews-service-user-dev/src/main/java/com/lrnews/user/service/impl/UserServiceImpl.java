@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
         AppUser user = new AppUser();
         user.setId(Sid.nextShort());
         user.setMobile(userPhone);
-        user.setNickname(RandomStringName.getRandomName());
+        user.setNickname(RandomStringName.getRandomUserName());
         user.setFace(DEFAULT_USER_AVATAR);
         user.setBirthday(DateUtil.stringToDate("1900-01-01"));
         user.setSex(Gender.secret.type);

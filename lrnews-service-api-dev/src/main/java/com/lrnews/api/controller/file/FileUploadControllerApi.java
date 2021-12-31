@@ -12,7 +12,12 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/file")
 public interface FileUploadControllerApi {
 
-    @ApiOperation(value = "To upload avatar for user", notes = "Avatar Uploader")
+    @ApiOperation(value = "Avatar Uploader", notes = "To upload avatar for user")
     @PostMapping("/uploadAvatar")
-    public JsonResultObject uploadAvatar(@RequestParam String userId, MultipartFile file);
+    JsonResultObject uploadAvatar(@RequestParam String userId, MultipartFile file);
+
+    // Please delete this interface when FastDFS is established
+    @ApiOperation(value = "Avatar Uploader", notes = "This is a test interface for who can not upload a \"MultipartFile\"")
+    @PostMapping("/uploadAvatar-t")
+    JsonResultObject uploadAvatarTest(@RequestParam String userId, String filename);
 }
