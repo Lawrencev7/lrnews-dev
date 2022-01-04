@@ -14,6 +14,7 @@
         <module>lrnews-service-user-dev</module>
         <module>mybatis-generator-database</module>
         <module>lrnews-service-file-dev</module>
+        <module>lrnews-service-admin-dev</module>
     </modules>
 
     <packaging>pom</packaging>

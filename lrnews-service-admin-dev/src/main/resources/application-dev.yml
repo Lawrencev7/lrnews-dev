@@ -1,0 +1,10 @@
+spring:
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+
+# Show mybatis sql
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
