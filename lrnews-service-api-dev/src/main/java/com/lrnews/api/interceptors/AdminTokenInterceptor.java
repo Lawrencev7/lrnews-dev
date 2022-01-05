@@ -8,19 +8,17 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.lrnews.values.CommonApiDefStrings.SESSION_HEADER_USER_ID;
-import static com.lrnews.values.CommonApiDefStrings.SESSION_HEADER_USER_TOKEN;
+import static com.lrnews.values.CommonApiDefStrings.*;
 
 @Configuration
-public class UserTokenInterceptor extends BaseInterceptor implements HandlerInterceptor {
-
+public class AdminTokenInterceptor  extends BaseInterceptor implements HandlerInterceptor {
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String uid = request.getHeader(SESSION_HEADER_USER_ID);
+        String uid = request.getHeader(SESSION_HEADER_ADMIN_ID);
         String token = request.getHeader(SESSION_HEADER_USER_TOKEN);
         logger.info("Intercept request for user: " + uid);
-        return verifyUser(uid,token);
+        return verifyAdmin(uid,token);
     }
 }

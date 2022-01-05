@@ -1,5 +1,6 @@
 package com.lrnews.api.config;
 
+import com.lrnews.api.interceptors.AdminTokenInterceptor;
 import com.lrnews.api.interceptors.PassportInterceptor;
 import com.lrnews.api.interceptors.UserTokenInterceptor;
 import com.lrnews.utils.RedisOperator;
@@ -22,6 +23,11 @@ public class InterceptorConfig implements WebMvcConfigurer {
         return new UserTokenInterceptor();
     }
 
+   @Bean
+   public AdminTokenInterceptor getAdminTokenInterceptor(){
+        return new AdminTokenInterceptor();
+   }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(getPassportInterceptor())
@@ -30,6 +36,18 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(getUserTokenInterceptor())
                 .addPathPatterns("/user/get-user-info")
                 .addPathPatterns("/user/update-user-info");
+
+        registry.addInterceptor(getAdminTokenInterceptor())
+                .addPathPatterns("/admin/adminIsExist")
+                .addPathPatterns("/admin/addNewAdmin")
+                .addPathPatterns("/admin/getAdminList");
+//                .addPathPatterns("/fs/uploadToGridFS")
+//                .addPathPatterns("/fs/readInGridFS")
+//                .addPathPatterns("/friendLinkMng/saveOrUpdateFriendLink")
+//                .addPathPatterns("/friendLinkMng/getFriendLinkList")
+//                .addPathPatterns("/friendLinkMng/delete")
+//                .addPathPatterns("/categoryMng/saveOrUpdateCategory")
+//                .addPathPatterns("/categoryMng/getCatList");
 
     }
 

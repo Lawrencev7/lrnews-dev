@@ -39,16 +39,17 @@ public enum ResponseStatusEnum {
     SYSTEM_DATE_PARSER_ERROR(550, false, "系统错误，日期解析出错！"),
 
     // admin 管理系统 56x
-    ADMIN_USERNAME_NULL_ERROR(561, false, "管理员登录名不能为空！"),
-    ADMIN_USERNAME_EXIST_ERROR(562, false, "管理员登录名已存在！"),
+    ADMIN_USERNAME_NULL_ERROR(561, false, "Admin username can not be null"),
+    ADMIN_USERNAME_EXIST_ERROR(562, false, "Admin username is already existed"),
     ADMIN_NAME_NULL_ERROR(563, false, "管理员负责人不能为空！"),
-    ADMIN_PASSWORD_ERROR(564, false, "密码不能为空后者两次输入不一致！"),
+    ADMIN_PASSWORD_ERROR(564, false, "Two password is not match"),
     ADMIN_CREATE_ERROR(565, false, "添加管理员失败！"),
-    ADMIN_PASSWORD_NULL_ERROR(566, false, "密码不能为空！"),
-    ADMIN_NOT_EXIT_ERROR(567, false, "管理员不存在或密码错误！"),
-    ADMIN_FACE_NULL_ERROR(568, false, "人脸信息不能为空！"),
-    ADMIN_FACE_LOGIN_ERROR(569, false, "人脸识别失败，请重试！"),
-    CATEGORY_EXIST_ERROR(570, false, "文章分类已存在，请换一个分类名！"),
+    ADMIN_PASSWORD_NULL_ERROR(566, false, "Password can not be null"),
+    ADMIN_NOT_EXIT_ERROR(567, false, "Admin user not exist"),
+    ADMIN_PWD_WRONG_ERROR(568, false, "Admin user password wrong"),
+    ADMIN_FACE_NULL_ERROR(569, false, "人脸信息不能为空！"),
+    ADMIN_FACE_LOGIN_ERROR(570, false, "人脸识别失败，请重试！"),
+    CATEGORY_EXIST_ERROR(571, false, "文章分类已存在，请换一个分类名！"),
 
     // 媒体中心 相关错误 58x
     ARTICLE_COVER_NOT_EXIST_ERROR(580, false, "文章封面不存在，请选择一个！"),
@@ -65,7 +66,7 @@ public enum ResponseStatusEnum {
     FACE_VERIFY_LOGIN_ERROR(601, false, "人脸登录失败！"),
 
     // 系统错误，未预期的错误 555
-    SYSTEM_ERROR(555, false, "系统繁忙，请稍后再试！"),
+    SYSTEM_ERROR(555, false, "Encounter a system error. Retry later or contact administrator to confirm it"),
     SYSTEM_OPERATION_ERROR(556, false, "操作失败，请重试或联系管理员"),
     SYSTEM_RESPONSE_NO_INFO(557, false, "");
 

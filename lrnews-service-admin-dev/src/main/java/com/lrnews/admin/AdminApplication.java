@@ -8,8 +8,8 @@ import tk.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication
 @MapperScan(basePackages = "com.lrnews.admin.mapper")
 @ComponentScan("com.lrnews")
-public class UserApplication {
+public class AdminApplication {
     public static void main(String[] args) {
-        SpringApplication.run(UserApplication.class, args);
+        SpringApplication.run(AdminApplication.class, args);
     }
 }

@@ -116,11 +116,11 @@ public class PassportController extends BaseController implements PassportContro
         return JsonResultObject.ok();
     }
 
-    private static void logBlocked(String idOrPhone, String info) {
-        logger.info("Login for user {} success: {}", idOrPhone, info);
+    private static void logBlocked(String idOrPhone, String reason) {
+        logger.info("Block login request for user {}: {}", idOrPhone, reason);
     }
 
-    private static void logSuccess(String idOrPhone, String reason) {
-        logger.info("Block login request for {}: {}", idOrPhone, reason);
+    private static void logSuccess(String idOrPhone, String info) {
+        logger.info("Login for user {} success: {}", idOrPhone, info);
     }
 }

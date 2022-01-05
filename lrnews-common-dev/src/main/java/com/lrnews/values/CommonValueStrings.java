@@ -10,6 +10,9 @@ public class CommonValueStrings {
     // User token key prefix in redis
     public static final String REDIS_USER_TOKEN_KEY = "TOKEN:FOR:USER";
 
+    // Admin user token key prefix in redis
+    public static final String REDIS_ADMIN_TOKEN_KEY = "TOKEN:FOR:ADMIN";
+
     // User common info key prefix in redis
     public static final String REDIS_USER_CACHE_TAG = "CACHED:USER:INFO";
 

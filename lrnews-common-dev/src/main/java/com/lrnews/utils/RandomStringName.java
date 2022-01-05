@@ -14,6 +14,12 @@ public class RandomStringName {
         return getRandomName(val);
     }
 
+    public static String getRandomAdminName() {
+        StringBuilder val = new StringBuilder();
+        val.append("Admin-");
+        return getRandomName(val);
+    }
+
     public static String getRandomFileName() {
         StringBuilder val = new StringBuilder();
         val.append("File-");

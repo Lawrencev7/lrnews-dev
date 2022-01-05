@@ -15,7 +15,10 @@ import java.util.Map;
 
 public class BaseController {
     protected static final String COOKIE_USER_TOKEN = "utoken";
+    protected static final String COOKIE_ADMIN_TOKEN = "atoken";
     protected static final String COOKIE_USER_ID = "uid";
+    protected static final String COOKIE_ADMIN_ID = "aid";
+    protected static final String COOKIE_ADMIN_NAME = "aname";
 
     protected static final Integer DEFAULT_COOKIE_MAX_AGE = 7 * 24 * 60 * 60; // Cookie stays one week
     protected static final Integer COOKIE_DELETE_AGE = 0; // For deleted cookie

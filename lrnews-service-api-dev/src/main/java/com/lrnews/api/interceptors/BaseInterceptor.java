@@ -11,13 +11,28 @@ public class BaseInterceptor {
     @Autowired
     RedisOperator redis;
 
-    public boolean verify(String uid, String uToken) {
-        if (StringUtils.isBlank(uid) || StringUtils.isBlank(uToken)) {
+    public boolean verifyUser(String uid, String uToken) {
+        if (StringUtils.isBlank(uid) || StringUtils.isBlank(uToken)){
             CustomExceptionFactory.onException(ResponseStatusEnum.USER_NOT_LOGIN);
             return false;
         }
 
         String redisToken = redis.get(CommonValueStrings.REDIS_USER_TOKEN_KEY + uid);
+        if(StringUtils.isBlank(redisToken) || !redisToken.equalsIgnoreCase(uToken)){
+            CustomExceptionFactory.onException(ResponseStatusEnum.TICKET_INVALID);
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean verifyAdmin(String uid, String uToken) {
+        if (StringUtils.isBlank(uid) || StringUtils.isBlank(uToken)) {
+            CustomExceptionFactory.onException(ResponseStatusEnum.USER_NOT_LOGIN);
+            return false;
+        }
+
+        String redisToken = redis.get(CommonValueStrings.REDIS_ADMIN_TOKEN_KEY + uid);
         if(StringUtils.isBlank(redisToken) || !redisToken.equalsIgnoreCase(uToken)){
             CustomExceptionFactory.onException(ResponseStatusEnum.TICKET_INVALID);
             return false;
