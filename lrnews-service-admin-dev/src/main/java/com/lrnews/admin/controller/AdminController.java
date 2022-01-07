@@ -11,6 +11,7 @@ import com.lrnews.graceresult.JsonResultObject;
 import com.lrnews.graceresult.ResponseStatusEnum;
 import com.lrnews.pojo.AdminUser;
 import org.apache.commons.lang3.StringUtils;
+import org.bouncycastle.util.Integers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import static com.lrnews.values.CommonValueStrings.REDIS_ADMIN_TOKEN_KEY;
@@ -27,6 +30,9 @@ import static com.lrnews.values.CommonValueStrings.REDIS_ADMIN_TOKEN_KEY;
 @RestController
 public class AdminController extends BaseController implements AdminControllerApi{
     private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+
+    public static final int DEFAULT_PAGE = 1;
+    public static final int DEFAULT_PAGE_SIZE = 10;
 
     final AdminUserService adminUserService;
 
@@ -87,6 +93,27 @@ public class AdminController extends BaseController implements AdminControllerAp
 
         return null;
     }
+
+    @Override
+    public JsonResultObject queryAdminList(Integer page, Integer pageSize) {
+        if(Objects.isNull(page)) {
+            page =  Integers.valueOf(DEFAULT_PAGE);
+        }
+
+        if(Objects.isNull(pageSize)) {
+            pageSize = Integers.valueOf(DEFAULT_PAGE_SIZE);
+        }
+
+        List<AdminUser> adminUsers = adminUserService.queryAdminListPageable(page, pageSize);
+        if(adminUsers.size() != 0)
+            return JsonResultObject.ok(adminUsers);
+        else
+            return JsonResultObject.ok("No more infos");
+    }
+
+    /**
+     * Private functions
+     */
 
     private void checkAdminExist(String username){
         AdminUser adminUser = adminUserService.queryAdminUserByUsername(username);

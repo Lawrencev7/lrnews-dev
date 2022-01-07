@@ -11,7 +11,7 @@ public enum ResponseStatusEnum {
     TICKET_INVALID(502,false,"会话失效，请重新登录！"),
     NO_AUTH(503,false,"Access denied"),
     MOBILE_ERROR(504,false,"短信发送失败，请稍后重试！"),
-    SMS_OVER_FREQUENT_ERROR(505,false,"短信发送太快啦~请稍后再试！"),
+    SMS_OVER_FREQUENT_ERROR(505,false,"Too frequent, please retry later."),
     VERIFY_CODE_INCORRECT(506,false,"Verify code is not match"),
     VERIFY_CODE_EXPIRED(507, false, "The verify code is expired"),
     FILE_UPLOAD_NULL_ERROR(510,false,"Upload a null file"),
