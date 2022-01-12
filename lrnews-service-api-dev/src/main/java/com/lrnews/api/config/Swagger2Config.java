@@ -29,7 +29,7 @@ public class Swagger2Config {
         Predicate<RequestHandler> adminPredicate = RequestHandlerSelectors.basePackage("com.lrnews.admin.controller");
         Predicate<RequestHandler> articlePredicate = RequestHandlerSelectors.basePackage("com.lrnews.article.controller");
         Predicate<RequestHandler> userPredicate = RequestHandlerSelectors.basePackage("com.lrnews.user.controller");
-        Predicate<RequestHandler> filesPredicate = RequestHandlerSelectors.basePackage("com.lrnews.files.controller");
+        Predicate<RequestHandler> filesPredicate = RequestHandlerSelectors.basePackage("com.lrnews.file.controller");
 
         return new Docket(DocumentationType.SWAGGER_2)  // 指定api类型为swagger2
                 .apiInfo(apiInfo())                     // 用于定义api文档汇总信息
@@ -50,5 +50,4 @@ public class Swagger2Config {
                 .termsOfServiceUrl("https://www.lrnews.com") // 网站地址
                 .build();
     }
-
 }

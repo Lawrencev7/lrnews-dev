@@ -128,6 +128,11 @@ public class AdminController extends BaseController implements AdminControllerAp
         return JsonResultObject.ok();
     }
 
+    @Override
+    public JsonResultObject uploadFaceImg64() {
+        return null;
+    }
+
     /**
      * Private functions
      */

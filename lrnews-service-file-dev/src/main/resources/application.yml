@@ -27,3 +27,8 @@ spring:
     multipart:
       max-file-size: 512000 # Upload limit: 512KB
       max-request-size: 512000
+
+  data:
+    mongodb:
+      uri: mongodb://root:root@localhost:27017
+      database: lrnews-dev

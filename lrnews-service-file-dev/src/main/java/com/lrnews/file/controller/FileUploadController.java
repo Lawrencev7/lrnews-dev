@@ -1,30 +1,39 @@
 package com.lrnews.file.controller;
 
 import com.lrnews.api.controller.file.FileUploadControllerApi;
+import com.lrnews.bo.NewAdminBO;
 import com.lrnews.file.resource.FileResource;
 import com.lrnews.file.service.UploaderService;
 import com.lrnews.graceresult.JsonResultObject;
 import com.lrnews.graceresult.ResponseStatusEnum;
+import com.mongodb.client.gridfs.GridFSBucket;
 import org.apache.commons.lang3.StringUtils;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import java.io.*;
+import java.util.Arrays;
+import java.util.Base64;
 
 @RestController
 public class FileUploadController implements FileUploadControllerApi {
 
     private static final Logger logger = LoggerFactory.getLogger(FileUploadController.class);
 
-    final UploaderService uploaderService;
+    private final UploaderService uploaderService;
 
-    final FileResource fileResource;
+    private final FileResource fileResource;
 
-    public FileUploadController(UploaderService uploaderService, FileResource fileResource) {
+    private final GridFSBucket gridFSBucket;
+
+    public FileUploadController(UploaderService uploaderService, FileResource fileResource, GridFSBucket gridFSBucket) {
         this.uploaderService = uploaderService;
         this.fileResource = fileResource;
+        this.gridFSBucket = gridFSBucket;
     }
 
     @Override
@@ -99,4 +108,32 @@ public class FileUploadController implements FileUploadControllerApi {
         }
     }
 
+    @Override
+    public JsonResultObject uploadToGridFS(NewAdminBO adminBO) {
+        // Base64 encoded file string
+        String faceImg64 = adminBO.getImg64();
+        byte[] imgBytes = Base64.getDecoder().decode(faceImg64.trim());
+        try {
+            InputStream is = new ByteArrayInputStream(imgBytes);
+            String fileId = gridFSBucket.uploadFromStream(adminBO.getUsername() + ".png", is).toString();
+            logger.info("Uploaded user face with file id: " + fileId);
+            return JsonResultObject.ok(fileId);
+        }catch (Exception e){
+            return JsonResultObject.errorMsg(e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        File file = new File("/home/lr/Pictures/admin123.jpeg");
+        FileInputStream inputFile = new FileInputStream(file);
+        byte[] buffer = new byte[(int)file.length()];
+        int read = inputFile.read(buffer);
+        System.out.println(read);
+        inputFile.close();
+        byte[] bytes = Base64.getEncoder().encode(buffer);
+        System.out.println(Arrays.toString(bytes));
+        FileOutputStream fos = new FileOutputStream("/home/lr/lr/mycode/imooc-news/dev/lrnews/lrnews-service-file-dev/src/main/java/com/lrnews/file/controller/img64.txt");
+        fos.write(bytes);
+//        Base64.getEncoder().encode();
+    }
 }

@@ -1,9 +1,11 @@
 package com.lrnews.api.controller.file;
 
+import com.lrnews.bo.NewAdminBO;
 import com.lrnews.graceresult.JsonResultObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,4 +22,8 @@ public interface FileUploadControllerApi {
     @ApiOperation(value = "Avatar Uploader", notes = "This is a test interface for who can not upload a \"MultipartFile\"")
     @PostMapping("/uploadAvatar-t")
     JsonResultObject uploadAvatarTest(@RequestParam String userId, String filename);
+
+    @ApiOperation(value = "Face upload", notes = "Upload face to GridFS")
+    @PostMapping("/uploadToGridFS")
+    JsonResultObject uploadToGridFS(@RequestBody NewAdminBO adminBO);
 }
