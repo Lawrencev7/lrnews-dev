@@ -39,7 +39,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
         registry.addInterceptor(getAdminTokenInterceptor())
                 .addPathPatterns("/admin/adminIsExist")
-                .addPathPatterns("/admin/addNewAdmin")
+                .addPathPatterns("/admin/createNewAdmin")
                 .addPathPatterns("/admin/getAdminList");
 //                .addPathPatterns("/fs/uploadToGridFS")
 //                .addPathPatterns("/fs/readInGridFS")

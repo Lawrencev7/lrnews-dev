@@ -1,5 +1,6 @@
 package com.lrnews.admin.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.lrnews.admin.service.AdminUserService;
 import com.lrnews.api.controller.BaseController;
 import com.lrnews.api.controller.admin.AdminControllerApi;
@@ -10,6 +11,9 @@ import com.lrnews.exception.LrCustomException;
 import com.lrnews.graceresult.JsonResultObject;
 import com.lrnews.graceresult.ResponseStatusEnum;
 import com.lrnews.pojo.AdminUser;
+import com.lrnews.values.CommonApiDefStrings;
+import com.lrnews.values.CommonValueStrings;
+import com.lrnews.vo.PagedGridVO;
 import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.util.Integers;
 import org.slf4j.Logger;
@@ -25,6 +29,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import static com.lrnews.values.CommonApiDefStrings.*;
 import static com.lrnews.values.CommonValueStrings.REDIS_ADMIN_TOKEN_KEY;
 
 @RestController
@@ -95,7 +100,7 @@ public class AdminController extends BaseController implements AdminControllerAp
     }
 
     @Override
-    public JsonResultObject queryAdminList(Integer page, Integer pageSize) {
+    public JsonResultObject getAdminList(Integer page, Integer pageSize) {
         if(Objects.isNull(page)) {
             page =  Integers.valueOf(DEFAULT_PAGE);
         }
@@ -105,10 +110,22 @@ public class AdminController extends BaseController implements AdminControllerAp
         }
 
         List<AdminUser> adminUsers = adminUserService.queryAdminListPageable(page, pageSize);
-        if(adminUsers.size() != 0)
-            return JsonResultObject.ok(adminUsers);
+        if(adminUsers.size() != 0){
+            return JsonResultObject.ok(setPagedGrid(adminUsers, page));
+        }
         else
             return JsonResultObject.ok("No more infos");
+    }
+
+    @Override
+    public JsonResultObject adminLogout(String adminId, HttpServletRequest request, HttpServletResponse response) {
+        // Remove admin info from redis
+        redis.delete(REDIS_ADMIN_TOKEN_KEY + ':' + adminId);
+
+        // Remove admin info from cookie
+        deleteCookies(response, COOKIE_ADMIN_TOKEN, COOKIE_ADMIN_ID, COOKIE_ADMIN_NAME);
+
+        return JsonResultObject.ok();
     }
 
     /**
@@ -133,6 +150,18 @@ public class AdminController extends BaseController implements AdminControllerAp
         setCookie(response, COOKIE_ADMIN_TOKEN, token, DEFAULT_COOKIE_MAX_AGE, false);
         setCookie(response, COOKIE_ADMIN_ID, adminUser.getId(), DEFAULT_COOKIE_MAX_AGE, false);
         setCookie(response, COOKIE_ADMIN_NAME, adminUser.getAdminName(), DEFAULT_COOKIE_MAX_AGE, false);
+    }
+
+    private PagedGridVO setPagedGrid(List<?> list, Integer page){
+        PageInfo<?> pageInfo = new PageInfo<>(list);
+
+        PagedGridVO pagedGridVO = new PagedGridVO();
+        pagedGridVO.setRows(list);
+        pagedGridVO.setPage(page);
+        pagedGridVO.setRecords(pageInfo.getPages());
+        pagedGridVO.setTotal(pageInfo.getTotal());
+
+        return pagedGridVO;
     }
 
     private static void logSuccess(String id) {

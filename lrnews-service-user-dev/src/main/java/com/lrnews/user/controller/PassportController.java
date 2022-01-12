@@ -26,6 +26,8 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
+import static com.lrnews.values.CommonApiDefStrings.COOKIE_USER_ID;
+import static com.lrnews.values.CommonApiDefStrings.COOKIE_USER_TOKEN;
 import static com.lrnews.values.CommonValueInteger.*;
 import static com.lrnews.values.CommonValueStrings.*;
 
