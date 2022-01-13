@@ -23,7 +23,7 @@ public interface AdminControllerApi {
     JsonResultObject adminLogin(@RequestBody AdminLoginBO adminLoginBO,
                                 HttpServletRequest request, HttpServletResponse response);
 
-    @ApiOperation(value = "Admin user query", notes = "Check if the username is existed")
+    @ApiOperation(value = "Admin user exist", notes = "Check if the username is existed")
     @PostMapping("/adminIsExist")
     JsonResultObject adminIsExist(@RequestParam String username,
                                   HttpServletRequest request, HttpServletResponse response);
@@ -44,6 +44,11 @@ public interface AdminControllerApi {
     @PostMapping("/adminLogout")
     JsonResultObject adminLogout(@RequestParam String adminId,
                                     HttpServletRequest request, HttpServletResponse response);
+
+    @ApiOperation(value = "Admin face login", notes = "Login for admin by face recognition")
+    @PostMapping("/faceRecLogin")
+    JsonResultObject faceRecLogin(@RequestBody AdminLoginBO adminLoginBO,
+                                 HttpServletRequest request, HttpServletResponse response);
 
     JsonResultObject uploadFaceImg64();
 }
