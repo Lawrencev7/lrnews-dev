@@ -157,7 +157,7 @@ public class AdminController extends BaseController implements AdminControllerAp
         String img64String = restTemplate.getForObject(fileServerUrl, String.class);
 
         // Request for face cognition server <Ignored here>
-        boolean result = FaceCognitionUtil.verifyFace(faceImg64);
+        boolean result = FaceCognitionUtil.verifyFace(Objects.requireNonNull(img64String));
         if (result) {
             AdminUser user = adminUserService.queryAdminUserByUsername(adminUsername);
             loginInfoCache(user, request, response);

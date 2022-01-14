@@ -1,4 +1,4 @@
-package com.lrnews.config;
+package com.lrnews.file.config;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;

@@ -22,12 +22,6 @@
             <groupId>com.github.tobato</groupId>
             <artifactId>fastdfs-client</artifactId>
         </dependency>
-
-        <!-- mongodb 依赖 -->
-        <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>mongodb-driver</artifactId>
-        </dependency>
     </dependencies>
 
     <properties>
