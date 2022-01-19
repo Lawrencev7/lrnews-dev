@@ -1,6 +1,6 @@
 package com.lrnews.api.controller.file;
 
-import com.lrnews.bo.NewAdminBO;
+import com.lrnews.bo.AdminBO;
 import com.lrnews.graceresult.JsonResultObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,7 +26,7 @@ public interface FileUploadControllerApi {
 
     @ApiOperation(value = "Face upload", notes = "Upload face to GridFS")
     @PostMapping("/uploadToGridFS")
-    JsonResultObject uploadToGridFS(@RequestBody NewAdminBO adminBO);
+    JsonResultObject uploadToGridFS(@RequestBody AdminBO adminBO);
 
     @ApiOperation(value = "Read face", notes = "Read admin face from GridFS")
     @GetMapping("/readAdminFace")

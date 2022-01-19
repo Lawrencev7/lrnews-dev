@@ -1,7 +1,7 @@
 package com.lrnews.file.controller;
 
 import com.lrnews.api.controller.file.FileUploadControllerApi;
-import com.lrnews.bo.NewAdminBO;
+import com.lrnews.bo.AdminBO;
 import com.lrnews.exception.CustomExceptionFactory;
 import com.lrnews.file.resource.FileResource;
 import com.lrnews.file.service.UploaderService;
@@ -118,7 +118,7 @@ public class FileUploadController implements FileUploadControllerApi {
     }
 
     @Override
-    public JsonResultObject uploadToGridFS(NewAdminBO adminBO) {
+    public JsonResultObject uploadToGridFS(AdminBO adminBO) {
         // Base64 encoded file string
         String faceImg64 = adminBO.getImg64();
         byte[] imgBytes = Base64.getDecoder().decode(faceImg64.trim());

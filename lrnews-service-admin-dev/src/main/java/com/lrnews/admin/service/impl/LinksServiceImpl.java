@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 public class LinksServiceImpl implements LinksService {
 
-    private static Logger logger = LoggerFactory.getLogger(LinksService.class);
+    private final static Logger logger = LoggerFactory.getLogger(LinksService.class);
 
     final LinksMongoRepository linksRepository;
 

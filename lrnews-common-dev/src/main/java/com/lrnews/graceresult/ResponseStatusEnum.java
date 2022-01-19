@@ -19,7 +19,7 @@ public enum ResponseStatusEnum {
     FILE_FORMATTER_FAILD(512,false,"文件图片格式不支持！"),
     FILE_MAX_SIZE_ERROR(513,false,"仅支持500kb大小以下的图片上传！"),
     FILE_NOT_EXIST_ERROR(514,false,"你所查看的文件不存在！"),
-    USER_STATUS_ERROR(515,false,"用户状态参数出错！"),
+    USER_STATUS_ERROR(515,false,"Error with user status parameter"),
     USER_NOT_EXIST_ERROR(516,false,"用户不存在！"),
 
     USER_FROZEN(521,false,"用户已被冻结，请联系管理员！"),
@@ -50,7 +50,7 @@ public enum ResponseStatusEnum {
     ADMIN_FACE_NULL_ERROR(569, false, "人脸信息不能为空！"),
     ADMIN_FACE_LOGIN_ERROR(570, false, "人脸识别失败，请重试！"),
     ADMIN_FACE_NOT_REGISTERED_ERROR(571, false, "User didn't register by face"),
-    CATEGORY_EXIST_ERROR(572, false, "文章分类已存在，请换一个分类名！"),
+    CATEGORY_EXIST_ERROR(572, false, "This category is already existed."),
 
     // 媒体中心 相关错误 58x
     ARTICLE_COVER_NOT_EXIST_ERROR(580, false, "文章封面不存在，请选择一个！"),
