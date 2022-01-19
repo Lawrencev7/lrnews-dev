@@ -20,6 +20,9 @@ public class BaseController {
 
     protected static String DEFAULT_COOKIE_DOMAIN = "lrnews.com";
 
+    public static final int DEFAULT_PAGE = 1;
+    public static final int DEFAULT_PAGE_SIZE = 10;
+
     @Autowired
     protected RedisOperator redis;
 

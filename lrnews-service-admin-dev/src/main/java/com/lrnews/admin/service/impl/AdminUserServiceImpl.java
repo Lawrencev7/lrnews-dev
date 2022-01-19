@@ -3,9 +3,10 @@ package com.lrnews.admin.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.lrnews.admin.mapper.AdminUserMapper;
 import com.lrnews.admin.service.AdminUserService;
-import com.lrnews.bo.NewAdminBO;
+import com.lrnews.bo.AdminBO;
 import com.lrnews.pojo.AdminUser;
 import com.lrnews.utils.RandomStringName;
+import com.lrnews.vo.PagedGridVO;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,8 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
-
-import java.util.List;
 
 @Service
 public class AdminUserServiceImpl implements AdminUserService {
@@ -39,7 +38,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     @Transactional
-    public AdminUser createAdminUser(NewAdminBO adminBO) {
+    public AdminUser createAdminUser(AdminBO adminBO) {
         String adminId = RandomStringName.getRandomUserName();
 
         AdminUser adminUser = new AdminUser();
@@ -58,12 +57,10 @@ public class AdminUserServiceImpl implements AdminUserService {
     }
 
     @Override
-    public List<AdminUser> queryAdminListPageable(Integer page, Integer pageSize) {
+    public PagedGridVO queryAdminListPageable(Integer page, Integer pageSize) {
         Example admin = new Example(AdminUser.class);
         admin.orderBy("createdTime").desc();
-
         PageHelper.startPage(page, pageSize);
-
-        return adminUserMapper.selectByExample(admin);
+        return PagedGridVO.getPagedGrid(adminUserMapper.selectByExample(admin), page);
     }
 }

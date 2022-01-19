@@ -2,7 +2,7 @@ package com.lrnews.bo;
 
 import javax.validation.constraints.NotBlank;
 
-public class NewAdminBO {
+public class AdminBO {
     @NotBlank(message = "Please input admin username")
     private String username;
     @NotBlank(message = "Please input admin name")

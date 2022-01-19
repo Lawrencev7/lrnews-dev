@@ -1,11 +1,11 @@
 package com.lrnews.admin.controller;
 
-import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.PageHelper;
 import com.lrnews.admin.service.AdminUserService;
 import com.lrnews.api.controller.BaseController;
 import com.lrnews.api.controller.admin.AdminControllerApi;
 import com.lrnews.bo.AdminLoginBO;
-import com.lrnews.bo.NewAdminBO;
+import com.lrnews.bo.AdminBO;
 import com.lrnews.exception.CustomExceptionFactory;
 import com.lrnews.graceresult.JsonResultObject;
 import com.lrnews.graceresult.ResponseStatusEnum;
@@ -34,9 +34,6 @@ import static com.lrnews.values.CommonValueStrings.REDIS_ADMIN_TOKEN_KEY;
 @RestController
 public class AdminController extends BaseController implements AdminControllerApi {
     private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
-
-    public static final int DEFAULT_PAGE = 1;
-    public static final int DEFAULT_PAGE_SIZE = 10;
 
     final AdminUserService adminUserService;
 
@@ -83,7 +80,7 @@ public class AdminController extends BaseController implements AdminControllerAp
     }
 
     @Override
-    public JsonResultObject createNewAdmin(@RequestBody NewAdminBO admin,
+    public JsonResultObject createNewAdmin(@RequestBody AdminBO admin,
                                            HttpServletRequest request, HttpServletResponse response) {
 
         if (StringUtils.isBlank(admin.getImg64())) {
@@ -112,9 +109,9 @@ public class AdminController extends BaseController implements AdminControllerAp
             pageSize = Integers.valueOf(DEFAULT_PAGE_SIZE);
         }
 
-        List<AdminUser> adminUsers = adminUserService.queryAdminListPageable(page, pageSize);
-        if (adminUsers.size() != 0) {
-            return JsonResultObject.ok(setPagedGrid(adminUsers, page));
+        PagedGridVO adminUsers = adminUserService.queryAdminListPageable(page, pageSize);
+        if (adminUsers.getRows().size() != 0) {
+            return JsonResultObject.ok(adminUsers);
         } else
             return JsonResultObject.ok("No more infos");
     }
@@ -191,18 +188,6 @@ public class AdminController extends BaseController implements AdminControllerAp
         setCookie(response, COOKIE_ADMIN_TOKEN, token, DEFAULT_COOKIE_MAX_AGE, false);
         setCookie(response, COOKIE_ADMIN_ID, adminUser.getId(), DEFAULT_COOKIE_MAX_AGE, false);
         setCookie(response, COOKIE_ADMIN_NAME, adminUser.getAdminName(), DEFAULT_COOKIE_MAX_AGE, false);
-    }
-
-    private PagedGridVO setPagedGrid(List<?> list, Integer page) {
-        PageInfo<?> pageInfo = new PageInfo<>(list);
-
-        PagedGridVO pagedGridVO = new PagedGridVO();
-        pagedGridVO.setRows(list);
-        pagedGridVO.setPage(page);
-        pagedGridVO.setRecords(pageInfo.getPages());
-        pagedGridVO.setTotal(pageInfo.getTotal());
-
-        return pagedGridVO;
     }
 
     private static void logSuccess(String id) {
