@@ -15,7 +15,7 @@ public class CategoryDBModel {
     private String categoryName;
 
     @Field("color")
-    private String color;
+    private String colorRGB;
 
     @Field("comment")
     private String comment;
@@ -77,12 +77,12 @@ public class CategoryDBModel {
         this.updateTime = updateTime;
     }
 
-    public String getColor() {
-        return color;
+    public String getColorRGB() {
+        return colorRGB;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setColorRGB(String colorRGB) {
+        this.colorRGB = colorRGB;
     }
 
 }

@@ -26,4 +26,12 @@ public class CategoryBO {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+    public String getColorRGB() {
+        return colorRGB;
+    }
+
+    public void setColorRGB(String colorRGB) {
+        this.colorRGB = colorRGB;
+    }
 }
