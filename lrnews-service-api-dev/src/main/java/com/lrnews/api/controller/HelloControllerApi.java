@@ -1,4 +1,4 @@
-package com.lrnews.api.controller.user;
+package com.lrnews.api.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

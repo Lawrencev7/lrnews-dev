@@ -1,6 +1,6 @@
 package com.lrnews.admin.controller;
 
-import com.lrnews.api.controller.user.HelloControllerApi;
+import com.lrnews.api.controller.HelloControllerApi;
 import com.lrnews.graceresult.JsonResultObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -36,4 +36,8 @@ public interface FileUploadControllerApi {
             notes = "Read admin face image (BASE64 encoded) from GridFS. <Inner interface>")
     @GetMapping("/readFaceImg64")
     String readFaceImg64(@RequestParam String faceId) throws IOException;
+
+    @ApiOperation(value = "Upload file", notes = "Upload multipart files")
+    @PostMapping("/uploadFile")
+    JsonResultObject uploadFile(@RequestParam String userId, MultipartFile[] files);
 }

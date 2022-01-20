@@ -23,8 +23,10 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.List;
 
 import static com.lrnews.values.CommonTestStrings.UPLOAD_FACE_TO_DISK;
 
@@ -154,6 +156,43 @@ public class FileUploadController implements FileUploadControllerApi {
         return FileUtil.fileToBase64(face);
     }
 
+    @Override
+    public JsonResultObject uploadFile(String userId, MultipartFile[] files) {
+        if (files == null) {
+            logger.error("No file upload.");
+            return JsonResultObject.errorCustom(ResponseStatusEnum.FILE_UPLOAD_NULL_ERROR);
+        }
+
+        List<String> imageUrlList = new ArrayList<>();
+
+        logger.info("Start upload files: total {}", files.length);
+        for (MultipartFile file : files) {
+            String filename = file.getOriginalFilename();
+            if (StringUtils.isBlank(filename)) {
+                logger.error("In Loop: File name is blank");
+                continue;
+            }
+
+            String extName = checkFileAndGetExtName(filename);
+            if (StringUtils.isBlank(extName)) {
+                logger.error("In Loop: Extend name illegal");
+            } else {
+                try {
+                    String path = uploaderService.uploadFDFS(file, extName);
+                    logger.info("In Loop: Save file {}", filename);
+                    imageUrlList.add(fileResource.getHost() + "/" + path);
+                } catch (IOException e) {
+                    logger.error("In Loop: File upload failed with exception {}" + e.getMessage());
+                    return JsonResultObject.errorCustom(ResponseStatusEnum.FILE_UPLOAD_FAILD);
+                }
+            }
+        }
+
+        logger.info("Uploaded files: total {}", imageUrlList.size());
+        return JsonResultObject.ok(imageUrlList);
+
+    }
+
     private File readGridFSByFaceId(String faceId) throws IOException {
         GridFSFindIterable imgs = gridFSBucket.find(Filters.eq("_id", new ObjectId(faceId)));
 
@@ -181,15 +220,15 @@ public class FileUploadController implements FileUploadControllerApi {
 
 
     public static void main(String[] args) throws IOException {
-            File file = new File("/home/lr/Pictures/admin7777.png");
-            FileInputStream inputFile = new FileInputStream(file);
-            byte[] buffer = new byte[(int)file.length()];
-            int read = inputFile.read(buffer);
-            System.out.println(read);
-            inputFile.close();
-            byte[] bytes = Base64.getEncoder().encode(buffer);
-            System.out.println(Arrays.toString(bytes));
-            FileOutputStream fos = new FileOutputStream("/home/lr/lr/mycode/imooc-news/dev/lrnews/lrnews-service-file-dev/src/main/java/com/lrnews/file/controller/img64.txt");
-            fos.write(bytes);
+        File file = new File("/home/lr/Pictures/admin7777.png");
+        FileInputStream inputFile = new FileInputStream(file);
+        byte[] buffer = new byte[(int) file.length()];
+        int read = inputFile.read(buffer);
+        System.out.println(read);
+        inputFile.close();
+        byte[] bytes = Base64.getEncoder().encode(buffer);
+        System.out.println(Arrays.toString(bytes));
+        FileOutputStream fos = new FileOutputStream("/home/lr/lr/mycode/imooc-news/dev/lrnews/lrnews-service-file-dev/src/main/java/com/lrnews/file/controller/img64.txt");
+        fos.write(bytes);
     }
 }

@@ -29,7 +29,11 @@ public interface CategoryManageControllerApi {
     @PostMapping("/removeCategory")
     JsonResultObject removeCategory(@RequestBody CategoryBO categoryBO);
 
-    @ApiOperation(value = "Query category list", notes = "Query list of all categories")
-    @GetMapping("/queryAllCategory")
+    @ApiOperation(value = "Query category list", notes = "This interface provide for admin to query all category")
+    @PostMapping("/queryAllCategory")
     JsonResultObject queryAllCategory();
+
+    @ApiOperation(value = "User query category list", notes = "This interface provide for user to query all category")
+    @GetMapping("/getAllCategory")
+    JsonResultObject getAllCategory();
 }

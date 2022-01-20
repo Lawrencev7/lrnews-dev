@@ -12,6 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.lrnews.values.CommonValueStrings.REDIS_CATEGORY_KEY;
+
 
 public class BaseController {
 
@@ -55,5 +57,9 @@ public class BaseController {
         Map<String, String> errorMap = new HashMap<>();
         result.getFieldErrors().forEach(e -> errorMap.put(e.getField(), e.getDefaultMessage()));
         return errorMap;
+    }
+
+    protected void deleteRedisCategoryCache() {
+        redis.delete(REDIS_CATEGORY_KEY);
     }
 }

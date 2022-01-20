@@ -17,4 +17,7 @@ public class CommonValueStrings {
     public static final String REDIS_USER_CACHE_TAG = "CACHED:USER:INFO";
 
     public static final String DEFAULT_USER_AVATAR = "https://imooc-new/s.oss-cn-shanghai.aliyuncs.com/image/face/200412A6A3DSZ0X4/200412A6A3DSZ0X4.png";
+
+    // All categories in redis
+    public static final String REDIS_CATEGORY_KEY = "ALL:CATEGORY";
 }

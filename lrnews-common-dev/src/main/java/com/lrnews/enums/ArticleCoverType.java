@@ -4,8 +4,8 @@ package com.lrnews.enums;
  * @Desc: 文章封面类型 枚举
  */
 public enum ArticleCoverType {
-    ONE_IMAGE(1, "单图"),
-    WORDS(2, "纯文字");
+    ONE_IMAGE(1, "Single Cover"),
+    WORDS(2, "Only Characters");
 
     public final Integer type;
     public final String value;
