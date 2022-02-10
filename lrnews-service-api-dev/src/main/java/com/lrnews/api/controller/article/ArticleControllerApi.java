@@ -6,9 +6,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -17,5 +16,5 @@ import javax.validation.Valid;
 public interface ArticleControllerApi {
     @ApiOperation(value = "Publish article", notes = "Publish article for a log in user")
     @PostMapping("/publish")
-    JsonResultObject publish(@Valid ArticleBO articleBO, BindingResult bindingResult);
+    JsonResultObject publish(@RequestBody @Valid ArticleBO articleBO, BindingResult bindingResult);
 }

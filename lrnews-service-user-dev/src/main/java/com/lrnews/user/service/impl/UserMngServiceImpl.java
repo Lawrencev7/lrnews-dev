@@ -15,13 +15,13 @@ import tk.mybatis.mapper.entity.Example;
 import java.util.Date;
 
 @Service
-public class UserMngServiceImple implements UserMngService {
+public class UserMngServiceImpl implements UserMngService {
 
     private final Logger logger = LoggerFactory.getLogger(UserMngService.class);
 
     private final AppUserMapper userMapper;
 
-    public UserMngServiceImple(AppUserMapper userMapper) {
+    public UserMngServiceImpl(AppUserMapper userMapper) {
         this.userMapper = userMapper;
     }
 

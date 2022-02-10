@@ -7,6 +7,7 @@ import com.lrnews.bo.CategoryBO;
 import com.lrnews.dbm.CategoryDBModel;
 import com.lrnews.graceresult.JsonResultObject;
 import com.lrnews.graceresult.ResponseStatusEnum;
+import com.lrnews.pojo.Category;
 import com.lrnews.utils.JsonUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -81,18 +82,18 @@ public class CategoryManageController extends BaseController implements Category
 
     @Override
     public JsonResultObject getAllCategory() {
-        List<CategoryBO> categoryList = new ArrayList<>();
+        List<Category> categoryList = new ArrayList<>();
         String valueString = redis.get(REDIS_CATEGORY_KEY);
         if (StringUtils.isBlank(valueString)) {
-            List<CategoryBO> finalCategoryList = categoryList;
+            List<Category> finalCategoryList = categoryList;
             categoryService.queryCategoryList().forEach(model -> {
-                CategoryBO bo = new CategoryBO();
+                Category bo = new Category();
                 BeanUtils.copyProperties(model, bo);
                 finalCategoryList.add(bo);
             });
             redis.set(REDIS_CATEGORY_KEY, JsonUtils.objectToJson(categoryList));
         } else {
-            categoryList = JsonUtils.jsonToList(valueString, CategoryBO.class);
+            categoryList = JsonUtils.jsonToList(valueString, Category.class);
         }
 
         return JsonResultObject.ok(categoryList);

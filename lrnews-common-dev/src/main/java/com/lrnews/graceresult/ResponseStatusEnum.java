@@ -55,7 +55,7 @@ public enum ResponseStatusEnum {
     // 媒体中心 相关错误 58x
     ARTICLE_COVER_NOT_EXIST_ERROR(580, false, "Please select a cover for article"),
     ARTICLE_CATEGORY_NOT_EXIST_ERROR(581, false, "请选择正确的文章领域！"),
-    ARTICLE_CREATE_ERROR(582, false, "创建文章失败，请重试或联系管理员！"),
+    ARTICLE_CREATE_ERROR(582, false, "Fail to publish article. Please retry or contact admin"),
     ARTICLE_QUERY_PARAMS_ERROR(583, false, "文章列表查询参数错误！"),
     ARTICLE_DELETE_ERROR(584, false, "文章删除失败！"),
     ARTICLE_WITHDRAW_ERROR(585, false, "文章撤回失败！"),
