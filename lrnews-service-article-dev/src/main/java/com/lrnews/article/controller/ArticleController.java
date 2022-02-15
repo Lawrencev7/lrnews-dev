@@ -4,15 +4,20 @@ import com.lrnews.api.controller.BaseController;
 import com.lrnews.api.controller.article.ArticleControllerApi;
 import com.lrnews.article.service.ArticleService;
 import com.lrnews.bo.ArticleBO;
+import com.lrnews.bo.ArticleQueryBO;
 import com.lrnews.enums.ArticleCoverType;
 import com.lrnews.graceresult.JsonResultObject;
 import com.lrnews.graceresult.ResponseStatusEnum;
 import com.lrnews.pojo.Category;
 import com.lrnews.utils.JsonUtils;
+import com.lrnews.vo.PagedGridVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -73,5 +78,20 @@ public class ArticleController extends BaseController implements ArticleControll
 
 
         return JsonResultObject.ok();
+    }
+
+    @Override
+    public JsonResultObject queryMyArticles(ArticleQueryBO query, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            Map<String, String> errorMap = getErrors(bindingResult);
+            return JsonResultObject.errorMap(errorMap);
+        }
+
+        if(query.getPage() == null) query.setPage(DEFAULT_PAGE);
+        if(query.getPageSize() == null) query.setPageSize(DEFAULT_PAGE_SIZE);
+
+
+        PagedGridVO pagedGridVO = articleService.queryArticleList(query);
+        return JsonResultObject.ok(pagedGridVO);
     }
 }
