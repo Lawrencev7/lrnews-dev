@@ -7,6 +7,7 @@ public enum ResponseStatusEnum {
     FAILED(500, false, "Failed！"),
 
     // 50x
+    ILLEGAL_ARGUMENT(500, false, "Illegal argument"),
     USER_NOT_LOGIN(501,false,"User is not login"),
     TICKET_INVALID(502,false,"会话失效，请重新登录！"),
     NO_AUTH(503,false,"Access denied"),
