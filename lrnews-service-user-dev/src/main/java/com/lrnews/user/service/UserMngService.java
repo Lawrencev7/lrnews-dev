@@ -1,6 +1,5 @@
 package com.lrnews.user.service;
 
-import com.lrnews.enums.UserStatus;
 import com.lrnews.vo.PagedGridVO;
 
 import java.util.Date;

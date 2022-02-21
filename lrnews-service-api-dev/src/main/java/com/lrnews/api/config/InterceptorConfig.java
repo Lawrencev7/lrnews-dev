@@ -3,8 +3,6 @@ package com.lrnews.api.config;
 import com.lrnews.api.interceptors.AdminTokenInterceptor;
 import com.lrnews.api.interceptors.PassportInterceptor;
 import com.lrnews.api.interceptors.UserTokenInterceptor;
-import com.lrnews.utils.RedisOperator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

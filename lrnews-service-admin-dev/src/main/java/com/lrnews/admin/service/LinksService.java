@@ -1,8 +1,6 @@
 package com.lrnews.admin.service;
 
 import com.lrnews.dbm.LinksDBModel;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

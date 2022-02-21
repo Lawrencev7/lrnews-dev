@@ -11,7 +11,6 @@ import com.lrnews.enums.ArticleReviewLevel;
 import com.lrnews.enums.ArticleReviewStatus;
 import com.lrnews.enums.YesOrNo;
 import com.lrnews.exception.CustomExceptionFactory;
-import com.lrnews.exception.LrCustomException;
 import com.lrnews.graceresult.ResponseStatusEnum;
 import com.lrnews.pojo.Article;
 import com.lrnews.pojo.Category;

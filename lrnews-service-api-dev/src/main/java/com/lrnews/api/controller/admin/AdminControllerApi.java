@@ -1,7 +1,7 @@
 package com.lrnews.api.controller.admin;
 
-import com.lrnews.bo.AdminLoginBO;
 import com.lrnews.bo.AdminBO;
+import com.lrnews.bo.AdminLoginBO;
 import com.lrnews.graceresult.JsonResultObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

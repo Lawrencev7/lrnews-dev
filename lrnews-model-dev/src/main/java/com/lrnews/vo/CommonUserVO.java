@@ -1,7 +1,5 @@
 package com.lrnews.vo;
 
-import java.util.Date;
-
 public class CommonUserVO {
     private String id;
     private String nickname;

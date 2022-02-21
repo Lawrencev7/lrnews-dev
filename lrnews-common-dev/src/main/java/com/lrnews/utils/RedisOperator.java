@@ -1,6 +1,5 @@
 package com.lrnews.utils;
 
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.redis.connection.StringRedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;

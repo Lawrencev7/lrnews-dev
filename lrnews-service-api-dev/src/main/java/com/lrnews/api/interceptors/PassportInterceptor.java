@@ -12,7 +12,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.lrnews.values.CommonValueStrings.*;
+import static com.lrnews.values.CommonValueStrings.REDIS_REQUEST_LIMIT_IP;
 
 @Configuration
 public class PassportInterceptor extends BaseInterceptor implements HandlerInterceptor {

@@ -42,7 +42,7 @@ public enum ResponseStatusEnum {
     // admin 管理系统 56x
     ADMIN_USERNAME_NULL_ERROR(561, false, "Admin username can not be null"),
     ADMIN_USERNAME_EXIST_ERROR(562, false, "Admin username is already existed"),
-    ADMIN_NAME_NULL_ERROR(563, false, "管理员负责人不能为空！"),
+    ADMIN_NAME_NULL_ERROR(563, false, "Null admin username"),
     ADMIN_PASSWORD_ERROR(564, false, "Two password is not match"),
     ADMIN_CREATE_ERROR(565, false, "添加管理员失败！"),
     ADMIN_PASSWORD_NULL_ERROR(566, false, "Password can not be null"),

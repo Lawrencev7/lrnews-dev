@@ -8,8 +8,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.lrnews.values.CommonApiDefStrings.*;
-
 @Configuration
 public class AdminTokenInterceptor  extends BaseInterceptor implements HandlerInterceptor {
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());

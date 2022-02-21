@@ -10,9 +10,9 @@ import com.lrnews.user.service.UserService;
 import com.lrnews.vo.PagedGridVO;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.lrnews.values.CommonValueStrings.*;
-
 import java.util.Date;
+
+import static com.lrnews.values.CommonValueStrings.REDIS_USER_CACHE_TAG;
 
 @RestController
 public class UserMngController extends BaseController implements UserMngControllerApi {
