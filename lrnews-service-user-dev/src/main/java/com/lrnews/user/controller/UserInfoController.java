@@ -3,6 +3,7 @@ package com.lrnews.user.controller;
 import com.lrnews.api.controller.BaseController;
 import com.lrnews.api.controller.user.UserInfoControllerApi;
 import com.lrnews.bo.UpdateUserInfoBO;
+import com.lrnews.exception.CustomExceptionFactory;
 import com.lrnews.exception.LrCustomException;
 import com.lrnews.graceresult.JsonResultObject;
 import com.lrnews.graceresult.ResponseStatusEnum;
@@ -19,6 +20,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -55,12 +58,7 @@ public class UserInfoController extends BaseController implements UserInfoContro
         }
 
         AppUser user = getUser(userId);
-        if (Objects.isNull(user)) {
-            //This should be avoided at front service
-            return JsonResultObject.errorCustom(ResponseStatusEnum.USER_NOT_EXIST_ERROR);
-        }
-        CommonUserVO infoVo = new CommonUserVO();
-        BeanUtils.copyProperties(user, infoVo);
+        CommonUserVO infoVo = genCommonInfoVO(user);
         logger.info("getUserCommonInfo: Query common info of [" + userId + ']');
         return JsonResultObject.ok(infoVo);
     }
@@ -107,6 +105,31 @@ public class UserInfoController extends BaseController implements UserInfoContro
         user = userService.getUser(userId);
         redis.set(userInfoTag, JsonUtils.objectToJson(user));
         return user;
+    }
+
+    @Override
+    public JsonResultObject queryUserByIds(String userIds) {
+        if(StringUtils.isBlank(userIds)){
+            CustomExceptionFactory.onException(ResponseStatusEnum.USER_NOT_EXIST_ERROR);
+        }
+
+        List<CommonUserVO> userCommonInfoList = new ArrayList<>();
+        List<String> idList = JsonUtils.jsonToList(userIds, String.class);
+
+        idList.forEach(id->{
+            userCommonInfoList.add(genCommonInfoVO(getUser(id)));
+        });
+
+        return JsonResultObject.ok(userCommonInfoList);
+    }
+
+    private CommonUserVO genCommonInfoVO(AppUser user) {
+        if (Objects.isNull(user)) {
+            CustomExceptionFactory.onException(ResponseStatusEnum.USER_NOT_EXIST_ERROR);
+        }
+        CommonUserVO infoVo = new CommonUserVO();
+        BeanUtils.copyProperties(user, infoVo);
+        return infoVo;
     }
 
     private static String redisCachedInfoTag(String id){
