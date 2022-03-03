@@ -48,7 +48,7 @@ public class ArticlePortalController extends BaseController implements ArticlePo
         JsonResultObject responseData = entity.getBody();
 
         if (!Objects.nonNull(responseData))
-            return JsonResultObject.errorCustom(ResponseStatusEnum.SYSTEM_ERROR);
+            return JsonResultObject.errorCustom(ResponseStatusEnum.SYSTEM_CONNECTION_FAIL);
 
         List<CommonUserVO> publisherList;
         if (responseData.getStatus().equals(ResponseStatusEnum.SUCCESS.status())) {
@@ -73,6 +73,16 @@ public class ArticlePortalController extends BaseController implements ArticlePo
         });
 
         return JsonResultObject.ok(resultList);
+    }
+
+    @Override
+    public JsonResultObject queryPopularArticle() {
+        return JsonResultObject.ok(articlePortalService.queryTopReadArticleList());
+    }
+
+    @Override
+    public JsonResultObject queryArticleListForWriter(String userId, Integer page, Integer pageSize) {
+        return JsonResultObject.ok(articlePortalService.queryArticleForWriter(userId, page, pageSize));
     }
 
     private static DisplayArticleVO generateDisplayArticleVO(CommonUserVO commonUserVO, Article article) {

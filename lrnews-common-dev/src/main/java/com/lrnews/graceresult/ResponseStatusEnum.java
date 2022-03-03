@@ -70,7 +70,7 @@ public enum ResponseStatusEnum {
     // 系统错误，未预期的错误 555
     SYSTEM_ERROR(555, false, "Encounter a system error. Retry later or contact administrator to confirm it."),
     SYSTEM_OPERATION_ERROR(556, false, "操作失败，请重试或联系管理员"),
-    SYSTEM_RESPONSE_NO_INFO(557, false, "");
+    SYSTEM_CONNECTION_FAIL(557, false, "Inner connection error of system occurs. Please contact admin");
 
 
     // 响应业务状态

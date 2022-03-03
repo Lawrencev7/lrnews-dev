@@ -37,13 +37,7 @@ public class ArticlePortalServiceImpl implements ArticlePortalService {
         example.orderBy("publishTime").desc();
         Example.Criteria criteria = example.createCriteria();
 
-        // Potential query limit
-        // 1. is not appointed
-        criteria.andEqualTo("isAppoint", YesOrNo.NO.type);
-        // 2. is not deleted
-        criteria.andEqualTo("isDelete", YesOrNo.NO.type);
-        // 3. is review-passed
-        criteria.andEqualTo("articleStatus", ArticleReviewStatus.SUCCESS.type);
+        setPotentialLimit(criteria);
 
         // Parameter query limit
         if (StringUtils.isNotBlank(keyword))
@@ -56,5 +50,45 @@ public class ArticlePortalServiceImpl implements ArticlePortalService {
         List<Article> list = articleMapper.selectByExample(example);
 
         return PagedGridVO.getPagedGrid(list, page);
+    }
+
+    /**
+     * Set potential limit to query articles that has been published. All published article must be:
+     * 1.Not Appointed
+     * 2.Not logical deleted
+     * 3.Passed the review
+     */
+    private void setPotentialLimit(Example.Criteria criteria) {
+        // Potential query limit
+        // 1. is not appointed
+        criteria.andEqualTo("isAppoint", YesOrNo.NO.type);
+        // 2. is not deleted
+        criteria.andEqualTo("isDelete", YesOrNo.NO.type);
+        // 3. is review-passed
+        criteria.andEqualTo("articleStatus", ArticleReviewStatus.SUCCESS.type);
+    }
+
+    @Override
+    public List<Article> queryTopReadArticleList() {
+        Example example = new Example(Article.class);
+        example.orderBy("readCounts").desc();
+        Example.Criteria criteria = example.createCriteria();
+
+        setPotentialLimit(criteria);
+
+        PageHelper.startPage(1, 5);
+        return articleMapper.selectByExample(example);
+    }
+
+    @Override
+    public PagedGridVO queryArticleForWriter(String userId, Integer page, Integer pageSize) {
+        Example example = new Example(Article.class);
+        example.orderBy("publishTime").desc();
+        Example.Criteria criteria = example.createCriteria();
+        setPotentialLimit(criteria);
+
+        PageHelper.startPage(page, pageSize);
+        List<Article> articles = articleMapper.selectByExample(example);
+        return PagedGridVO.getPagedGrid(articles, page);
     }
 }

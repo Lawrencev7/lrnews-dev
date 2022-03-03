@@ -19,4 +19,17 @@ public interface ArticlePortalControllerApi {
                                       @ApiParam(name = "pageSize", value = "Current page size")
                                       @RequestParam Integer pageSize);
 
+    @ApiOperation(value = "Query popular article", notes = "Query popular article for homepage.")
+    @GetMapping("/queryPopularArticle")
+    JsonResultObject queryPopularArticle();
+
+    @ApiOperation(value = "Query articles for writer", notes = "Query articles list for one writer.")
+    @GetMapping("/writerArticleList")
+    JsonResultObject queryArticleListForWriter(@RequestParam String userId,
+                                      @ApiParam(name = "page", value = "Current query page")
+                                      @RequestParam Integer page,
+                                      @ApiParam(name = "pageSize", value = "Current page size")
+                                      @RequestParam Integer pageSize);
+
+
 }
