@@ -9,6 +9,7 @@ import com.lrnews.graceresult.JsonResultObject;
 import com.lrnews.graceresult.ResponseStatusEnum;
 import com.lrnews.pojo.AppUser;
 import com.lrnews.pojo.Article;
+import com.lrnews.user.service.FansService;
 import com.lrnews.user.service.UserService;
 import com.lrnews.utils.JsonUtils;
 import com.lrnews.vo.CommonUserVO;
@@ -31,7 +32,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import static com.lrnews.values.CommonApiDefStrings.SESSION_HEADER_USER_ID;
-import static com.lrnews.values.CommonValueStrings.REDIS_USER_CACHE_TAG;
+import static com.lrnews.values.CommonValueStrings.*;
 
 @RestController
 public class UserInfoController extends BaseController implements UserInfoControllerApi {
@@ -40,10 +41,13 @@ public class UserInfoController extends BaseController implements UserInfoContro
 
     final UserService userService;
 
+    final FansService fansService;
+
     final RestTemplate restTemplate;
 
-    public UserInfoController(UserService userService, RestTemplate restTemplate) {
+    public UserInfoController(UserService userService, FansService fansService, RestTemplate restTemplate) {
         this.userService = userService;
+        this.fansService = fansService;
         this.restTemplate = restTemplate;
     }
 
@@ -125,9 +129,11 @@ public class UserInfoController extends BaseController implements UserInfoContro
         List<CommonUserVO> userCommonInfoList = new ArrayList<>();
         List<String> idList = JsonUtils.jsonToList(userIds, String.class);
 
-        idList.forEach(id -> {
-            userCommonInfoList.add(genCommonInfoVO(getUser(id)));
-        });
+        if (idList == null) {
+            return JsonResultObject.errorCustom(ResponseStatusEnum.SYSTEM_ERROR);
+        }
+
+        idList.forEach(id -> userCommonInfoList.add(genCommonInfoVO(getUser(id))));
 
         return JsonResultObject.ok(userCommonInfoList);
     }
@@ -135,15 +141,14 @@ public class UserInfoController extends BaseController implements UserInfoContro
     @Override
     public JsonResultObject getPersonalPageInfo(String userId, Integer page, Integer pageSize, HttpServletRequest request) {
         AppUser writer = userService.getUser(userId);
-        if(Objects.isNull(writer)){
+        if (Objects.isNull(writer)) {
             return JsonResultObject.errorCustom(ResponseStatusEnum.USER_NOT_EXIST_ERROR);
         }
 
-        // TODO: Confirm whether the requested user is now logging in and get the follows and subscribers for writer.
-        // String loginUserId = (String) request.getSession().getAttribute(SESSION_HEADER_USER_ID);
-        boolean isFollowedByMe = false;
-        Integer follows = 0;
-        Integer subscribers = 0;
+        String loginUserId = (String) request.getSession().getAttribute(SESSION_HEADER_USER_ID);
+        boolean isFollowedByMe = fansService.isFollowedBy(writer.getId(), loginUserId);
+        Integer follows = getMyFollowerNum(loginUserId);
+        Integer subscribers = getMySubscribeNum(loginUserId);
 
 
         String articleServiceUrl = "http://localhost:8001/portal/article/writerArticleList?" +
@@ -154,9 +159,9 @@ public class UserInfoController extends BaseController implements UserInfoContro
         ResponseEntity<JsonResultObject> entity = restTemplate.getForEntity(articleServiceUrl, JsonResultObject.class);
         JsonResultObject responseData = entity.getBody();
         List<Article> writerArticles = null;
-        if(Objects.isNull(responseData)){
+        if (Objects.isNull(responseData)) {
             CustomExceptionFactory.onException(ResponseStatusEnum.SYSTEM_CONNECTION_FAIL);
-        }else {
+        } else {
             writerArticles = JsonUtils.jsonToList(responseData.getData().toString(), Article.class);
         }
 
@@ -181,5 +186,25 @@ public class UserInfoController extends BaseController implements UserInfoContro
 
     private static String redisCachedInfoTag(String id) {
         return REDIS_USER_CACHE_TAG + ":" + id;
+    }
+
+    private Integer getMyFollowerNum(String myId) {
+        if (redis.keyExist(REDIS_WRITER_FOLLOWER_NUM + ':' + myId)) {
+            return Integer.parseInt(redis.get(REDIS_WRITER_FOLLOWER_NUM + ':' + myId));
+        } else {
+            Integer myFansNum = fansService.countMyFans(myId);
+            redis.set(REDIS_WRITER_FOLLOWER_NUM + ':' + myId, myFansNum.toString());
+            return myFansNum;
+        }
+    }
+
+    private Integer getMySubscribeNum(String myId){
+        if (redis.keyExist(REDIS_MY_SUBSCRIBE_NUM + ':' + myId)) {
+            return Integer.parseInt(redis.get(REDIS_MY_SUBSCRIBE_NUM + ':' + myId));
+        } else {
+            Integer myFansNum = fansService.countMySubscribe(myId);
+            redis.set(REDIS_MY_SUBSCRIBE_NUM + ':' + myId, myFansNum.toString());
+            return myFansNum;
+        }
     }
 }

@@ -20,4 +20,8 @@ public class CommonValueStrings {
 
     // All categories in redis
     public static final String REDIS_CATEGORY_KEY = "ALL:CATEGORY";
+
+    public static final String REDIS_WRITER_FOLLOWER_NUM = "FOLLOWER:NUM:OF";
+
+    public static final String REDIS_MY_SUBSCRIBE_NUM = "SUBSCRIBE:NUM:OF";
 }
