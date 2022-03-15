@@ -92,8 +92,8 @@ public class PassportController extends BaseController implements PassportContro
                 String token = UUID.randomUUID().toString();
                 redis.set(REDIS_USER_TOKEN_KEY + ':' + user.getId(), token);
 
-                setCookie(response, COOKIE_USER_TOKEN, token, DEFAULT_COOKIE_MAX_AGE, false);
-                setCookie(response, COOKIE_USER_ID, user.getId(), DEFAULT_COOKIE_MAX_AGE, true);
+                setCookie(response, COOKIE_USER_TOKEN, token, DEFAULT_KEY_MAX_AGE, false);
+                setCookie(response, COOKIE_USER_ID, user.getId(), DEFAULT_KEY_MAX_AGE, true);
                 return JsonResultObject.ok();
             }
         } else {

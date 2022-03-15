@@ -17,7 +17,8 @@ import static com.lrnews.values.CommonValueStrings.REDIS_CATEGORY_KEY;
 
 public class BaseController {
 
-    protected static final Integer DEFAULT_COOKIE_MAX_AGE = 7 * 24 * 60 * 60; // Cookie stays one week
+    protected static final Integer DEFAULT_KEY_MAX_AGE = 7 * 24 * 60 * 60; // Cookie stays one week
+    protected static final Integer ONE_DAY_KEY_AGE = 24 * 60 * 60; // Cookie stays one week
     protected static final Integer COOKIE_DELETE_AGE = 0; // For deleted cookie
 
     protected static String DEFAULT_COOKIE_DOMAIN = "lrnews.com";

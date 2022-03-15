@@ -8,8 +8,10 @@ import com.lrnews.enums.ArticleReviewStatus;
 import com.lrnews.enums.YesOrNo;
 import com.lrnews.pojo.Article;
 import com.lrnews.utils.TextReviewUtil;
+import com.lrnews.vo.ArticleDetailVO;
 import com.lrnews.vo.PagedGridVO;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
@@ -40,6 +42,7 @@ public class ArticlePortalServiceImpl implements ArticlePortalService {
         setPotentialLimit(criteria);
 
         // Parameter query limit
+        // FIXME: This criteria looks not work
         if (StringUtils.isNotBlank(keyword))
             criteria.andLike("title", "%" + keyword + "%");
 
@@ -90,5 +93,24 @@ public class ArticlePortalServiceImpl implements ArticlePortalService {
         PageHelper.startPage(page, pageSize);
         List<Article> articles = articleMapper.selectByExample(example);
         return PagedGridVO.getPagedGrid(articles, page);
+    }
+
+    @Override
+    public ArticleDetailVO queryArticleDetail(String articleID) {
+        Article example = new Article();
+        example.setId(articleID);
+        // Must already be published
+        example.setIsAppoint(YesOrNo.NO.type);
+        // Must not be logically deleted
+        example.setIsDelete(YesOrNo.NO.type);
+        // Must be reviewed
+        example.setArticleStatus(ArticleReviewStatus.SUCCESS.type);
+
+        Article res = articleMapper.selectOne(example);
+        ArticleDetailVO articleDetailVO = new ArticleDetailVO();
+
+        BeanUtils.copyProperties(res, articleDetailVO);
+
+        return articleDetailVO;
     }
 }

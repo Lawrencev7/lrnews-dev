@@ -189,21 +189,21 @@ public class UserInfoController extends BaseController implements UserInfoContro
     }
 
     private Integer getMyFollowerNum(String myId) {
-        if (redis.keyExist(REDIS_WRITER_FOLLOWER_NUM + ':' + myId)) {
-            return Integer.parseInt(redis.get(REDIS_WRITER_FOLLOWER_NUM + ':' + myId));
+        if (redis.keyExist(REDIS_WRITER_FOLLOWER_NUM_KEY + ':' + myId)) {
+            return Integer.parseInt(redis.get(REDIS_WRITER_FOLLOWER_NUM_KEY + ':' + myId));
         } else {
             Integer myFansNum = fansService.countMyFans(myId);
-            redis.set(REDIS_WRITER_FOLLOWER_NUM + ':' + myId, myFansNum.toString());
+            redis.set(REDIS_WRITER_FOLLOWER_NUM_KEY + ':' + myId, myFansNum.toString());
             return myFansNum;
         }
     }
 
     private Integer getMySubscribeNum(String myId){
-        if (redis.keyExist(REDIS_MY_SUBSCRIBE_NUM + ':' + myId)) {
-            return Integer.parseInt(redis.get(REDIS_MY_SUBSCRIBE_NUM + ':' + myId));
+        if (redis.keyExist(REDIS_MY_SUBSCRIBE_NUM_KEY + ':' + myId)) {
+            return Integer.parseInt(redis.get(REDIS_MY_SUBSCRIBE_NUM_KEY + ':' + myId));
         } else {
             Integer myFansNum = fansService.countMySubscribe(myId);
-            redis.set(REDIS_MY_SUBSCRIBE_NUM + ':' + myId, myFansNum.toString());
+            redis.set(REDIS_MY_SUBSCRIBE_NUM_KEY + ':' + myId, myFansNum.toString());
             return myFansNum;
         }
     }

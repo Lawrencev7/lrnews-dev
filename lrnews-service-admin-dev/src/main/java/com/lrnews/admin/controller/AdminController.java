@@ -182,9 +182,9 @@ public class AdminController extends BaseController implements AdminControllerAp
         redis.set(REDIS_ADMIN_TOKEN_KEY + ':' + adminUser.getId(), token);
 
         // save user token in cookie
-        setCookie(response, COOKIE_ADMIN_TOKEN, token, DEFAULT_COOKIE_MAX_AGE, false);
-        setCookie(response, COOKIE_ADMIN_ID, adminUser.getId(), DEFAULT_COOKIE_MAX_AGE, false);
-        setCookie(response, COOKIE_ADMIN_NAME, adminUser.getAdminName(), DEFAULT_COOKIE_MAX_AGE, false);
+        setCookie(response, COOKIE_ADMIN_TOKEN, token, DEFAULT_KEY_MAX_AGE, false);
+        setCookie(response, COOKIE_ADMIN_ID, adminUser.getId(), DEFAULT_KEY_MAX_AGE, false);
+        setCookie(response, COOKIE_ADMIN_NAME, adminUser.getAdminName(), DEFAULT_KEY_MAX_AGE, false);
     }
 
     private static void logSuccess(String id) {

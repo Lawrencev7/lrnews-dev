@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static com.lrnews.values.CommonValueStrings.REDIS_MY_SUBSCRIBE_NUM;
-import static com.lrnews.values.CommonValueStrings.REDIS_WRITER_FOLLOWER_NUM;
+import static com.lrnews.values.CommonValueStrings.REDIS_MY_SUBSCRIBE_NUM_KEY;
+import static com.lrnews.values.CommonValueStrings.REDIS_WRITER_FOLLOWER_NUM_KEY;
 
 public class FansController extends BaseController implements FansControllerApi {
 
@@ -56,8 +56,8 @@ public class FansController extends BaseController implements FansControllerApi 
             return JsonResultObject.errorCustom(ResponseStatusEnum.SYSTEM_ERROR);
         }
 
-        redis.increase(REDIS_WRITER_FOLLOWER_NUM + ":" + writerId, 1);
-        redis.increase(REDIS_MY_SUBSCRIBE_NUM + ":" + loginUserId, 1);
+        redis.increase(REDIS_WRITER_FOLLOWER_NUM_KEY + ":" + writerId, 1);
+        redis.increase(REDIS_MY_SUBSCRIBE_NUM_KEY + ":" + loginUserId, 1);
 
         return JsonResultObject.ok();
     }
@@ -78,8 +78,8 @@ public class FansController extends BaseController implements FansControllerApi 
             return JsonResultObject.errorCustom(ResponseStatusEnum.SYSTEM_ERROR);
         }
 
-        redis.decrease(REDIS_WRITER_FOLLOWER_NUM + ":" + writerId, 1);
-        redis.decrease(REDIS_MY_SUBSCRIBE_NUM + ":" + loginUserId, 1);
+        redis.decrease(REDIS_WRITER_FOLLOWER_NUM_KEY + ":" + writerId, 1);
+        redis.decrease(REDIS_MY_SUBSCRIBE_NUM_KEY + ":" + loginUserId, 1);
 
         return JsonResultObject.ok();
     }

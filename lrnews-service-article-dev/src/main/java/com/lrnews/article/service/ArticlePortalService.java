@@ -1,6 +1,7 @@
 package com.lrnews.article.service;
 
 import com.lrnews.pojo.Article;
+import com.lrnews.vo.ArticleDetailVO;
 import com.lrnews.vo.PagedGridVO;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface ArticlePortalService {
     List<Article> queryTopReadArticleList();
 
     PagedGridVO queryArticleForWriter(String userId, Integer page, Integer pageSize);
+
+    ArticleDetailVO queryArticleDetail(String articleID);
 }

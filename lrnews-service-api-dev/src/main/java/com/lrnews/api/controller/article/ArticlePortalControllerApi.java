@@ -5,8 +5,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Api(value = "Article portal controller", tags = {"Article Service", "Controller" ,"Portal"})
 @RequestMapping("/portal/article")
@@ -31,5 +34,12 @@ public interface ArticlePortalControllerApi {
                                       @ApiParam(name = "pageSize", value = "Current page size")
                                       @RequestParam Integer pageSize);
 
+    @ApiOperation(value = "Query article details",
+            notes = "Query details include content and info about writer for an article")
+    @GetMapping("/queryArticleDetail")
+    JsonResultObject queryArticleDetail(@RequestParam String articleId);
 
+    @ApiOperation(value = "Read article", notes = "Read article and plus read count in redis")
+    @PostMapping("/readArticle")
+    JsonResultObject readArticle(@RequestParam String articleId, @RequestParam HttpServletRequest request);
 }
