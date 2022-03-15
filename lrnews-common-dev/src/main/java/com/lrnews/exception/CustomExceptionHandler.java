@@ -14,7 +14,7 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(LrCustomException.class)
     @ResponseBody
-    public JsonResultObject getExceptionMsg(LrCustomException e){
+    public JsonResultObject getExceptionMsg(LrCustomException e) {
         logger.error("Catch exception: " + e.getMessage());
         return JsonResultObject.exception(e.getStatus());
     }

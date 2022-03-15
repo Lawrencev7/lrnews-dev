@@ -50,6 +50,9 @@ public class Comments {
     @Column(name = "comment_user_nickname")
     private String commentUserNickname;
 
+    @Column(name = "comment_user_face")
+    private String commentUserFace;
+
     /**
      * 留言内容
      */
@@ -235,5 +238,14 @@ public class Comments {
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+
+    public String getCommentUserFace() {
+        return commentUserFace;
+    }
+
+    public void setCommentUserFace(String commentUserFace) {
+        this.commentUserFace = commentUserFace;
     }
 }

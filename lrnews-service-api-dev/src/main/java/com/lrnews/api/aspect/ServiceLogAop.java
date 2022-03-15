@@ -22,9 +22,9 @@ public class ServiceLogAop {
 
         long time = end - start;
         String info = "==> AOP logger end ====> Current function takes: " + time + "ms";
-        if (time > 300){
+        if (time > 300) {
             logger.warn(info);
-        }else {
+        } else {
             logger.info(info);
         }
 

@@ -8,24 +8,24 @@ public enum ResponseStatusEnum {
 
     // 50x
     ILLEGAL_ARGUMENT(500, false, "Illegal argument"),
-    USER_NOT_LOGIN(501,false,"User is not login"),
-    TICKET_INVALID(502,false,"会话失效，请重新登录！"),
-    NO_AUTH(503,false,"Access denied"),
-    MOBILE_ERROR(504,false,"短信发送失败，请稍后重试！"),
-    SMS_OVER_FREQUENT_ERROR(505,false,"Too frequent, please retry later."),
-    VERIFY_CODE_INCORRECT(506,false,"Verify code is not match"),
+    USER_NOT_LOGIN(501, false, "User is not login"),
+    TICKET_INVALID(502, false, "会话失效，请重新登录！"),
+    NO_AUTH(503, false, "Access denied"),
+    MOBILE_ERROR(504, false, "短信发送失败，请稍后重试！"),
+    SMS_OVER_FREQUENT_ERROR(505, false, "Too frequent, please retry later."),
+    VERIFY_CODE_INCORRECT(506, false, "Verify code is not match"),
     VERIFY_CODE_EXPIRED(507, false, "The verify code is expired"),
-    FILE_UPLOAD_NULL_ERROR(510,false,"Upload a null file"),
-    FILE_UPLOAD_FAILD(511,false,"文件上传失败！"),
-    FILE_FORMATTER_FAILD(512,false,"文件图片格式不支持！"),
-    FILE_MAX_SIZE_ERROR(513,false,"仅支持500kb大小以下的图片上传！"),
-    FILE_NOT_EXIST_ERROR(514,false,"你所查看的文件不存在！"),
-    USER_STATUS_ERROR(515,false,"Error with user status parameter"),
-    USER_NOT_EXIST_ERROR(516,false,"用户不存在！"),
+    FILE_UPLOAD_NULL_ERROR(510, false, "Upload a null file"),
+    FILE_UPLOAD_FAILD(511, false, "文件上传失败！"),
+    FILE_FORMATTER_FAILD(512, false, "文件图片格式不支持！"),
+    FILE_MAX_SIZE_ERROR(513, false, "仅支持500kb大小以下的图片上传！"),
+    FILE_NOT_EXIST_ERROR(514, false, "你所查看的文件不存在！"),
+    USER_STATUS_ERROR(515, false, "Error with user status parameter"),
+    USER_NOT_EXIST_ERROR(516, false, "用户不存在！"),
 
-    USER_FROZEN(521,false,"用户已被冻结，请联系管理员！"),
-    USER_UPDATE_ERROR(522,false,"用户信息更新失败，请联系管理员！"),
-    USER_INACTIVE_ERROR(523,false,"User is still inactive, please modify user info and activate your account"),
+    USER_FROZEN(521, false, "用户已被冻结，请联系管理员！"),
+    USER_UPDATE_ERROR(522, false, "用户信息更新失败，请联系管理员！"),
+    USER_INACTIVE_ERROR(523, false, "User is still inactive, please modify user info and activate your account"),
 
     // 自定义系统级别异常 54x
     SYSTEM_INDEX_OUT_OF_BOUNDS(541, false, "系统错误，数组越界！"),
@@ -89,9 +89,11 @@ public enum ResponseStatusEnum {
     public Integer status() {
         return status;
     }
+
     public Boolean success() {
         return success;
     }
+
     public String msg() {
         return msg;
     }

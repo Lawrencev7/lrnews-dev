@@ -1,7 +1,5 @@
 package com.lrnews.vo;
 
-import com.lrnews.pojo.Article;
-
 import java.util.Date;
 
 // This object displays information about an article on a homepage

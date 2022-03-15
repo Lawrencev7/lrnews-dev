@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Api(value = "Article portal controller", tags = {"Article Service", "Controller" ,"Portal"})
+@Api(value = "Article portal controller", tags = {"Article Service", "Controller", "Portal"})
 @RequestMapping("/portal/article")
 public interface ArticlePortalControllerApi {
     @ApiOperation(value = "Portal query articles", notes = "Portal articles list.")
@@ -29,10 +29,10 @@ public interface ArticlePortalControllerApi {
     @ApiOperation(value = "Query articles for writer", notes = "Query articles list for one writer.")
     @GetMapping("/writerArticleList")
     JsonResultObject queryArticleListForWriter(@RequestParam String userId,
-                                      @ApiParam(name = "page", value = "Current query page")
-                                      @RequestParam Integer page,
-                                      @ApiParam(name = "pageSize", value = "Current page size")
-                                      @RequestParam Integer pageSize);
+                                               @ApiParam(name = "page", value = "Current query page")
+                                               @RequestParam Integer page,
+                                               @ApiParam(name = "pageSize", value = "Current page size")
+                                               @RequestParam Integer pageSize);
 
     @ApiOperation(value = "Query article details",
             notes = "Query details include content and info about writer for an article")

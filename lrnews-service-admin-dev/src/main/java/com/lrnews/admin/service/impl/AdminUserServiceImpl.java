@@ -45,9 +45,9 @@ public class AdminUserServiceImpl implements AdminUserService {
         adminUser.setId(adminId);
         adminUser.setUsername(adminBO.getUsername());
         adminUser.setAdminName(adminBO.getAdminName());
-        if(StringUtils.isNotBlank(adminBO.getPassword())){
+        if (StringUtils.isNotBlank(adminBO.getPassword())) {
             adminUser.setPassword(BCrypt.hashpw(adminBO.getPassword(), BCrypt.gensalt()));
-        }else if(StringUtils.isNotBlank(adminBO.getFaceId())){
+        } else if (StringUtils.isNotBlank(adminBO.getFaceId())) {
             adminUser.setFaceId(adminBO.getFaceId());
         }
 

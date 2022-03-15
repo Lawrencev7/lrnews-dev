@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController implements HelloControllerApi {
     final static Logger logger = LoggerFactory.getLogger(HelloController.class);
 
-    public Object hello(){
+    public Object hello() {
         return JsonResultObject.ok("Hello admin controller");
     }
 }

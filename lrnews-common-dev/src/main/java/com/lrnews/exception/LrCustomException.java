@@ -2,7 +2,7 @@ package com.lrnews.exception;
 
 import com.lrnews.graceresult.ResponseStatusEnum;
 
-public class LrCustomException extends RuntimeException{
+public class LrCustomException extends RuntimeException {
     private ResponseStatusEnum status;
 
     public LrCustomException(ResponseStatusEnum status) {

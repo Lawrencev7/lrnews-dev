@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 
-
 @Component
 public class SMSUtils {
 
@@ -26,7 +25,7 @@ public class SMSUtils {
         this.resource = resource;
     }
 
-    public void sendMessage(String phoneNumber, String code){
+    public void sendMessage(String phoneNumber, String code) {
         DefaultProfile profile = DefaultProfile.getProfile("cn-qingdao",
                 resource.getAccessKeyId(), resource.getAccessSecret());
         IAcsClient client = new DefaultAcsClient(profile);
@@ -41,7 +40,7 @@ public class SMSUtils {
         // From message template
         request.putQueryParameter("TemplateCode", "SMS_227248824");
         // Input a json object
-        request.putQueryParameter("TemplateParam", "{\"code\":\""+code+"\"}");
+        request.putQueryParameter("TemplateParam", "{\"code\":\"" + code + "\"}");
         try {
             CommonResponse response = client.getCommonResponse(request);
             System.out.println(response.getData());
@@ -52,9 +51,10 @@ public class SMSUtils {
 
     /**
      * Mock SMS service
+     *
      * @param code verify code to be sent.
      */
-    public void sendVerifyCode(String code){
+    public void sendVerifyCode(String code) {
         logger.info("Mock SMS service: get a verify code: [{}]", code);
     }
 

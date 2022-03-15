@@ -107,11 +107,11 @@ public class ArticleController extends BaseController implements ArticleControll
     @Override
     public JsonResultObject doReview(String articleId, Integer reviewResult) {
         Integer status;
-        if(Objects.equals(reviewResult, YesOrNo.YES.type)){
+        if (Objects.equals(reviewResult, YesOrNo.YES.type)) {
             status = ArticleReviewStatus.SUCCESS.type;
-        }else if(Objects.equals(reviewResult, YesOrNo.NO.type)){
+        } else if (Objects.equals(reviewResult, YesOrNo.NO.type)) {
             status = ArticleReviewStatus.FAILED.type;
-        }else {
+        } else {
             return JsonResultObject.errorCustom(ResponseStatusEnum.ILLEGAL_ARGUMENT);
         }
 
@@ -121,11 +121,11 @@ public class ArticleController extends BaseController implements ArticleControll
 
     @Override
     public JsonResultObject deleteArticle(String userId, String articleId) {
-        if(StringUtils.isBlank(userId)){
+        if (StringUtils.isBlank(userId)) {
             return JsonResultObject.errorCustom(ResponseStatusEnum.USER_NOT_LOGIN);
         }
 
-        if(StringUtils.isBlank(articleId)){
+        if (StringUtils.isBlank(articleId)) {
             return JsonResultObject.errorCustom(ResponseStatusEnum.ILLEGAL_ARGUMENT);
         }
 
@@ -135,11 +135,11 @@ public class ArticleController extends BaseController implements ArticleControll
 
     @Override
     public JsonResultObject withdraw(String userId, String articleId) {
-        if(StringUtils.isBlank(userId)){
+        if (StringUtils.isBlank(userId)) {
             return JsonResultObject.errorCustom(ResponseStatusEnum.USER_NOT_LOGIN);
         }
 
-        if(StringUtils.isBlank(articleId)){
+        if (StringUtils.isBlank(articleId)) {
             return JsonResultObject.errorCustom(ResponseStatusEnum.ILLEGAL_ARGUMENT);
         }
 

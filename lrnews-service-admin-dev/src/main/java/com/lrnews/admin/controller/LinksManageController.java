@@ -30,18 +30,18 @@ public class LinksManageController extends BaseController implements LinksManage
     @Override
     public JsonResultObject saveLinks(LinksBO saveLinksBO, BindingResult result) {
 
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             return JsonResultObject.errorMap(getErrors(result));
         }
 
         LinksDBModel linkMO = new LinksDBModel();
         BeanUtils.copyProperties(saveLinksBO, linkMO);
-        if(linksService.linkExist(linkMO)){
+        if (linksService.linkExist(linkMO)) {
             linkMO.setUpdateTime(new Date());
             linksService.updateLink(linkMO);
             logAddOrUpdate(linkMO.getLinkName(), linkMO.getLinkUrl());
             return JsonResultObject.ok("Updated.");
-        }else {
+        } else {
             linkMO.setCreateTime(new Date());
             linkMO.setUpdateTime(new Date());
             linksService.addLink(linkMO);
@@ -71,7 +71,7 @@ public class LinksManageController extends BaseController implements LinksManage
         return JsonResultObject.ok();
     }
 
-    private static void logAddOrUpdate(String linkName, String linkUrl){
+    private static void logAddOrUpdate(String linkName, String linkUrl) {
         logger.info("Add or update link: [{}]-[{}]", linkName, linkUrl);
     }
 }

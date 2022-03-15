@@ -53,9 +53,9 @@ public class CategoryServiceImpl implements CategoryService {
         CategoryDBModel emp = new CategoryDBModel();
         emp.setCategoryName(category.getCategoryName());
         Optional<CategoryDBModel> toUpdate = repository.findOne(Example.of(emp, NAME_MATCHER));
-        if(toUpdate.isEmpty()){
+        if (toUpdate.isEmpty()) {
             logger.info("Not found.");
-        }else {
+        } else {
             CategoryDBModel nCate = toUpdate.get();
             nCate.setUpdateTime(new Date());
             nCate.setComment(category.getComment());

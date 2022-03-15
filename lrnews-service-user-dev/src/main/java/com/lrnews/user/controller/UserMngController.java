@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 
-import static com.lrnews.values.CommonValueStrings.REDIS_USER_CACHE_TAG;
+import static com.lrnews.values.CommonValueStrings.REDIS_USER_CACHE_KEY;
 
 @RestController
 public class UserMngController extends BaseController implements UserMngControllerApi {
@@ -48,7 +48,7 @@ public class UserMngController extends BaseController implements UserMngControll
     public JsonResultObject setStatus(String userId, String doStatus) {
         if (UserStatus.isUserStatusValid(Integer.valueOf(doStatus))) {
             userMngService.setUserStatus(userId, Integer.valueOf(doStatus));
-            redis.delete(REDIS_USER_CACHE_TAG + ':' + userId);
+            redis.delete(REDIS_USER_CACHE_KEY + userId);
             return JsonResultObject.ok("Set user " + userId + " status to [" + doStatus + "].");
         } else {
             return JsonResultObject.errorCustom(ResponseStatusEnum.USER_STATUS_ERROR);

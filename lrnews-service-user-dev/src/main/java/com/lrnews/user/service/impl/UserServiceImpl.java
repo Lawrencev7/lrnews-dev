@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
         appUser.setUpdatedTime(new Date());
         appUser.setActiveStatus(UserStatus.ACTIVE.type);
         boolean res = userMapper.updateByPrimaryKeySelective(appUser) == 1;
-        if (!res){
+        if (!res) {
             CustomExceptionFactory.onException(ResponseStatusEnum.USER_UPDATE_ERROR);
         }
     }

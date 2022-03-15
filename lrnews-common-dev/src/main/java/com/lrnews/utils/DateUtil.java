@@ -103,7 +103,7 @@ public class DateUtil {
      * the opposite. Relying on specific times is problematic.
      *
      * @param early the "first date"
-     * @param late the "second date"
+     * @param late  the "second date"
      * @return the days between the two dates
      */
     public static final int daysBetween(Date early, Date late) {
@@ -135,6 +135,7 @@ public class DateUtil {
      * based from calculations found at
      * <a href="http://quasar.as.utexas.edu/BillInfo/JulianDatesG.html">Julian Day Calculations
      * (Gregorian Calendar)</a>, provided by Bill Jeffrys.
+     *
      * @param c a calendar instance
      * @return the julian day number
      */
@@ -158,6 +159,7 @@ public class DateUtil {
      * based from calculations found at
      * <a href="http://quasar.as.utexas.edu/BillInfo/JulianDatesG.html">Julian Day Calculations
      * (Gregorian Calendar)</a>, provided by Bill Jeffrys.
+     *
      * @param date
      * @return the julian day number
      */
@@ -172,7 +174,7 @@ public class DateUtil {
     /**
      * @param isoString
      * @param fmt
-     * @param field   Calendar.YEAR/Calendar.MONTH/Calendar.DATE
+     * @param field     Calendar.YEAR/Calendar.MONTH/Calendar.DATE
      * @param amount
      * @return
      * @throws ParseException
@@ -198,9 +200,9 @@ public class DateUtil {
      * Rolls (up/down) a single unit of time on the given time field.
      *
      * @param isoString
-     * @param field the time field.
-     * @param up Indicates if rolling up or rolling down the field value.
-     * @exception ParseException if an unknown field value is given.
+     * @param field     the time field.
+     * @param up        Indicates if rolling up or rolling down the field value.
+     * @throws ParseException if an unknown field value is given.
      */
     public static final String roll(String isoString, String fmt, int field,
                                     boolean up) throws ParseException {
@@ -218,9 +220,9 @@ public class DateUtil {
      * Rolls (up/down) a single unit of time on the given time field.
      *
      * @param isoString
-     * @param field the time field.
-     * @param up Indicates if rolling up or rolling down the field value.
-     * @exception ParseException if an unknown field value is given.
+     * @param field     the time field.
+     * @param up        Indicates if rolling up or rolling down the field value.
+     * @throws ParseException if an unknown field value is given.
      */
     public static final String roll(String isoString, int field, boolean up) throws
             ParseException {
@@ -229,7 +231,8 @@ public class DateUtil {
     }
 
     /**
-     *  java.util.Date
+     * java.util.Date
+     *
      * @param dateText
      * @param format
      * @param lenient
@@ -281,9 +284,9 @@ public class DateUtil {
     }
 
     /**
-     * @return
      * @param pattern
      * @param date
+     * @return
      */
     public static String dateToString(Date date, String pattern) {
 
@@ -306,6 +309,7 @@ public class DateUtil {
 
     /**
      * yyyy-MM-dd
+     *
      * @param date
      * @return
      */
@@ -324,7 +328,6 @@ public class DateUtil {
     }
 
     /**
-     *
      * @param pattern
      * @return
      */
@@ -333,21 +336,23 @@ public class DateUtil {
     }
 
     /**
-     *   yyyy-MM-dd
+     * yyyy-MM-dd
+     *
      * @return
      */
     public static String getCurrentDateString() {
         return dateToString(getCurrentDateTime(), ISO_EXPANDED_DATE_FORMAT);
     }
 
-    public static String dateToStringWithTime( ) {
+    public static String dateToStringWithTime() {
 
         return dateToString(new Date(), DATETIME_PATTERN);
     }
 
 
     /**
-     *   yyyy-MM-dd hh:mm:ss
+     * yyyy-MM-dd hh:mm:ss
+     *
      * @param date
      * @return
      */
@@ -357,7 +362,6 @@ public class DateUtil {
     }
 
     /**
-     *
      * @param date
      * @param days
      * @return java.util.Date
@@ -383,7 +387,6 @@ public class DateUtil {
     }
 
     /**
-     *
      * @param date
      * @param mnt
      * @return java.util.Date
@@ -399,10 +402,9 @@ public class DateUtil {
     }
 
     /**
-     *
-     * @param date   yyyy-MM-dd
+     * @param date yyyy-MM-dd
      * @param days
-     * @return  yyyy-MM-dd
+     * @return yyyy-MM-dd
      */
     public static String dateIncreaseByDay(String date, int days) {
         return dateIncreaseByDay(date, ISO_DATE_FORMAT, days);
@@ -419,7 +421,6 @@ public class DateUtil {
     }
 
     /**
-     *
      * @param src
      * @param srcfmt
      * @param desfmt
@@ -431,7 +432,6 @@ public class DateUtil {
     }
 
     /**
-     *
      * @param date
      * @return string
      */
@@ -443,7 +443,6 @@ public class DateUtil {
     }
 
     /**
-     *
      * @param date
      * @return string
      */
@@ -494,7 +493,8 @@ public class DateUtil {
     /**
      * Function to convert String to Date Object. If invalid input then current or next day date
      * is returned (Added by Ali Naqvi on 2006-5-16).
-     * @param str String input in YYYY-MM-DD HH:MM[:SS] format.
+     *
+     * @param str      String input in YYYY-MM-DD HH:MM[:SS] format.
      * @param isExpiry boolean if set and input string is invalid then next day date is returned
      * @return Date
      */
@@ -556,10 +556,8 @@ public class DateUtil {
     }
 
     /**
-     *
-     * @Description: 获得本月的第一天日期
      * @return
-     *
+     * @Description: 获得本月的第一天日期
      * @author leechenxiang
      * @date 2017年5月31日 下午1:37:34
      */
@@ -577,10 +575,8 @@ public class DateUtil {
     }
 
     /**
-     *
-     * @Description: 获得本月的最后一天日期
      * @return
-     *
+     * @Description: 获得本月的最后一天日期
      * @author leechenxiang
      * @date 2017年5月31日 下午1:37:50
      */

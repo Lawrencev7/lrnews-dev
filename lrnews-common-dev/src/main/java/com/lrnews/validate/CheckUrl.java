@@ -13,6 +13,8 @@ import java.lang.annotation.Target;
 public @interface CheckUrl {
 
     String message() default "Url is incorrect";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

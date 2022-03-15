@@ -21,6 +21,6 @@ public class UserTokenInterceptor extends BaseInterceptor implements HandlerInte
         String uid = request.getHeader(SESSION_HEADER_USER_ID);
         String token = request.getHeader(SESSION_HEADER_USER_TOKEN);
         logger.info("Intercept request for user: " + uid);
-        return verifyUser(uid,token);
+        return verifyUser(uid, token);
     }
 }

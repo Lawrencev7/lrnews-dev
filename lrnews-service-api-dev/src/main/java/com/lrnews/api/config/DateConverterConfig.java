@@ -16,7 +16,8 @@ import java.util.List;
 public class DateConverterConfig implements Converter<String, Date> {
 
     private static final List<String> formatterList = new ArrayList<>(4);
-    static{
+
+    static {
         formatterList.add("yyyy-MM");
         formatterList.add("yyyy-MM-dd");
         formatterList.add("yyyy-MM-dd hh:mm");
@@ -29,22 +30,22 @@ public class DateConverterConfig implements Converter<String, Date> {
         if ("".equals(value)) {
             return null;
         }
-        if(source.matches("^\\d{4}-\\d{1,2}$")){
+        if (source.matches("^\\d{4}-\\d{1,2}$")) {
             return parseDate(source, formatterList.get(0));
-        }else if(source.matches("^\\d{4}-\\d{1,2}-\\d{1,2}$")){
+        } else if (source.matches("^\\d{4}-\\d{1,2}-\\d{1,2}$")) {
             return parseDate(source, formatterList.get(1));
-        }else if(source.matches("^\\d{4}-\\d{1,2}-\\d{1,2} {1}\\d{1,2}:\\d{1,2}$")){
+        } else if (source.matches("^\\d{4}-\\d{1,2}-\\d{1,2} {1}\\d{1,2}:\\d{1,2}$")) {
             return parseDate(source, formatterList.get(2));
-        }else if(source.matches("^\\d{4}-\\d{1,2}-\\d{1,2} {1}\\d{1,2}:\\d{1,2}:\\d{1,2}$")){
+        } else if (source.matches("^\\d{4}-\\d{1,2}-\\d{1,2} {1}\\d{1,2}:\\d{1,2}:\\d{1,2}$")) {
             return parseDate(source, formatterList.get(3));
-        }else {
+        } else {
             CustomExceptionFactory.onException(ResponseStatusEnum.SYSTEM_DATE_PARSER_ERROR);
         }
         return null;
     }
 
     public Date parseDate(String dateStr, String formatter) {
-        Date date=null;
+        Date date = null;
         try {
             DateFormat dateFormat = new SimpleDateFormat(formatter);
             date = dateFormat.parse(dateStr);

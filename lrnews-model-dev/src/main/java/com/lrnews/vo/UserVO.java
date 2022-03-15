@@ -16,7 +16,6 @@ public class UserVO {
     private String district;
 
 
-
     public String getId() {
         return id;
     }

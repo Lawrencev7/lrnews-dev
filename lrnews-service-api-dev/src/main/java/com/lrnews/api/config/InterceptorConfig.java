@@ -21,10 +21,10 @@ public class InterceptorConfig implements WebMvcConfigurer {
         return new UserTokenInterceptor();
     }
 
-   @Bean
-   public AdminTokenInterceptor getAdminTokenInterceptor(){
+    @Bean
+    public AdminTokenInterceptor getAdminTokenInterceptor() {
         return new AdminTokenInterceptor();
-   }
+    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

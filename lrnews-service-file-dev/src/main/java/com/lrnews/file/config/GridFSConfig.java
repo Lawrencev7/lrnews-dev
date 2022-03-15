@@ -15,7 +15,7 @@ public class GridFSConfig {
     private String mongoDBDatabase;
 
     @Bean
-    public GridFSBucket getGridFSBucket(MongoClient mongoClient){
+    public GridFSBucket getGridFSBucket(MongoClient mongoClient) {
         MongoDatabase mongoDatabase = mongoClient.getDatabase(mongoDBDatabase);
         return GridFSBuckets.create(mongoDatabase);
     }

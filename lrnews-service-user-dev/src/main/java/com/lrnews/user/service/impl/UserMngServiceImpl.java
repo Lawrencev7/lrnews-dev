@@ -35,11 +35,11 @@ public class UserMngServiceImpl implements UserMngService {
             criteria.andLike("nickname", "%" + nickname + "%");
         }
 
-        if (UserStatus.isUserStatusValid(status)){
+        if (UserStatus.isUserStatusValid(status)) {
             criteria.andEqualTo("activeStatus", status);
         }
 
-        if(startDate != null && endDate != null){
+        if (startDate != null && endDate != null) {
             criteria.andGreaterThanOrEqualTo("createdTime", startDate);
             criteria.andLessThanOrEqualTo("updatedTime", endDate);
         }

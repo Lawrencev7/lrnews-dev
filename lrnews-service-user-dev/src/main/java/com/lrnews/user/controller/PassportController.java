@@ -47,11 +47,11 @@ public class PassportController extends BaseController implements PassportContro
 
     @Override
     public JsonResultObject getVerifyCode(@NotNull @RequestParam String phoneNumber, HttpServletRequest request) {
-        String IPLimitTag = REDIS_REQUEST_LIMIT_IP + ":" + IPUtil.getRequestIp(request);
+        String IPLimitTag = REDIS_REQUEST_LIMIT_IP_KEY + IPUtil.getRequestIp(request);
         String randomCode = String.valueOf(new Random().nextInt(899999) + 100000);
         redis.set(IPLimitTag, randomCode, MINIMUM_REQUEST_TIME_SPAN_SECONDS);
         sms.sendVerifyCode(randomCode);
-        redis.set(REDIS_MOBILE_VERIFY_CODE + ":" + phoneNumber, randomCode, VERIFY_CODE_TIMEOUT_SECONDS);
+        redis.set(REDIS_MOBILE_VERIFY_CODE_KEY + phoneNumber, randomCode, VERIFY_CODE_TIMEOUT_SECONDS);
         return JsonResultObject.ok(randomCode);
     }
 
@@ -64,7 +64,7 @@ public class PassportController extends BaseController implements PassportContro
         }
 
         String phone = userInfo.getPhone();
-        String requestVerifyParam = REDIS_MOBILE_VERIFY_CODE + ':' + phone;
+        String requestVerifyParam = REDIS_MOBILE_VERIFY_CODE_KEY + phone;
         String code = userInfo.getVerifyCode();
 
         if (redis.keyExist(requestVerifyParam)) {
@@ -79,7 +79,7 @@ public class PassportController extends BaseController implements PassportContro
         }
 
         redis.delete(requestVerifyParam);
-        redis.delete(REDIS_REQUEST_LIMIT_IP + ":" + IPUtil.getRequestIp(request));
+        redis.delete(REDIS_REQUEST_LIMIT_IP_KEY + IPUtil.getRequestIp(request));
 
         AppUser user = userService.queryUserExist(phone);
         if (user != null) {
@@ -90,7 +90,7 @@ public class PassportController extends BaseController implements PassportContro
                 logSuccess(user.getMobile(), ResponseStatusEnum.SUCCESS.msg());
                 logger.info("Login for user: " + user.getMobile() + " success");
                 String token = UUID.randomUUID().toString();
-                redis.set(REDIS_USER_TOKEN_KEY + ':' + user.getId(), token);
+                redis.set(REDIS_USER_TOKEN_KEY + user.getId(), token);
 
                 setCookie(response, COOKIE_USER_TOKEN, token, DEFAULT_KEY_MAX_AGE, false);
                 setCookie(response, COOKIE_USER_ID, user.getId(), DEFAULT_KEY_MAX_AGE, true);
@@ -111,7 +111,7 @@ public class PassportController extends BaseController implements PassportContro
     @Override
     public JsonResultObject doLogout(String userId, BindingResult result,
                                      HttpServletRequest request, HttpServletResponse response) {
-        redis.delete(REDIS_USER_TOKEN_KEY + ':' + userId);
+        redis.delete(REDIS_USER_TOKEN_KEY + userId);
         setCookie(response, COOKIE_USER_TOKEN, "", COOKIE_DELETE_AGE, false);
         setCookie(response, COOKIE_USER_ID, "", COOKIE_DELETE_AGE, false);
 

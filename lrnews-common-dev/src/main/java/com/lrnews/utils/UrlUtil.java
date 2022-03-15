@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UrlUtil {
-    public static boolean verifyUrl(String url){
+    public static boolean verifyUrl(String url) {
 
         // URL验证规则
 //        String regEx ="[A-Za-z]+://[A-Za-z0-9-_]+\\\\.[A-Za-z0-9-_%&\\?\\/.=]+";

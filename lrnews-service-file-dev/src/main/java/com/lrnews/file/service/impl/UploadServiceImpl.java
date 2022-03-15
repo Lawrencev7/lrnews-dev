@@ -28,7 +28,7 @@ public class UploadServiceImpl implements UploaderService {
 //        StorePath path = fileClient.uploadFile(file.getInputStream(), file.getSize(), fileExtName, null);
 //        return path.getFullPath();
 
-        String  name = RandomStringName.getRandomFileName();
+        String name = RandomStringName.getRandomFileName();
         logger.info("Mock File Service - Mock file name {}", name);
         return name;
     }

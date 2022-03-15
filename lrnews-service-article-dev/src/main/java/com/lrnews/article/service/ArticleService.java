@@ -12,6 +12,7 @@ public interface ArticleService {
 
     /**
      * Query article list for someone user
+     *
      * @return PagedGridVO
      */
     PagedGridVO queryArticleList(ArticleQueryBO query);

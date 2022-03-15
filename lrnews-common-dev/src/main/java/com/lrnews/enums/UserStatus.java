@@ -25,6 +25,7 @@ public enum UserStatus {
 
     /**
      * 判断传入的用户状态是不是有效的值
+     *
      * @param tempStatus
      * @return
      */

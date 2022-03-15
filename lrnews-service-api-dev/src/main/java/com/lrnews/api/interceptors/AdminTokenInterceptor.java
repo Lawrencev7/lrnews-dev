@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Configuration
-public class AdminTokenInterceptor  extends BaseInterceptor implements HandlerInterceptor {
+public class AdminTokenInterceptor extends BaseInterceptor implements HandlerInterceptor {
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
     @Override

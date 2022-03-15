@@ -116,7 +116,7 @@ public class AdminController extends BaseController implements AdminControllerAp
     @Override
     public JsonResultObject adminLogout(String adminId, HttpServletRequest request, HttpServletResponse response) {
         // Remove admin info from redis
-        redis.delete(REDIS_ADMIN_TOKEN_KEY + ':' + adminId);
+        redis.delete(REDIS_ADMIN_TOKEN_KEY + adminId);
 
         // Remove admin info from cookie
         deleteCookies(response, COOKIE_ADMIN_TOKEN, COOKIE_ADMIN_ID, COOKIE_ADMIN_NAME);
@@ -179,7 +179,7 @@ public class AdminController extends BaseController implements AdminControllerAp
         String token = UUID.randomUUID().toString();
 
         // save user token to redis server
-        redis.set(REDIS_ADMIN_TOKEN_KEY + ':' + adminUser.getId(), token);
+        redis.set(REDIS_ADMIN_TOKEN_KEY + adminUser.getId(), token);
 
         // save user token in cookie
         setCookie(response, COOKIE_ADMIN_TOKEN, token, DEFAULT_KEY_MAX_AGE, false);

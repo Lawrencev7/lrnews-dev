@@ -3,7 +3,6 @@ package com.lrnews.api.controller.user;
 import com.lrnews.graceresult.JsonResultObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,9 +27,9 @@ public interface FansControllerApi {
 
     @ApiOperation(value = "Fans List", notes = "Get fans list for me")
     @PostMapping("/fansList")
-    JsonResultObject fansList(@RequestParam String  writerId, @RequestParam Integer page, @RequestParam Integer pageSize);
+    JsonResultObject fansList(@RequestParam String writerId, @RequestParam Integer page, @RequestParam Integer pageSize);
 
     @ApiOperation(value = "Fans Graph", notes = "Get fans graph VO of writer")
     @PostMapping("/fansGraph")
-    JsonResultObject fansGraph(@RequestParam String  writerId);
+    JsonResultObject fansGraph(@RequestParam String writerId);
 }

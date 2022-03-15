@@ -64,7 +64,7 @@ public class RedisOperator {
         redisTemplate.opsForValue().setIfAbsent(key, value);
     }
 
-    public String get(String key){
+    public String get(String key) {
         return redisTemplate.opsForValue().get(key);
     }
 
@@ -74,7 +74,7 @@ public class RedisOperator {
 
     public List<Object> batchGet(List<String> keys) {
         return redisTemplate.executePipelined((RedisCallback<String>) connection -> {
-            StringRedisConnection src = (StringRedisConnection)connection;
+            StringRedisConnection src = (StringRedisConnection) connection;
             keys.forEach(src::get);
             return null;
         });

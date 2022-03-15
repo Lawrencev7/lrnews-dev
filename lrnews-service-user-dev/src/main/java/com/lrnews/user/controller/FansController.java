@@ -56,8 +56,8 @@ public class FansController extends BaseController implements FansControllerApi 
             return JsonResultObject.errorCustom(ResponseStatusEnum.SYSTEM_ERROR);
         }
 
-        redis.increase(REDIS_WRITER_FOLLOWER_NUM_KEY + ":" + writerId, 1);
-        redis.increase(REDIS_MY_SUBSCRIBE_NUM_KEY + ":" + loginUserId, 1);
+        redis.increase(REDIS_WRITER_FOLLOWER_NUM_KEY + writerId, 1);
+        redis.increase(REDIS_MY_SUBSCRIBE_NUM_KEY + loginUserId, 1);
 
         return JsonResultObject.ok();
     }
@@ -78,8 +78,8 @@ public class FansController extends BaseController implements FansControllerApi 
             return JsonResultObject.errorCustom(ResponseStatusEnum.SYSTEM_ERROR);
         }
 
-        redis.decrease(REDIS_WRITER_FOLLOWER_NUM_KEY + ":" + writerId, 1);
-        redis.decrease(REDIS_MY_SUBSCRIBE_NUM_KEY + ":" + loginUserId, 1);
+        redis.decrease(REDIS_WRITER_FOLLOWER_NUM_KEY + writerId, 1);
+        redis.decrease(REDIS_MY_SUBSCRIBE_NUM_KEY + loginUserId, 1);
 
         return JsonResultObject.ok();
     }
@@ -98,7 +98,7 @@ public class FansController extends BaseController implements FansControllerApi 
 
     @Override
     public JsonResultObject fansGraph(String writerId) {
-        if(StringUtils.isBlank(writerId)){
+        if (StringUtils.isBlank(writerId)) {
             return JsonResultObject.errorCustom(ResponseStatusEnum.USER_NOT_EXIST_ERROR);
         }
 

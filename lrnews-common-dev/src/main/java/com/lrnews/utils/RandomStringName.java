@@ -53,7 +53,7 @@ public class RandomStringName {
         Random random = new Random();
 
         for (int i = 0; i < COMMON_FILENAME_LENGTH; i++) {
-                val.append(random.nextInt(10));
+            val.append(random.nextInt(10));
         }
         return val.toString();
     }

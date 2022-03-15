@@ -36,19 +36,19 @@ public interface AdminControllerApi {
     @ApiOperation(value = "Query admin list", notes = "Get a list contains all admins")
     @PostMapping("/getAdminList")
     JsonResultObject getAdminList(@ApiParam(value = "Indicates that which page is requested", name = "page") @RequestParam
-                                            Integer page,
+                                          Integer page,
                                   @ApiParam(value = "Indicates the capacity of one page", name = "pageSize") @RequestParam
-                                            Integer pageSize);
+                                          Integer pageSize);
 
     @ApiOperation(value = "Logout for admin", notes = "Logout for admin")
     @PostMapping("/adminLogout")
     JsonResultObject adminLogout(@RequestParam String adminId,
-                                    HttpServletRequest request, HttpServletResponse response);
+                                 HttpServletRequest request, HttpServletResponse response);
 
     @ApiOperation(value = "Admin face login", notes = "Login for admin by face recognition")
     @PostMapping("/faceRecLogin")
     JsonResultObject faceRecLogin(@RequestBody AdminLoginBO adminLoginBO,
-                                 HttpServletRequest request, HttpServletResponse response);
+                                  HttpServletRequest request, HttpServletResponse response);
 
     JsonResultObject uploadFaceImg64();
 }

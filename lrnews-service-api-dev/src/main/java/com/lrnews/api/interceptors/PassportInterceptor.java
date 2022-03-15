@@ -12,7 +12,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.lrnews.values.CommonValueStrings.REDIS_REQUEST_LIMIT_IP;
+import static com.lrnews.values.CommonValueStrings.REDIS_REQUEST_LIMIT_IP_KEY;
 
 @Configuration
 public class PassportInterceptor extends BaseInterceptor implements HandlerInterceptor {
@@ -23,7 +23,7 @@ public class PassportInterceptor extends BaseInterceptor implements HandlerInter
                              @NotNull HttpServletResponse response,
                              @NotNull Object handler) throws Exception {
         String IP = IPUtil.getRequestIp(request);
-        if(redis.keyExist(REDIS_REQUEST_LIMIT_IP + ":" + IP)){
+        if (redis.keyExist(REDIS_REQUEST_LIMIT_IP_KEY + IP)) {
             logger.info("Block user request: User request has been rejected due to over frequent apply");
             CustomExceptionFactory.onException(ResponseStatusEnum.SMS_OVER_FREQUENT_ERROR);
             return false;

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
 import static com.lrnews.values.CommonApiDefStrings.SESSION_HEADER_USER_ID;
-import static com.lrnews.values.CommonValueStrings.REDIS_USER_CACHE_TAG;
+import static com.lrnews.values.CommonValueStrings.REDIS_USER_CACHE_KEY;
 
 @Configuration
 public class UserActiveInterceptor extends BaseInterceptor implements HandlerInterceptor {
@@ -26,17 +26,17 @@ public class UserActiveInterceptor extends BaseInterceptor implements HandlerInt
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String uid = request.getHeader(SESSION_HEADER_USER_ID);
-        String userJson = redis.get(REDIS_USER_CACHE_TAG + ':' + uid);
+        String userJson = redis.get(REDIS_USER_CACHE_KEY + uid);
         logger.info("Intercept request for user: " + uid);
-        if(StringUtils.isNotBlank(userJson)){
+        if (StringUtils.isNotBlank(userJson)) {
             AppUser appUser = JsonUtils.jsonToPojo(userJson, AppUser.class);
-            if(appUser == null || Objects.equals(appUser.getActiveStatus(), UserStatus.INACTIVE.type)){
+            if (appUser == null || Objects.equals(appUser.getActiveStatus(), UserStatus.INACTIVE.type)) {
                 CustomExceptionFactory.onException(ResponseStatusEnum.USER_INACTIVE_ERROR);
                 return false;
             }
 
             return true;
-        }else {
+        } else {
             CustomExceptionFactory.onException(ResponseStatusEnum.USER_NOT_LOGIN);
             return false;
         }

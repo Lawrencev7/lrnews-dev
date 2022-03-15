@@ -3,7 +3,7 @@ package com.lrnews.utils;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 public class AdminPwdUtil {
-    public static String encode(String pwd){
+    public static String encode(String pwd) {
         return BCrypt.hashpw(pwd, BCrypt.gensalt());
     }
 

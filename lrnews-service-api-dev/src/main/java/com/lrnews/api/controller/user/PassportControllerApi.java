@@ -25,5 +25,5 @@ public interface PassportControllerApi {
 
     @PostMapping("/logout")
     @ApiOperation(value = "Logout interface", notes = "Delete cached user information with this interface")
-    JsonResultObject doLogout(String userId,  BindingResult result, HttpServletRequest request, HttpServletResponse response);
+    JsonResultObject doLogout(String userId, BindingResult result, HttpServletRequest request, HttpServletResponse response);
 }
