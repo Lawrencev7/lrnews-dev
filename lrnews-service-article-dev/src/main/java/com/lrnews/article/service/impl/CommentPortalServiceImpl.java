@@ -40,4 +40,11 @@ public class CommentPortalServiceImpl implements CommentPortalService {
 
         commentsMapper.insert(comments);
     }
+
+    @Override
+    public Integer countComments(String articleId) {
+        Comments comments = new Comments();
+        comments.setArticleId(articleId);
+        return commentsMapper.selectCount(comments);
+    }
 }

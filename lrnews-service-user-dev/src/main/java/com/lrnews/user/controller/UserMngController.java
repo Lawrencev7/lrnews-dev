@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 
-import static com.lrnews.values.CommonValueStrings.REDIS_USER_CACHE_KEY;
+import static com.lrnews.values.CommonRedisKeySet.REDIS_USER_CACHE_KEY;
 
 @RestController
 public class UserMngController extends BaseController implements UserMngControllerApi {

@@ -26,7 +26,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import static com.lrnews.values.CommonApiDefStrings.*;
-import static com.lrnews.values.CommonValueStrings.REDIS_ADMIN_TOKEN_KEY;
+import static com.lrnews.values.CommonRedisKeySet.REDIS_ADMIN_TOKEN_KEY;
 
 @RestController
 public class AdminController extends BaseController implements AdminControllerApi {

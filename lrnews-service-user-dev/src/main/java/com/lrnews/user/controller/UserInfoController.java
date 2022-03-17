@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import static com.lrnews.values.CommonApiDefStrings.SESSION_HEADER_USER_ID;
-import static com.lrnews.values.CommonValueStrings.*;
+import static com.lrnews.values.CommonRedisKeySet.*;
 
 @RestController
 public class UserInfoController extends BaseController implements UserInfoControllerApi {

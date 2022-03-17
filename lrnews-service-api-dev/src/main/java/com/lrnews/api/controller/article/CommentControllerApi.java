@@ -5,9 +5,7 @@ import com.lrnews.graceresult.JsonResultObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -18,4 +16,7 @@ public interface CommentControllerApi {
     @PostMapping("/addComment")
     JsonResultObject addComment(@RequestBody @Valid CommentReplyBO commentReplyBO, BindingResult bindingResult);
 
+    @ApiOperation(value = "Query Comment Count", notes = "Get the total comment counts of current article")
+    @GetMapping("/queryCommentCount")
+    JsonResultObject queryCommentCount(@RequestParam String articleId);
 }

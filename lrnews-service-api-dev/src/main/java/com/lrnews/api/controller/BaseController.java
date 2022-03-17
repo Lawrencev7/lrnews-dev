@@ -18,7 +18,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
-import static com.lrnews.values.CommonValueStrings.REDIS_CATEGORY_KEY;
+import static com.lrnews.values.CommonRedisKeySet.REDIS_CATEGORY_KEY;
 
 
 public class BaseController {

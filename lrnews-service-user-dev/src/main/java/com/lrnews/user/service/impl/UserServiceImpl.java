@@ -20,7 +20,7 @@ import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
 
-import static com.lrnews.values.CommonValueStrings.DEFAULT_USER_AVATAR;
+import static com.lrnews.values.CommonTestStrings.DEFAULT_USER_AVATAR;
 
 @Service
 public class UserServiceImpl implements UserService {

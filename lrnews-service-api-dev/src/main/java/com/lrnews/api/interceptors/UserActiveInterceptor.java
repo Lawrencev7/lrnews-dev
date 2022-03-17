@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
 import static com.lrnews.values.CommonApiDefStrings.SESSION_HEADER_USER_ID;
-import static com.lrnews.values.CommonValueStrings.REDIS_USER_CACHE_KEY;
+import static com.lrnews.values.CommonRedisKeySet.REDIS_USER_CACHE_KEY;
 
 @Configuration
 public class UserActiveInterceptor extends BaseInterceptor implements HandlerInterceptor {

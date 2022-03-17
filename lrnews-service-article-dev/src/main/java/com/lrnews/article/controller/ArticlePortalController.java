@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.lrnews.values.CommonValueStrings.REDIS_ARTICLE_READ_COUNT_KEY;
-import static com.lrnews.values.CommonValueStrings.REDIS_IP_READ_LINK_KEY;
+import static com.lrnews.values.CommonRedisKeySet.REDIS_ARTICLE_READ_COUNT_KEY;
+import static com.lrnews.values.CommonRedisKeySet.REDIS_IP_READ_LINK_KEY;
 
 @RestController
 public class ArticlePortalController extends BaseController implements ArticlePortalControllerApi {

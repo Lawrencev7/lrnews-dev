@@ -3,7 +3,7 @@ package com.lrnews.api.interceptors;
 import com.lrnews.exception.CustomExceptionFactory;
 import com.lrnews.graceresult.ResponseStatusEnum;
 import com.lrnews.utils.RedisOperator;
-import com.lrnews.values.CommonValueStrings;
+import com.lrnews.values.CommonRedisKeySet;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,7 +17,7 @@ public class BaseInterceptor {
             return false;
         }
 
-        String redisToken = redis.get(CommonValueStrings.REDIS_USER_TOKEN_KEY + uid);
+        String redisToken = redis.get(CommonRedisKeySet.REDIS_USER_TOKEN_KEY + uid);
         if (StringUtils.isBlank(redisToken) || !redisToken.equalsIgnoreCase(uToken)) {
             CustomExceptionFactory.onException(ResponseStatusEnum.TICKET_INVALID);
             return false;
@@ -32,7 +32,7 @@ public class BaseInterceptor {
             return false;
         }
 
-        String redisToken = redis.get(CommonValueStrings.REDIS_ADMIN_TOKEN_KEY + uid);
+        String redisToken = redis.get(CommonRedisKeySet.REDIS_ADMIN_TOKEN_KEY + uid);
         if (StringUtils.isBlank(redisToken) || !redisToken.equalsIgnoreCase(uToken)) {
             CustomExceptionFactory.onException(ResponseStatusEnum.TICKET_INVALID);
             return false;

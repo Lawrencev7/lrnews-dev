@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.lrnews.values.CommonValueStrings.REDIS_CATEGORY_KEY;
+import static com.lrnews.values.CommonRedisKeySet.REDIS_CATEGORY_KEY;
 
 @RestController
 public class ArticleController extends BaseController implements ArticleControllerApi {

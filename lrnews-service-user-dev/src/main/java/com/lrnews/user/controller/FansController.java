@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static com.lrnews.values.CommonValueStrings.REDIS_MY_SUBSCRIBE_NUM_KEY;
-import static com.lrnews.values.CommonValueStrings.REDIS_WRITER_FOLLOWER_NUM_KEY;
+import static com.lrnews.values.CommonRedisKeySet.REDIS_MY_SUBSCRIBE_NUM_KEY;
+import static com.lrnews.values.CommonRedisKeySet.REDIS_WRITER_FOLLOWER_NUM_KEY;
 
 public class FansController extends BaseController implements FansControllerApi {
 

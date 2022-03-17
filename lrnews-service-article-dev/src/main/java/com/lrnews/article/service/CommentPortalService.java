@@ -7,5 +7,8 @@ import com.lrnews.vo.PagedGridVO;
 import java.util.List;
 
 public interface CommentPortalService {
-    void addComment(String articleId, String fatherCommentId, String content, String userId, String nickname, String face);
+    void addComment(String articleId, String fatherCommentId, String content,
+                    String userId, String nickname, String face);
+
+    Integer countComments(String articleId);
 }

@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 import static com.lrnews.values.CommonApiDefStrings.COOKIE_ADMIN_NAME;
-import static com.lrnews.values.CommonValueStrings.REDIS_CATEGORY_KEY;
+import static com.lrnews.values.CommonRedisKeySet.REDIS_CATEGORY_KEY;
 
 @RestController
 public class CategoryManageController extends BaseController implements CategoryManageControllerApi {
