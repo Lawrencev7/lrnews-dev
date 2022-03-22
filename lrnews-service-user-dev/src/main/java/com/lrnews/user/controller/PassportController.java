@@ -27,9 +27,9 @@ import java.util.UUID;
 
 import static com.lrnews.values.CommonApiDefStrings.COOKIE_USER_ID;
 import static com.lrnews.values.CommonApiDefStrings.COOKIE_USER_TOKEN;
+import static com.lrnews.values.CommonRedisKeySet.*;
 import static com.lrnews.values.CommonValueInteger.MINIMUM_REQUEST_TIME_SPAN_SECONDS;
 import static com.lrnews.values.CommonValueInteger.VERIFY_CODE_TIMEOUT_SECONDS;
-import static com.lrnews.values.CommonRedisKeySet.*;
 
 @RestController
 public class PassportController extends BaseController implements PassportControllerApi {

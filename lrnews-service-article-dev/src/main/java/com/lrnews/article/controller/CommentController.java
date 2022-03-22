@@ -8,6 +8,7 @@ import com.lrnews.bo.CommentReplyBO;
 import com.lrnews.graceresult.JsonResultObject;
 import com.lrnews.graceresult.ResponseStatusEnum;
 import com.lrnews.vo.CommonUserVO;
+import com.lrnews.vo.PagedGridVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,5 +54,42 @@ public class CommentController extends BaseController implements CommentControll
         } else {
             return JsonResultObject.ok(redis.get(REDIS_ARTICLE_READ_COUNT_KEY + articleId));
         }
+    }
+
+    @Override
+    public JsonResultObject listAllComment(String articleId, Integer page, Integer pageSize) {
+        if (StringUtils.isBlank(articleId)) {
+            return JsonResultObject.errorCustom(ResponseStatusEnum.ILLEGAL_ARGUMENT);
+        }
+
+        if (page == null) page = DEFAULT_PAGE;
+        if (pageSize == null) pageSize = DEFAULT_PAGE_SIZE;
+
+        PagedGridVO allComment = commentPortalService.listAllComment(articleId, page, pageSize);
+
+        return JsonResultObject.ok(allComment);
+    }
+
+    @Override
+    public JsonResultObject queryCommentOfMyArticle(String writerId, Integer page, Integer pageSize) {
+        if (StringUtils.isBlank(writerId)) {
+            return JsonResultObject.errorCustom(ResponseStatusEnum.ILLEGAL_ARGUMENT);
+        }
+
+        if (page == null) page = DEFAULT_PAGE;
+        if (pageSize == null) pageSize = DEFAULT_PAGE_SIZE;
+
+        PagedGridVO res = commentPortalService.queryCommentsByWriterID(writerId, page, pageSize);
+
+        return JsonResultObject.ok(res);
+    }
+
+    @Override
+    public JsonResultObject deleteComment(String writerId, String commentId) {
+        if (StringUtils.isBlank(writerId) || StringUtils.isBlank(commentId)) {
+            return JsonResultObject.errorCustom(ResponseStatusEnum.ILLEGAL_ARGUMENT);
+        }
+        commentPortalService.deleteComment(writerId, commentId);
+        return JsonResultObject.ok();
     }
 }

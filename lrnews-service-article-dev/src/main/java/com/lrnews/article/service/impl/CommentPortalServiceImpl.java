@@ -1,14 +1,21 @@
 package com.lrnews.article.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.lrnews.article.mapper.CommentsMapper;
+import com.lrnews.article.mapper.CustomMapper;
 import com.lrnews.article.service.ArticlePortalService;
 import com.lrnews.article.service.CommentPortalService;
 import com.lrnews.pojo.Comments;
 import com.lrnews.vo.ArticleDetailVO;
+import com.lrnews.vo.CommentsVO;
+import com.lrnews.vo.PagedGridVO;
 import org.n3r.idworker.Sid;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class CommentPortalServiceImpl implements CommentPortalService {
@@ -17,9 +24,12 @@ public class CommentPortalServiceImpl implements CommentPortalService {
 
     final CommentsMapper commentsMapper;
 
-    public CommentPortalServiceImpl(ArticlePortalService articlePortalService, CommentsMapper commentsMapper) {
+    final CustomMapper customMapper;
+
+    public CommentPortalServiceImpl(ArticlePortalService articlePortalService, CommentsMapper commentsMapper, CustomMapper customMapper) {
         this.articlePortalService = articlePortalService;
         this.commentsMapper = commentsMapper;
+        this.customMapper = customMapper;
     }
 
     @Override
@@ -46,5 +56,46 @@ public class CommentPortalServiceImpl implements CommentPortalService {
         Comments comments = new Comments();
         comments.setArticleId(articleId);
         return commentsMapper.selectCount(comments);
+    }
+
+    @Override
+    public PagedGridVO listAllComment(String articleID, Integer page, Integer pageSize) {
+        Map<String, Object> queryMap = new HashMap<>();
+        queryMap.put("articleId", articleID);
+
+        PageHelper.startPage(page, pageSize);
+        List<CommentsVO> commentList = customMapper.queryArticleCommentList(queryMap);
+
+        return PagedGridVO.getPagedGrid(commentList, page);
+    }
+
+    @Override
+    public PagedGridVO queryCommentsByWriterID(String writerId, Integer page, Integer pageSize) {
+        Comments comments = new Comments();
+        comments.setWriterId(writerId);
+        PageHelper.startPage(page, pageSize);
+        List<Comments> commentList = commentsMapper.select(comments);
+
+        return PagedGridVO.getPagedGrid(commentList, page);
+    }
+
+    @Override
+    public void deleteComment(String writerId, String commentId) {
+        Comments comments = new Comments();
+        comments.setId(commentId);
+        comments.setWriterId(writerId);
+
+        /* Be care when use this part
+        Stack<String> deleteRelation = new Stack<>();
+        deleteRelation.push(commentId);
+        while (!deleteRelation.isEmpty()){
+            String toDel = deleteRelation.pop();
+            List<String> related = customMapper.queryFatherComments(toDel);
+            deleteRelation.addAll(related);
+            customMapper.deleteRelatedComments(toDel);
+        }
+        */
+
+        commentsMapper.delete(comments);
     }
 }

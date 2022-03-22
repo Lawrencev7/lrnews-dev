@@ -78,7 +78,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public Integer publishAppointedArticle() {
-        // DevTask: Avoid full table scan.
+        // FIXME: Avoid full table scan.
         return customMapper.updateStatusToPublish();
     }
 

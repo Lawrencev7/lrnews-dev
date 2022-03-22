@@ -19,4 +19,17 @@ public interface CommentControllerApi {
     @ApiOperation(value = "Query Comment Count", notes = "Get the total comment counts of current article")
     @GetMapping("/queryCommentCount")
     JsonResultObject queryCommentCount(@RequestParam String articleId);
+
+    @ApiOperation(value = "Query Comment Count", notes = "Get the total comment counts of current article")
+    @GetMapping("/listAllComment")
+    JsonResultObject listAllComment(@RequestParam String articleId, @RequestParam Integer page, @RequestParam Integer pageSize);
+
+    @ApiOperation(value = "Query Comment For Article", notes = "Writer get all comment for his/her articles")
+    @GetMapping("/queryCommentOfMyArticle")
+    JsonResultObject queryCommentOfMyArticle(@RequestParam String writerId,
+                                             @RequestParam Integer page, @RequestParam Integer pageSize);
+
+    @ApiOperation(value = "Query Comment For Article", notes = "Writer get all comment for his/her articles")
+    @GetMapping("/deleteComment")
+    JsonResultObject deleteComment(@RequestParam String writerId, @RequestParam String commentId);
 }

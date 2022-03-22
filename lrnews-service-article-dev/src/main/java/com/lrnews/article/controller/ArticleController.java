@@ -75,7 +75,6 @@ public class ArticleController extends BaseController implements ArticleControll
 
         articleService.createArticle(articleBO, category);
 
-
         return JsonResultObject.ok();
     }
 
