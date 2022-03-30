@@ -54,6 +54,8 @@
 
         <slf4j.version>1.7.21</slf4j.version>
         <joda-time.version>2.10.6</joda-time.version>
+
+        <springboot-freemarker>2.2.5.RELEASE</springboot-freemarker>
     </properties>
 
     <dependencyManagement>
@@ -179,6 +181,12 @@
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>
                 <version>${joda-time.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-freemarker</artifactId>
+                <version>${springboot-freemarker}</version>
             </dependency>
 
         </dependencies>

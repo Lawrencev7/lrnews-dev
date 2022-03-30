@@ -41,6 +41,11 @@ spring:
     mongodb:
       uri: mongodb://root:root@localhost:27017
       database: lrnews-dev
+  freemarker:
+    content-type: text/html
+    charset: UTF-8
+    suffix: .ftl
+    template-loader-path: classpath:/templates/
 
 ############################################################
 #
@@ -65,3 +70,8 @@ mapper:
 pagehelper: # 分页插件配置
   helperDialect: mysql
   supportMethodsArguments: true
+
+freemarker:
+  html:
+    target: /home/lr/lr/mycode/imooc-news/dev/lrnews/lrnews-service-article-dev/src/main/resources/freemarker/htmls
+    article: /home/lr/lr/mycode/imooc-news/dev/lrnews/lrnews-service-article-dev/src/main/resources/freemarker/articles
