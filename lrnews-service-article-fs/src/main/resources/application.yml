@@ -1,0 +1,33 @@
+############################################################
+# Article file services module for article staticalization
+############################################################
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    max-swallow-size: -1  # tomcat默认大小2M，超过2M的文件不会被捕获，需要调整此处大小为100MB或者-1即可
+  port: 8002
+
+############################################################
+
+spring:
+  profiles:
+    active: dev   # yml中配置文件的环境配置，dev：开发环境，test：测试环境，prod：生产环境
+  application:
+    name: service-article-fs
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  data:
+    mongodb:
+      uri: mongodb://root:root@localhost:27017
+      database: lrnews-dev
+  freemarker:
+    content-type: text/html
+    charset: UTF-8
+    suffix: .ftl
+    template-loader-path: classpath:/templates/
+
+freemarker:
+  html:
+    target: /home/lr/lr/mycode/imooc-news/dev/lrnews/lrnews-service-article-dev/src/main/resources/freemarker/htmls
+    article: /home/lr/lr/mycode/imooc-news/dev/lrnews/lrnews-service-article-dev/src/main/resources/freemarker/articles
