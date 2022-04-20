@@ -10,4 +10,10 @@ public interface HelloControllerApi {
     @GetMapping("/hello")
     @ApiOperation(value = "test function: hello", notes = "hello function in hello-controller ")
     Object hello();
+
+    @GetMapping("/helloRabbitMQ")
+    @ApiOperation(value = "test for rabbit mq", notes = "rabbit mq test function")
+    default Object helloRabbitMQ(){
+        return null;
+    };
 }
