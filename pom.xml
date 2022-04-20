@@ -16,6 +16,7 @@
         <module>lrnews-service-file-dev</module>
         <module>lrnews-service-admin-dev</module>
         <module>lrnews-service-article-dev</module>
+        <module>lrnews-service-article-fs</module>
     </modules>
 
     <packaging>pom</packaging>

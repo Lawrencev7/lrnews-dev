@@ -42,4 +42,9 @@ public interface ArticlePortalControllerApi {
     @ApiOperation(value = "Read article", notes = "Read article and plus read count in redis")
     @PostMapping("/readArticle")
     JsonResultObject readArticle(@RequestParam String articleId, @RequestParam HttpServletRequest request);
+
+
+    @ApiOperation(value = "Get read count ", notes = "This interface is used for static page to query article read count.")
+    @PostMapping("/queryReadCount")
+    Integer queryReadCount(@RequestParam String articleId);
 }

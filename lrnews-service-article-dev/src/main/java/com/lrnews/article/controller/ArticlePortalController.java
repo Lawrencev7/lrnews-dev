@@ -122,6 +122,11 @@ public class ArticlePortalController extends BaseController implements ArticlePo
         return remoteQueryUserInfos(Set.of(publisherId)).get(0);
     }
 
+    @Override
+    public Integer queryReadCount(String articleId) {
+        return Integer.valueOf(redis.get(REDIS_ARTICLE_READ_COUNT_KEY + ":" + articleId));
+    }
+
     /**
      * Query multiple records for articles. Using mget to release pressure on Redis
      *

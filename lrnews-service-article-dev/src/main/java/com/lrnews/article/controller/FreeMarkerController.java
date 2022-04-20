@@ -3,7 +3,6 @@ package com.lrnews.article.controller;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
@@ -16,8 +15,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @RequestMapping("/fmc")
@@ -39,8 +36,6 @@ public class FreeMarkerController {
         String testStr = "This string is coming from FreeMarkerController";
 
         model.addAttribute("text", testStr); // match with symbol in expression
-        List<String> list = new ArrayList<>();
-        System.out.println(list.toString());
         return "hello"; // route --> resource/templates/ and find hello.ftl
     }
 

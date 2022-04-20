@@ -239,3 +239,13 @@ Writer out = new FileWriter(target + File.separator + filename + ".html");
 tmp.process(model, out);
 out.close();
 ```
+### 7.Decoupling
+**Previous:**
+Server: Generate static page ---> Delivery to front server.
+
+**Decoupling:**
+Server: Generate static page ---> Upload to file cloud storage (OSS, GridFS, etc.)
+
+Front Server: Access to file cloud storage ---> Get static page ---> Download to front server
+
+

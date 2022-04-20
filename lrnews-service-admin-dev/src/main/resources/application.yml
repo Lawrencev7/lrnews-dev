@@ -19,7 +19,7 @@ spring:
   profiles:
     active: dev   # yml中配置文件的环境配置，dev：开发环境，test：测试环境，prod：生产环境
   application:
-    name: service-user
+    name: service-admin
   datasource: # 数据源的相关配置
     type: com.zaxxer.hikari.HikariDataSource          # 数据源类型：HikariCP
     driver-class-name: com.mysql.jdbc.Driver          # mysql驱动
