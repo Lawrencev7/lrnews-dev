@@ -27,4 +27,6 @@ public interface ArticleService {
     void deleteArticle(String articleId, String userId);
 
     void withdrawArticle(String articleId, String userId);
+
+    void updateArticleToPublish(String articleId);
 }
