@@ -6,8 +6,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
+/**
+ * This schedule has been replaced by delay rabbit message queue, so do not
+ * enable this configuration.
+ */
+
 @Configuration
-//Do NOT enable schedule task for now
 //@EnableScheduling
 public class ArticlePublishSchedule {
 
@@ -22,7 +26,7 @@ public class ArticlePublishSchedule {
     @Scheduled(cron = "0/3 * * * * ?")
     private void publish() {
         Integer affectedRows = articleService.publishAppointedArticle();
-        logger.info("==> Scheduled task ====> publish appointed article: {}", affectedRows);
+        logger.debug("==> Scheduled task ====> publish appointed article: {}", affectedRows);
     }
 
 }

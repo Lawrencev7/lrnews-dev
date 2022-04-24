@@ -1,5 +1,6 @@
 package com.lrnews.article.controller;
 
+import com.lrnews.api.config.RabbitMQConfig;
 import com.lrnews.api.controller.BaseController;
 import com.lrnews.api.controller.article.ArticleControllerApi;
 import com.lrnews.article.service.ArticleService;
@@ -18,6 +19,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
@@ -48,8 +50,11 @@ public class ArticleController extends BaseController implements ArticleControll
 
     final ArticleService articleService;
 
-    public ArticleController(ArticleService articleService) {
+    final RabbitTemplate rabbitTemplate;
+
+    public ArticleController(ArticleService articleService, RabbitTemplate rabbitTemplate) {
         this.articleService = articleService;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     @Override
@@ -131,6 +136,7 @@ public class ArticleController extends BaseController implements ArticleControll
             // When the article is reviewed pass, generate static article page
             try {
                 requestGenerateStaticPage(articleId);
+                obtainArticleStaticPage(articleId, "");
             } catch (IOException | TemplateException e) {
                 // FIXME: Error log here
                 e.printStackTrace();
@@ -208,5 +214,13 @@ public class ArticleController extends BaseController implements ArticleControll
         }
 
         return articleDetailVO;
+    }
+
+    private void obtainArticleStaticPage(String articleId, String articleMongoId) {
+        String payload = articleId + "," + articleMongoId;
+        rabbitTemplate.convertAndSend(
+                RabbitMQConfig.EXCHANGE_ARTICLE,
+                RabbitMQConfig.BINDING_ROUTING_KEY,
+                payload);
     }
 }

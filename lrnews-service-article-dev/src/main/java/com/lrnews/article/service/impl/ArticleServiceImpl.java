@@ -1,6 +1,7 @@
 package com.lrnews.article.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.lrnews.api.config.RabbitLazyMQConfig;
 import com.lrnews.article.mapper.ArticleMapper;
 import com.lrnews.article.mapper.CustomMapper;
 import com.lrnews.article.service.ArticleService;
@@ -18,6 +19,9 @@ import com.lrnews.utils.RandomStringName;
 import com.lrnews.utils.TextReviewUtil;
 import com.lrnews.vo.PagedGridVO;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.amqp.core.MessageDeliveryMode;
+import org.springframework.amqp.core.MessagePostProcessor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,10 +40,15 @@ public class ArticleServiceImpl implements ArticleService {
 
     final TextReviewUtil reviewUtil;
 
-    public ArticleServiceImpl(ArticleMapper articleMapper, CustomMapper customMapper, TextReviewUtil reviewUtil) {
+    final RabbitTemplate rabbitTemplate;
+
+    public static final String MQ_ROUTING_KEY_PUBLISH = "article.lazy.publish";
+
+    public ArticleServiceImpl(ArticleMapper articleMapper, CustomMapper customMapper, TextReviewUtil reviewUtil, RabbitTemplate rabbitTemplate) {
         this.articleMapper = articleMapper;
         this.customMapper = customMapper;
         this.reviewUtil = reviewUtil;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     @Override
@@ -53,6 +62,9 @@ public class ArticleServiceImpl implements ArticleService {
         article.setReadCounts(0);
         article.setIsDelete(YesOrNo.NO.type);
         if (Objects.equals(article.getIsAppoint(), ArticleAppointType.TIMING.type)) {
+            final int delta = Math.toIntExact(articleBO.getPublishTime().getTime() - new Date().getTime());
+            System.out.println("Delay = " + delta);
+            postDelayMessage(delta, article.getId());
             article.setPublishTime(articleBO.getPublishTime());
         } else {
             article.setPublishTime(new Date());
@@ -73,6 +85,21 @@ public class ArticleServiceImpl implements ArticleService {
             updateArticleStatus(article.getId(), ArticleReviewStatus.FAILED.type);
         }
 
+    }
+
+    private void postDelayMessage(int delayTime, Object msgObj) {
+        MessagePostProcessor mpp = message -> {
+            message.getMessageProperties().setDeliveryMode(MessageDeliveryMode.PERSISTENT);
+            message.getMessageProperties().setDelay(delayTime);
+            return message;
+        };
+
+        rabbitTemplate.convertAndSend(
+                RabbitLazyMQConfig.EXCHANGE_ARTICLE_LAZY,
+                MQ_ROUTING_KEY_PUBLISH,
+                msgObj,
+                mpp
+        );
     }
 
     @Override
@@ -172,5 +199,13 @@ public class ArticleServiceImpl implements ArticleService {
         if (res != 1) {
             CustomExceptionFactory.onException(ResponseStatusEnum.ARTICLE_WITHDRAW_ERROR);
         }
+    }
+
+    @Override
+    public void updateArticleToPublish(String articleId) {
+        Article article = new Article();
+        article.setId(articleId);
+        article.setIsAppoint(ArticleAppointType.IMMEDIATELY.type);
+        articleMapper.updateByPrimaryKeySelective(article);
     }
 }

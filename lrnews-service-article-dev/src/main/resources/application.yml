@@ -46,6 +46,10 @@ spring:
     charset: UTF-8
     suffix: .ftl
     template-loader-path: classpath:/templates/
+  rabbitmq:
+    username: admin
+    password: admin
+    virtual-host: lrnews-rmq
 
 ############################################################
 #
