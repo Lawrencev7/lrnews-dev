@@ -1,20 +1,22 @@
 package com.lrnews.api.controller.article.fs;
 
-import com.lrnews.bo.ArticleBO;
-import com.lrnews.graceresult.JsonResultObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.Valid;
+import java.io.FileNotFoundException;
 
 @Api(value = "Article file service controller", tags = {"Article file service", "Controller"})
-@RequestMapping("/article")
+@RequestMapping("/article-fs")
 public interface ArticleFSControllerApi {
-    @ApiOperation(value = "Publish article", notes = "Publish article for a log in user")
-    @PostMapping("/generateStaticHtml")
-    JsonResultObject generateStaticHtml(@RequestBody @Valid ArticleBO articleBO, BindingResult bindingResult);
+    @ApiOperation(value = "Download article", notes = "Download article")
+    @PostMapping("/download")
+    Integer download(@RequestParam String articleId, @RequestParam String articleMongoId) throws FileNotFoundException;
+
+
+    @ApiOperation(value = "Download article", notes = "Download article")
+    @PostMapping("/delete")
+    Integer delete(@RequestParam String articleId);
 }
