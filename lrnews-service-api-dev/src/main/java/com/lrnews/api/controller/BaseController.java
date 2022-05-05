@@ -8,6 +8,8 @@ import com.lrnews.utils.RedisOperator;
 import com.lrnews.vo.CommonUserVO;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.client.RestTemplate;
@@ -34,11 +36,16 @@ public class BaseController {
     public static final int DEFAULT_PAGE = 1;
     public static final int DEFAULT_PAGE_SIZE = 10;
 
+    public static final String SERVICE_USER = "SERVICE-USER";
+
     @Autowired
     protected RedisOperator redis;
 
     @Autowired
     protected RestTemplate restTemplate;
+
+    @Autowired
+    private DiscoveryClient discoveryClient;
 
     protected void setCookie(HttpServletResponse response, String cookieKey,
                              String cookieValue, Integer maxAge, boolean needEncode) {
@@ -77,7 +84,8 @@ public class BaseController {
 
     protected List<CommonUserVO> remoteQueryUserInfos(Set<String> userIds) {
         List<CommonUserVO> publisherList = null;
-        String userServerUrl = REMOTE_CALL_QUERY_USER_BY_IDS_URL + JsonUtils.objectToJson(userIds);
+//        String userServerUrl = REMOTE_CALL_QUERY_USER_BY_IDS_URL + JsonUtils.objectToJson(userIds);
+        String userServerUrl = getExecUrl();
         ResponseEntity<JsonResultObject> entity = restTemplate.getForEntity(userServerUrl, JsonResultObject.class);
         JsonResultObject responseData = entity.getBody();
 
@@ -101,5 +109,11 @@ public class BaseController {
 
     protected CommonUserVO remoteQueryUserInfo(String userId) {
         return remoteQueryUserInfos(Set.of(userId)).get(0);
+    }
+
+    private String getExecUrl(){
+        List<ServiceInstance> instances = discoveryClient.getInstances(SERVICE_USER);
+        ServiceInstance userService = instances.get(0);
+        return "http://" + userService.getHost() + ":" + userService.getPort() + "user/queryUserByIds?userIds=";
     }
 }

@@ -88,7 +88,6 @@ public class ArticleController extends BaseController implements ArticleControll
                     category = c;
                     break;
                 }
-
             }
         } else {
             return JsonResultObject.errorCustom(ResponseStatusEnum.SYSTEM_ERROR);

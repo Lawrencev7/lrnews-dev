@@ -62,3 +62,8 @@ mapper:
 pagehelper: # 分页插件配置
   helperDialect: mysql
   supportMethodsArguments: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka/

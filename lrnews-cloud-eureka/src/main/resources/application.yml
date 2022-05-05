@@ -1,0 +1,28 @@
+############################################################
+#
+# Eureka service
+# Port: 7000
+#
+############################################################
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: 7001
+
+############################################################
+#
+# 配置项目信息
+#
+############################################################
+spring:
+  application:
+    name: service-eureka
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false # Do not register current server by eureka itself
+    fetch-registry: false # Do not fetch current server implement from eureka
+    service-url:
+      defaultZone: http://localhost:${server.port}/eureka/

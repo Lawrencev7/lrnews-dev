@@ -17,6 +17,8 @@
         <module>lrnews-service-admin-dev</module>
         <module>lrnews-service-article-dev</module>
         <module>lrnews-service-article-fs</module>
+        <module>lrnews-cloud-eureka</module>
+        <module>lrnews-cloud-eureka-cluster</module>
     </modules>
 
     <packaging>pom</packaging>

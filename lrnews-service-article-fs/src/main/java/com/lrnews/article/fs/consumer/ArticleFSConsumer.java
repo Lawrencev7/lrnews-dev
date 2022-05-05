@@ -7,20 +7,19 @@ import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 @Component
-public class RabbitMQConsumer {
-    Logger logger = LoggerFactory.getLogger(RabbitMQConsumer.class);
+public class ArticleFSConsumer {
+    Logger logger = LoggerFactory.getLogger(ArticleFSConsumer.class);
 
     public static final String DOWNLOAD_ROUTING_KEY = "article.download.do";
-    public static final String DELETE_ROUTING_KEY = "article.fs.download.do";
+    public static final String DELETE_ROUTING_KEY = "article.delete.do";
 
     final Consumer<String> delete;
     final Consumer<String> download;
 
-    public RabbitMQConsumer(Consumer<String> delete, Consumer<String> download) {
+    public ArticleFSConsumer(Consumer<String> delete, Consumer<String> download) {
         this.delete = delete;
         this.download = download;
     }

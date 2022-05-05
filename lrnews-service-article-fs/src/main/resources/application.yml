@@ -29,5 +29,5 @@ spring:
 
 freemarker:
   html:
-    target: /home/lr/lr/mycode/imooc-news/dev/lrnews/lrnews-service-article-dev/src/main/resources/freemarker/htmls
-    article: /home/lr/lr/mycode/imooc-news/dev/lrnews/lrnews-service-article-dev/src/main/resources/freemarker/articles
+    target: ../lr-news-fs/htmls
+    article: ../lr-news-fs/articles

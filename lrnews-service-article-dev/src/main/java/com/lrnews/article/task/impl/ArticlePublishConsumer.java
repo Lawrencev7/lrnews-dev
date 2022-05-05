@@ -7,20 +7,22 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.stereotype.Component;
 
+import java.util.function.Consumer;
+
 @Component
 public class ArticlePublishConsumer implements RabbitLazyMQConsumer {
 
-    final ArticleService articleService;
+    final Consumer<String> articlePublisher;
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public ArticlePublishConsumer(ArticleService articleService) {
-        this.articleService = articleService;
+        this.articlePublisher = articleService::updateArticleToPublish;
     }
 
     @Override
     public void watchQueueDelay(String payload, Message message) {
         logger.info("Received message to update article published ---> articleId={}", payload);
-        articleService.updateArticleToPublish( /* Article Id */ payload);
+        articlePublisher.accept( /* Article Id */ payload);
     }
 }
