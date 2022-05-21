@@ -7,7 +7,7 @@
 server:
   tomcat:
     uri-encoding: UTF-8
-  port: 7002
+  port: ${port:7002}
 
 ############################################################
 #
@@ -16,7 +16,7 @@ server:
 ############################################################
 spring:
   application:
-    name: service-eureka-cluster
+    name: service-eureka-cluster-02
 
 eureka:
   instance:
@@ -25,5 +25,4 @@ eureka:
     register-with-eureka: false
     fetch-registry: false
     service-url:
-      defaultZone: {"https://eureka-cluster-7003:7003/eureka/",
-                   "https://eureka-cluster-7004:7004/eureka/"}
+      defaultZone: http://eureka-cluster-7003.com:7003, http://eureka-cluster-7004.com:7004

@@ -8,7 +8,7 @@ server:
   tomcat:
     uri-encoding: UTF-8
     max-swallow-size: -1  # tomcat默认大小2M，超过2M的文件不会被捕获，需要调整此处大小为100MB或者-1即可
-  port: 8003
+#  port: 8003
 
 ############################################################
 #
@@ -66,4 +66,4 @@ pagehelper: # 分页插件配置
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:7001/eureka/
+      defaultZone: http://eureka-cluster-7002.com:7002/eureka, http://eureka-cluster-7003.com:7003/eureka, http://eureka-cluster-7004.com:7004/eureka

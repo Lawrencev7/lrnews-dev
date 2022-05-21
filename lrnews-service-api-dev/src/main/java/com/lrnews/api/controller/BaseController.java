@@ -45,7 +45,7 @@ public class BaseController {
     protected RestTemplate restTemplate;
 
     @Autowired
-    private DiscoveryClient discoveryClient;
+    protected DiscoveryClient discoveryClient;
 
     protected void setCookie(HttpServletResponse response, String cookieKey,
                              String cookieValue, Integer maxAge, boolean needEncode) {

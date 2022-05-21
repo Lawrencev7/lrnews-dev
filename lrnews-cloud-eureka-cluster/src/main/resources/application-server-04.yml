@@ -1,0 +1,28 @@
+############################################################
+#
+# Eureka cluster service
+# Port: 7002 - 7004
+#
+############################################################
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: ${port:7004}
+
+############################################################
+#
+# 配置项目信息
+#
+############################################################
+spring:
+  application:
+    name: service-eureka-cluster-04
+
+eureka:
+  instance:
+    hostname: eureka-cluster-7004
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://eureka-cluster-7003.com:7003, http://eureka-cluster-7002.com:7002

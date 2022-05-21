@@ -3,7 +3,7 @@
 <configuration>
     <!-- 指定日志文件的存储地址，使用绝对路径 -->
 <!--    <property name="LOG_HOME" value="/home/lr/lr/mycode/imooc-news/dev/logs/service-admin"/>-->
-    <property name="LOG_HOME" value="../lrnews-log/cloud-eureka"/>
+    <property name="LOG_HOME" value="../lrnews-log/cloud-eureka-cluster2"/>
 
     <!-- Console 输出设置 -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -20,7 +20,7 @@
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志文件输出的文件名 -->
-            <fileNamePattern>${LOG_HOME}/cloud-eureka.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${LOG_HOME}/cloud-eureka-cluster2.%d{yyyy-MM-dd}.log</fileNamePattern>
         </rollingPolicy>
         <encoder>
             <pattern>%d{ yyyy-MM-dd hh:mm:ss.SSS} [%-16.16thread] [%-6level] [%-36.36logger{36}] - %msg%n</pattern>

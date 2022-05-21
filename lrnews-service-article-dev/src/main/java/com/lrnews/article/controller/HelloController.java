@@ -1,15 +1,24 @@
 package com.lrnews.article.controller;
 
 import com.lrnews.api.config.RabbitMQConfig;
+import com.lrnews.api.controller.BaseController;
 import com.lrnews.api.controller.HelloControllerApi;
+import com.lrnews.graceresult.JsonResultObject;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
+
+import static com.lrnews.api.controller.BaseController.SERVICE_USER;
 
 @RestController
 @RequestMapping("/produce")
-public class HelloController implements HelloControllerApi {
+public class HelloController extends BaseController implements HelloControllerApi {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
@@ -25,5 +34,16 @@ public class HelloController implements HelloControllerApi {
                 RabbitMQConfig.BINDING_ROUTING_KEY,
                 "This Message is send by test function in HelloController - ArticleService");
         return null;
+    }
+
+    @RequestMapping("/test")
+    public String test(){
+        List<ServiceInstance> instances = discoveryClient.getInstances(SERVICE_USER);
+        ServiceInstance userService = instances.get(0);
+        System.out.println("userService.getHost() = " + userService.getHost() + ", userService.getPort() = " + userService.getPort());
+        String url = "http://" + userService.getHost() + ":" + userService.getPort() + "/hello/test";
+        System.out.println(url);
+        ResponseEntity<JsonResultObject> entity = restTemplate.getForEntity(url, JsonResultObject.class);
+        return (String) entity.getBody().getData();
     }
 }
