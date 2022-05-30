@@ -5,12 +5,11 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Component
-@PropertySource("classpath:/aliyun.properties")
 @ConfigurationProperties(prefix = "aliyun")
 public class AliyunResource {
-    private String accessKeyId;
+    private String accessKeyId="123";
 
-    private String accessSecret;
+    private String accessSecret="test";
 
     public String getAccessKeyId() {
         return accessKeyId;

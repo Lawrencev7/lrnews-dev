@@ -16,13 +16,21 @@ server:
 ############################################################
 spring:
   application:
-    name: service-eureka-cluster-02
+    name: eureka-cluster-03
 
 eureka:
   instance:
     hostname: eureka-cluster-7003
+    prefer-ip-address: true
+    ip-address: ${spring.application.name}
+    instance-id: ${spring.application.name}:${server.port}
   client:
     register-with-eureka: false
     fetch-registry: false
     service-url:
       defaultZone: http://eureka-cluster-7002.com:7002, http://eureka-cluster-7004.com:7004
+
+management:
+  health:
+    redis:
+      enabled: false

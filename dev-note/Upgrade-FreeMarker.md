@@ -217,7 +217,7 @@ cfg.setDirectoryForTemplateLoading(new File(fmTempPath));
 String filename = "hello";
 ```
 
-2. Get ftl file
+2. Get `ftl` file
 ```java
 Template tmp = cfg.getTemplate(filename + ".ftl", "utf-8");
 ```

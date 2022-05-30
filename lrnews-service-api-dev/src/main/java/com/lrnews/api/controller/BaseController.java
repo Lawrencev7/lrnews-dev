@@ -12,7 +12,7 @@ import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestOperations;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -42,7 +42,7 @@ public class BaseController {
     protected RedisOperator redis;
 
     @Autowired
-    protected RestTemplate restTemplate;
+    protected RestOperations restOperations;
 
     @Autowired
     protected DiscoveryClient discoveryClient;
@@ -86,7 +86,7 @@ public class BaseController {
         List<CommonUserVO> publisherList = null;
 //        String userServerUrl = REMOTE_CALL_QUERY_USER_BY_IDS_URL + JsonUtils.objectToJson(userIds);
         String userServerUrl = getExecUrl();
-        ResponseEntity<JsonResultObject> entity = restTemplate.getForEntity(userServerUrl, JsonResultObject.class);
+        ResponseEntity<JsonResultObject> entity = restOperations.getForEntity(userServerUrl, JsonResultObject.class);
         JsonResultObject responseData = entity.getBody();
 
         if (!Objects.nonNull(responseData)) {
@@ -112,7 +112,7 @@ public class BaseController {
     }
 
     private String getExecUrl(){
-        List<ServiceInstance> instances = discoveryClient.getInstances(SERVICE_USER);
+        List<ServiceInstance> instances = discoveryClient.getInstances("service-article");
         ServiceInstance userService = instances.get(0);
         return "http://" + userService.getHost() + ":" + userService.getPort() + "user/queryUserByIds?userIds=";
     }

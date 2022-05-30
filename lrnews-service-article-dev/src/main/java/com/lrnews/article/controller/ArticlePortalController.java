@@ -30,7 +30,7 @@ public class ArticlePortalController extends BaseController implements ArticlePo
 
     public ArticlePortalController(ArticlePortalService service, RestTemplate restTemplate) {
         this.articlePortalService = service;
-        this.restTemplate = restTemplate;
+        this.restOperations = restTemplate;
     }
 
     @Override

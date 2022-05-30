@@ -65,5 +65,4 @@ public class UploadServiceImpl implements UploaderService {
 
         return "MockUploadOSS";
     }
-
 }

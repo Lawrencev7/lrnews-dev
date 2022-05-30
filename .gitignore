@@ -2,4 +2,5 @@
 /*/target
 .idea
 /mybatis-generator-database/target/mybatis-generator-database-1.0-SNAPSHOT.jar
+*/*.iml
 /dev-note

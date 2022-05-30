@@ -67,3 +67,7 @@ eureka:
   client:
     service-url:
       defaultZone: http://eureka-cluster-7002.com:7002/eureka, http://eureka-cluster-7003.com:7003/eureka, http://eureka-cluster-7004.com:7004/eureka
+  instance:
+    instance-id: ${spring.application.name}:${server.port}  #指定服务的id
+    ip-address: ${spring.application.name}
+    prefer-ip-address: true

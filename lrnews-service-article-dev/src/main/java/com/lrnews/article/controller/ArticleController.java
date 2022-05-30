@@ -203,7 +203,7 @@ public class ArticleController extends BaseController implements ArticleControll
         String articleServiceUrl = "http://localhost:8001/portal/article/queryArticleDetail?" +
                 "articleId=" + articleId;
 
-        ResponseEntity<JsonResultObject> entity = restTemplate.getForEntity(articleServiceUrl, JsonResultObject.class);
+        ResponseEntity<JsonResultObject> entity = restOperations.getForEntity(articleServiceUrl, JsonResultObject.class);
         JsonResultObject responseData = entity.getBody();
         assert responseData != null;
         ArticleDetailVO articleDetailVO = new ArticleDetailVO();
