@@ -4,7 +4,6 @@ import com.lrnews.api.controller.article.fs.ArticleFSControllerApi;
 import com.mongodb.client.gridfs.GridFSBucket;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 
@@ -12,7 +11,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.util.function.Consumer;
 
 @Controller
 public class ArticleFSController implements ArticleFSControllerApi {

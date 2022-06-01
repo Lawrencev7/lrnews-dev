@@ -14,13 +14,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
@@ -56,12 +54,7 @@ public class PassportController extends BaseController implements PassportContro
     }
 
     @Override
-    public JsonResultObject doLogin(UserInfoBO userInfo, @NotNull BindingResult result,
-                                    HttpServletRequest request, HttpServletResponse response) {
-        if (result.hasErrors()) {
-            Map<String, String> errors = getErrors(result);
-            return JsonResultObject.errorMap(errors);
-        }
+    public JsonResultObject doLogin(UserInfoBO userInfo, HttpServletRequest request, HttpServletResponse response) {
 
         String phone = userInfo.getPhone();
         String requestVerifyParam = REDIS_MOBILE_VERIFY_CODE_KEY + phone;
@@ -109,8 +102,7 @@ public class PassportController extends BaseController implements PassportContro
     }
 
     @Override
-    public JsonResultObject doLogout(String userId, BindingResult result,
-                                     HttpServletRequest request, HttpServletResponse response) {
+    public JsonResultObject doLogout(String userId, HttpServletRequest request, HttpServletResponse response) {
         redis.delete(REDIS_USER_TOKEN_KEY + userId);
         setCookie(response, COOKIE_USER_TOKEN, "", COOKIE_DELETE_AGE, false);
         setCookie(response, COOKIE_USER_ID, "", COOKIE_DELETE_AGE, false);

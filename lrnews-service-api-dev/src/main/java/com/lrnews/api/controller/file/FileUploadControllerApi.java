@@ -4,7 +4,6 @@ import com.lrnews.bo.AdminBO;
 import com.lrnews.graceresult.JsonResultObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,16 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.lrnews.api.values.ServiceList.SERVICE_FILE;
-
 @Api(value = "File uploader controller api", tags = {"File Service", "Controller"})
 @RequestMapping("/file")
-@FeignClient(value = SERVICE_FILE)
 public interface FileUploadControllerApi {
 
     @ApiOperation(value = "Avatar Uploader", notes = "To upload avatar for user")
     @PostMapping("/uploadAvatar")
-    JsonResultObject uploadAvatar(@RequestParam String userId, MultipartFile file);
+    JsonResultObject uploadAvatar(@RequestParam String userId,@RequestParam MultipartFile file);
 
     @ApiOperation(value = "Face upload", notes = "Upload face to GridFS")
     @PostMapping("/uploadToGridFS")

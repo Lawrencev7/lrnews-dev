@@ -6,15 +6,15 @@ import org.slf4j.LoggerFactory;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 public class HttpReq {
     private final String baseUrl;
     private String req;
-    private StringBuilder params = new StringBuilder();
+    private final StringBuilder params = new StringBuilder();
     Logger logger = LoggerFactory.getLogger(HttpReq.class);
 
     public HttpReq(String baseUrl) {
@@ -32,11 +32,7 @@ public class HttpReq {
 
     public HttpReq param(String name, String value) {
         if (params.length() > 0) params.append('&');
-        try {
-            params.append(name).append('=').append(URLEncoder.encode(value, "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        params.append(name).append('=').append(URLEncoder.encode(value, StandardCharsets.UTF_8));
 
         return this;
     }
@@ -96,7 +92,7 @@ public class HttpReq {
             baos.write(buffer, 0, length);
         }
 
-        return new String(baos.toByteArray(), charset);
+        return baos.toString(charset);
     }
 
     private static String getCharset(String contentType) {

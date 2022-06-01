@@ -16,19 +16,16 @@ import com.lrnews.vo.CommonUserVO;
 import com.lrnews.vo.PersonalPageInfoVO;
 import com.lrnews.vo.UserVO;
 import org.apache.commons.lang3.StringUtils;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestOperations;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 import static com.lrnews.values.CommonApiDefStrings.SESSION_HEADER_USER_ID;
@@ -43,12 +40,10 @@ public class UserInfoController extends BaseController implements UserInfoContro
 
     final FansService fansService;
 
-    final RestTemplate restTemplate;
-
-    public UserInfoController(UserService userService, FansService fansService, RestTemplate restTemplate) {
+    public UserInfoController(UserService userService, FansService fansService, RestOperations restOperations) {
         this.userService = userService;
         this.fansService = fansService;
-        this.restTemplate = restTemplate;
+        this.restOperations = restOperations;
     }
 
     @Override
@@ -77,16 +72,12 @@ public class UserInfoController extends BaseController implements UserInfoContro
     }
 
     @Override
-    public JsonResultObject updateUserInfo(UpdateUserInfoBO updateUserInfoBO, @NotNull BindingResult result) {
+    public JsonResultObject updateUserInfo(UpdateUserInfoBO updateUserInfoBO) {
         String id = updateUserInfoBO.getId();
         String userInfoTag = redisCachedInfoTag(id);
         // Ensure double-write consistence
         redis.delete(userInfoTag);
 
-        if (result.hasErrors()) {
-            Map<String, String> errors = getErrors(result);
-            return JsonResultObject.errorMap(errors);
-        }
         userService.updateUserInfo(updateUserInfoBO);
 
         // Update redis cached user info.
@@ -156,7 +147,7 @@ public class UserInfoController extends BaseController implements UserInfoContro
                 "page" + page +
                 "pageSize" + pageSize;
 
-        ResponseEntity<JsonResultObject> entity = restTemplate.getForEntity(articleServiceUrl, JsonResultObject.class);
+        ResponseEntity<JsonResultObject> entity = restOperations.getForEntity(articleServiceUrl, JsonResultObject.class);
         JsonResultObject responseData = entity.getBody();
         List<Article> writerArticles = null;
         if (Objects.isNull(responseData)) {

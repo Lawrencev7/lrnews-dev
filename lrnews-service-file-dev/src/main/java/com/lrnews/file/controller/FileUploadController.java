@@ -16,7 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,9 +29,11 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
+import static com.lrnews.api.values.ServiceList.SERVICE_FILE;
 import static com.lrnews.values.CommonTestStrings.UPLOAD_FACE_TO_DISK;
 
 @RestController
+@FeignClient(value = SERVICE_FILE)
 public class FileUploadController implements FileUploadControllerApi {
 
     private static final Logger logger = LoggerFactory.getLogger(FileUploadController.class);

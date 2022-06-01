@@ -4,7 +4,6 @@ import com.lrnews.bo.LinksBO;
 import com.lrnews.graceresult.JsonResultObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface LinksManageControllerApi {
     @ApiOperation(value = "Save link", notes = "Save a new link or update an existed link")
     @PostMapping("/saveLinks")
-    JsonResultObject saveLinks(@RequestBody @Validated LinksBO saveLinksBO, BindingResult result);
+    JsonResultObject saveLinks(@RequestBody @Validated LinksBO saveLinksBO);
 
     @ApiOperation(value = "Query link list", notes = "Query list of all links")
     @PostMapping("/queryLinks")

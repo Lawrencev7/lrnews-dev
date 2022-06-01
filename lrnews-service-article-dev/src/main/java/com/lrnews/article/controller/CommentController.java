@@ -10,7 +10,6 @@ import com.lrnews.graceresult.ResponseStatusEnum;
 import com.lrnews.vo.CommonUserVO;
 import com.lrnews.vo.PagedGridVO;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.lrnews.values.CommonRedisKeySet.REDIS_ARTICLE_READ_COUNT_KEY;
@@ -29,10 +28,7 @@ public class CommentController extends BaseController implements CommentControll
 
 
     @Override
-    public JsonResultObject addComment(CommentReplyBO commentReplyBO, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return JsonResultObject.errorMap(getErrors(bindingResult));
-        }
+    public JsonResultObject addComment(CommentReplyBO commentReplyBO) {
 
         CommonUserVO user = remoteQueryUserInfo(commentReplyBO.getCommentUserId());
 

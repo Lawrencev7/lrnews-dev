@@ -4,7 +4,6 @@ import com.lrnews.bo.CommentReplyBO;
 import com.lrnews.graceresult.JsonResultObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -14,7 +13,7 @@ import javax.validation.Valid;
 public interface CommentControllerApi {
     @ApiOperation(value = "Add comment", notes = "Add a comment under an article")
     @PostMapping("/addComment")
-    JsonResultObject addComment(@RequestBody @Valid CommentReplyBO commentReplyBO, BindingResult bindingResult);
+    JsonResultObject addComment(@RequestBody @Valid CommentReplyBO commentReplyBO);
 
     @ApiOperation(value = "Query Comment Count", notes = "Get the total comment counts of current article")
     @GetMapping("/queryCommentCount")

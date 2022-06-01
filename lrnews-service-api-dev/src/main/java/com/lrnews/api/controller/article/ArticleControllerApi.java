@@ -5,7 +5,6 @@ import com.lrnews.bo.ArticleQueryBO;
 import com.lrnews.graceresult.JsonResultObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +17,11 @@ import javax.validation.Valid;
 public interface ArticleControllerApi {
     @ApiOperation(value = "Publish article", notes = "Publish article for a log in user")
     @PostMapping("/publish")
-    JsonResultObject publish(@RequestBody @Valid ArticleBO articleBO, BindingResult bindingResult);
+    JsonResultObject publish(@RequestBody @Valid ArticleBO articleBO);
 
     @ApiOperation(value = "Query articles", notes = "Query articles published by someone user")
     @PostMapping("/queryMyArticles")
-    JsonResultObject queryMyArticles(@RequestBody @Valid ArticleQueryBO query, BindingResult bindingResult);
+    JsonResultObject queryMyArticles(@RequestBody @Valid ArticleQueryBO query);
 
     @ApiOperation(value = "Query articles", notes = "Query all articles. Only for admin")
     @PostMapping("/queryAllArticles")

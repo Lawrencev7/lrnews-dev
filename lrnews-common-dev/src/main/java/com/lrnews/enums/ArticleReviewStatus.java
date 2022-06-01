@@ -34,13 +34,11 @@ public enum ArticleReviewStatus {
      */
     public static boolean isArticleStatusValid(Integer tempStatus) {
         if (tempStatus != null) {
-            if (tempStatus == REVIEWING.type
+            return tempStatus == REVIEWING.type
                     || tempStatus == WAITING_MANUAL.type
                     || tempStatus == SUCCESS.type
                     || tempStatus == FAILED.type
-                    || tempStatus == WITHDRAW.type) {
-                return true;
-            }
+                    || tempStatus == WITHDRAW.type;
         }
         return false;
     }

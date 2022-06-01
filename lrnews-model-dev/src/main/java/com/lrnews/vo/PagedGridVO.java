@@ -13,8 +13,6 @@ public class PagedGridVO {
     private PagedGridVO() {
     }
 
-    ;
-
     public int getPage() {
         return page;
     }

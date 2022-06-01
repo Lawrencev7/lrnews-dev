@@ -4,7 +4,6 @@ import com.lrnews.bo.UserInfoBO;
 import com.lrnews.graceresult.JsonResultObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +20,9 @@ public interface PassportControllerApi {
 
     @PostMapping("/login")
     @ApiOperation(value = "Login/register interface", notes = "Do login or register in this interface")
-    JsonResultObject doLogin(@Valid @RequestBody UserInfoBO userInfo, BindingResult result, HttpServletRequest request, HttpServletResponse response);
+    JsonResultObject doLogin(@Valid @RequestBody UserInfoBO userInfo, HttpServletRequest request, HttpServletResponse response);
 
     @PostMapping("/logout")
     @ApiOperation(value = "Logout interface", notes = "Delete cached user information with this interface")
-    JsonResultObject doLogout(String userId, BindingResult result, HttpServletRequest request, HttpServletResponse response);
+    JsonResultObject doLogout(String userId, HttpServletRequest request, HttpServletResponse response);
 }

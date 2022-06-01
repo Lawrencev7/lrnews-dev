@@ -23,7 +23,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
@@ -58,12 +57,7 @@ public class ArticleController extends BaseController implements ArticleControll
     }
 
     @Override
-    public JsonResultObject publish(ArticleBO articleBO, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            Map<String, String> errorMap = getErrors(bindingResult);
-            return JsonResultObject.errorMap(errorMap);
-        }
-
+    public JsonResultObject publish(ArticleBO articleBO) {
         // Set article cover depending on user selection
         if (Objects.equals(articleBO.getArticleType(), ArticleCoverType.ONE_IMAGE.type)) {
             if (StringUtils.isBlank(articleBO.getArticleCover())) {
@@ -103,11 +97,7 @@ public class ArticleController extends BaseController implements ArticleControll
     }
 
     @Override
-    public JsonResultObject queryMyArticles(ArticleQueryBO query, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            Map<String, String> errorMap = getErrors(bindingResult);
-            return JsonResultObject.errorMap(errorMap);
-        }
+    public JsonResultObject queryMyArticles(ArticleQueryBO query) {
 
         if (query.getPage() == null) query.setPage(DEFAULT_PAGE);
         if (query.getPageSize() == null) query.setPageSize(DEFAULT_PAGE_SIZE);

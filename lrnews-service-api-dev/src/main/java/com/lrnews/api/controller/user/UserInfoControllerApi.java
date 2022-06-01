@@ -6,7 +6,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +28,7 @@ public interface UserInfoControllerApi {
 
     @ApiOperation(value = "Interface for updating user info", tags = {"Update user info"})
     @PostMapping("/updateUserInfo")
-    JsonResultObject updateUserInfo(@RequestBody @Valid UpdateUserInfoBO updateUserInfoBO,@RequestParam BindingResult result);
+    JsonResultObject updateUserInfo(@RequestBody @Valid UpdateUserInfoBO updateUserInfoBO);
 
     @ApiOperation(value = "Query user info by user ids string", tags = {"Query by ids string"})
     @GetMapping("/queryUserByIds")

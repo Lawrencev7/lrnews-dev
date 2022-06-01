@@ -9,7 +9,6 @@ import com.lrnews.graceresult.JsonResultObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -28,12 +27,7 @@ public class LinksManageController extends BaseController implements LinksManage
     }
 
     @Override
-    public JsonResultObject saveLinks(LinksBO saveLinksBO, BindingResult result) {
-
-        if (result.hasErrors()) {
-            return JsonResultObject.errorMap(getErrors(result));
-        }
-
+    public JsonResultObject saveLinks(LinksBO saveLinksBO) {
         LinksDBModel linkMO = new LinksDBModel();
         BeanUtils.copyProperties(saveLinksBO, linkMO);
         if (linksService.linkExist(linkMO)) {

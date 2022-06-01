@@ -7,12 +7,8 @@ import com.lrnews.api.controller.user.UserInfoControllerApi;
 import com.lrnews.graceresult.JsonResultObject;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/produce")
@@ -50,6 +46,6 @@ public class ArticleHelloController extends BaseController implements HelloContr
 
     @RequestMapping("/test")
     public JsonResultObject test(){ // Version 2 - Feign
-        return userService.getUserInfo("ABC");
+        return JsonResultObject.ok(userService.getUserCommonInfo(""));
     }
 }

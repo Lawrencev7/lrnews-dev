@@ -1,6 +1,7 @@
 package org.n3r.idworker.utils;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -24,7 +25,7 @@ public class Utils {
         InputStream inputStream = null;
         try {
             inputStream = classResourceToStream(classResourceName);
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
 
             return bufferedReader.readLine();
         } catch (IOException e) {

@@ -1,11 +1,9 @@
 package com.lrnews.article.fs.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.io.FileNotFoundException;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 @Component

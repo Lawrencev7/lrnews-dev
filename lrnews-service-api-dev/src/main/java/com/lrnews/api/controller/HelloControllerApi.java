@@ -17,8 +17,8 @@ public interface HelloControllerApi {
     @ApiOperation(value = "test for rabbit mq", notes = "rabbit mq test function")
     default Object helloRabbitMQ(){
         return null;
-    };
+    }
 
     @GetMapping("/test")
-    default public Object test() {return "";};
+    default Object test() {return "";}
 }

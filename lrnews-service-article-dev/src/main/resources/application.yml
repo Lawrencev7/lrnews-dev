@@ -88,3 +88,13 @@ eureka:
                    http://eureka-cluster-7004.com:7004/eureka
   instance:
     instance-id: ${spring.application.name}:${server.port} #指定服务的id
+
+feign:
+  client:
+    config:
+      service-user:
+        loglevel: FULL
+
+logging:
+  level:
+    com.lrnews.api.controller.user.UserInfoControllerApi: trace
