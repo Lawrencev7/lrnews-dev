@@ -8,7 +8,7 @@ server:
   tomcat:
     uri-encoding: UTF-8
     max-swallow-size: -1  # tomcat默认大小2M，超过2M的文件不会被捕获，需要调整此处大小为100MB或者-1即可
-  port: 8004
+  port: ${port:8004 }
 
 ############################################################
 #
@@ -32,3 +32,20 @@ spring:
     mongodb:
       uri: mongodb://root:root@localhost:27017
       database: lrnews-dev
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-cluster-7002.com:7002/eureka, http://eureka-cluster-7003.com:7003/eureka, http://eureka-cluster-7004.com:7004/eureka
+  instance:
+    instance-id: ${spring.application.name}:${server.port}  #指定服务的id
+    ip-address: ${spring.application.name}
+    prefer-ip-address: true
+
+ribbon:
+  ConnectTimeout: 5000          # Timeout for create a connection / ms
+  ReadTimeout: 5000             # Timeout for interface calling
+  MaxAutoRetries: 1             # Max retry time for current server
+  MaxAutoRetriesNextServer: 2   # Max retry time for another server instance
+  # When failed for ${MaxAutoRetries} time(s), ribbon will find next ${MaxAutoRetriesNextServer} server(s)
+  # and retry ${MaxAutoRetries} time(s) for each server.

@@ -71,3 +71,11 @@ eureka:
     instance-id: ${spring.application.name}:${server.port}  #指定服务的id
     ip-address: ${spring.application.name}
     prefer-ip-address: true
+
+ribbon:
+  ConnectTimeout: 5000          # Timeout for create a connection / ms
+  ReadTimeout: 5000             # Timeout for interface calling
+  MaxAutoRetries: 1             # Max retry time for current server
+  MaxAutoRetriesNextServer: 2   # Max retry time for another server instance
+  # When failed for ${MaxAutoRetries} time(s), ribbon will find next ${MaxAutoRetriesNextServer} server(s)
+  # and retry ${MaxAutoRetries} time(s) for each server.

@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -93,31 +94,31 @@ public class FileUploadController implements FileUploadControllerApi {
         }
     }
 
-    @Override
-    public JsonResultObject uploadAvatarTest(String userId, String filename) {
-        if (filename == null) {
-            logger.error("Test interface: Uploaded a null file");
-            return JsonResultObject.errorCustom(ResponseStatusEnum.FILE_UPLOAD_NULL_ERROR);
-        }
-
-        if (StringUtils.isBlank(filename)) {
-            logger.error("Test interface: File name is blank");
-            return JsonResultObject.errorCustom(ResponseStatusEnum.FILE_UPLOAD_FAILD);
-        }
-
-        String extName = checkFileAndGetExtName(filename);
-        if (StringUtils.isBlank(extName)) {
-            return JsonResultObject.errorCustom(ResponseStatusEnum.FILE_FORMATTER_FAILD);
-        }
-
-        try {
-            String path = uploaderService.uploadFDFS(null, extName);
-            return JsonResultObject.ok(fileResource.getHost() + "/" + path);
-        } catch (IOException e) {
-            logger.error("Test interface: File upload failed with exception {}" + e.getMessage());
-            return JsonResultObject.errorCustom(ResponseStatusEnum.FILE_UPLOAD_FAILD);
-        }
-    }
+//    @Override
+//    public JsonResultObject uploadAvatarTest(String userId, String filename) {
+//        if (filename == null) {
+//            logger.error("Test interface: Uploaded a null file");
+//            return JsonResultObject.errorCustom(ResponseStatusEnum.FILE_UPLOAD_NULL_ERROR);
+//        }
+//
+//        if (StringUtils.isBlank(filename)) {
+//            logger.error("Test interface: File name is blank");
+//            return JsonResultObject.errorCustom(ResponseStatusEnum.FILE_UPLOAD_FAILD);
+//        }
+//
+//        String extName = checkFileAndGetExtName(filename);
+//        if (StringUtils.isBlank(extName)) {
+//            return JsonResultObject.errorCustom(ResponseStatusEnum.FILE_FORMATTER_FAILD);
+//        }
+//
+//        try {
+//            String path = uploaderService.uploadFDFS(null, extName);
+//            return JsonResultObject.ok(fileResource.getHost() + "/" + path);
+//        } catch (IOException e) {
+//            logger.error("Test interface: File upload failed with exception {}" + e.getMessage());
+//            return JsonResultObject.errorCustom(ResponseStatusEnum.FILE_UPLOAD_FAILD);
+//        }
+//    }
 
     @Override
     public JsonResultObject uploadToGridFS(AdminBO adminBO) {

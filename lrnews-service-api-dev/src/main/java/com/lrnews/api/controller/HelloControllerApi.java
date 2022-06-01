@@ -18,4 +18,7 @@ public interface HelloControllerApi {
     default Object helloRabbitMQ(){
         return null;
     };
+
+    @GetMapping("/test")
+    default public Object test() {return "";};
 }

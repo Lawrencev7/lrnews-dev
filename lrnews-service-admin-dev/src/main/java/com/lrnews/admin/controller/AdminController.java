@@ -3,9 +3,11 @@ package com.lrnews.admin.controller;
 import com.lrnews.admin.service.AdminUserService;
 import com.lrnews.api.controller.BaseController;
 import com.lrnews.api.controller.admin.AdminControllerApi;
+import com.lrnews.api.controller.file.FileUploadControllerApi;
 import com.lrnews.bo.AdminBO;
 import com.lrnews.bo.AdminLoginBO;
 import com.lrnews.exception.CustomExceptionFactory;
+import com.lrnews.exception.LrCustomException;
 import com.lrnews.graceresult.JsonResultObject;
 import com.lrnews.graceresult.ResponseStatusEnum;
 import com.lrnews.pojo.AdminUser;
@@ -18,10 +20,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -34,11 +36,11 @@ public class AdminController extends BaseController implements AdminControllerAp
 
     final AdminUserService adminUserService;
 
-    final RestTemplate restTemplate;
+    final FileUploadControllerApi fileService;
 
-    public AdminController(AdminUserService adminUserService, RestTemplate restTemplate) {
+    public AdminController(AdminUserService adminUserService, FileUploadControllerApi fileService) {
         this.adminUserService = adminUserService;
-        this.restTemplate = restTemplate;
+        this.fileService = fileService;
     }
 
     @Override
@@ -147,8 +149,7 @@ public class AdminController extends BaseController implements AdminControllerAp
         }
 
         // Request for file server and get face img
-        String fileServerUrl = "http://localhost:8004/file/readFaceImg64?faceId=" + faceId;
-        String img64String = restTemplate.getForObject(fileServerUrl, String.class);
+        String img64String = requestForFaceImg64(faceId);
 
         // Request for face cognition server <Ignored here>
         boolean result = FaceCognitionUtil.verifyFace(Objects.requireNonNull(img64String));
@@ -188,14 +189,22 @@ public class AdminController extends BaseController implements AdminControllerAp
     }
 
     private static void logSuccess(String id) {
-        logger.info("Login for admin {} success", id);
+        logger.debug("Login for admin {} success", id);
     }
 
     private static void logBlocked(String id, String reason) {
-        logger.info("Block login request for admin {}: {}", id, reason);
+        logger.debug("Block login request for admin {}: {}", id, reason);
     }
 
     private static void logBlocked(String reason) {
         logBlocked("-", reason);
+    }
+
+    private String requestForFaceImg64(String faceId) {
+        try {
+            return fileService.readFaceImg64(faceId);
+        } catch (IOException e) {
+            throw new LrCustomException(ResponseStatusEnum.SYSTEM_IO);
+        }
     }
 }

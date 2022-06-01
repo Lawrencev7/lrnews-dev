@@ -25,18 +25,14 @@ import static com.lrnews.values.CommonRedisKeySet.REDIS_CATEGORY_KEY;
 
 public class BaseController {
 
-    protected static final Integer DEFAULT_KEY_MAX_AGE = 7 * 24 * 60 * 60; // Cookie stays one week
-    protected static final Integer ONE_DAY_KEY_AGE = 24 * 60 * 60; // Cookie stays one week
-    protected static final Integer COOKIE_DELETE_AGE = 0; // For deleted cookie
-
-    protected static final String REMOTE_CALL_QUERY_USER_BY_IDS_URL = "http://localhost:8003/user/queryUserByIds?userIds=";
+    protected static final Integer DEFAULT_KEY_MAX_AGE = 7 * 24 * 60 * 60;      // Cookie stays one week
+    protected static final Integer ONE_DAY_KEY_AGE = 24 * 60 * 60;              // Cookie stays one week
+    protected static final Integer COOKIE_DELETE_AGE = 0;                       // For deleted cookie
 
     protected static String DEFAULT_COOKIE_DOMAIN = "lrnews.com";
 
     public static final int DEFAULT_PAGE = 1;
     public static final int DEFAULT_PAGE_SIZE = 10;
-
-    public static final String SERVICE_USER = "SERVICE-USER";
 
     @Autowired
     protected RedisOperator redis;
