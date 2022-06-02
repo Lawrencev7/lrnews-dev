@@ -5,8 +5,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Api(value = "Test controller api value", tags = {"hello-controller", "The first test controller for this project"})
+@Api(value = "Test controller api value", tags = {"hello-controller"})
 @RequestMapping("/hello")
+//@FeignClient(value = SERVICE_USER)
 public interface HelloControllerApi {
 
     @GetMapping("/hello")

@@ -14,28 +14,28 @@ import javax.validation.Valid;
 import static com.lrnews.api.values.ServiceList.SERVICE_USER;
 
 @Api(value = "User info api", tags = {"An entry for user infos"})
-@RequestMapping("/user")
+//@RequestMapping("/user")
 @FeignClient(value = SERVICE_USER)
 public interface UserInfoControllerApi {
 
     @ApiOperation(value = "Interface for obtaining user full info", tags = {"Get user info"})
-    @PostMapping("/getUserInfo")
+    @PostMapping("/user/getUserInfo")
     JsonResultObject getUserInfo(@RequestParam String userId);
 
     @ApiOperation(value = "Interface for obtaining user common info", tags = {"Get user common info"})
-    @PostMapping("/getCommonInfo")
+    @PostMapping("/user/getCommonInfo")
     JsonResultObject getUserCommonInfo(@RequestParam String userId);
 
     @ApiOperation(value = "Interface for updating user info", tags = {"Update user info"})
-    @PostMapping("/updateUserInfo")
+    @PostMapping("/user/updateUserInfo")
     JsonResultObject updateUserInfo(@RequestBody @Valid UpdateUserInfoBO updateUserInfoBO);
 
     @ApiOperation(value = "Query user info by user ids string", tags = {"Query by ids string"})
-    @GetMapping("/queryUserByIds")
+    @GetMapping("/user/queryUserByIds")
     JsonResultObject queryUserByIds(@RequestParam String userIds);
 
     @ApiOperation(value = "Query personal page info", tags = {"Query user info on personal page"})
-    @GetMapping("/getPersonalPageInfo")
+    @GetMapping("/user/getPersonalPageInfo")
     JsonResultObject getPersonalPageInfo(@RequestParam String userIds,
                                          @ApiParam(name = "page", value = "Current query page")
                                          @RequestParam Integer page,

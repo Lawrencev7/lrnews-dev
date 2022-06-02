@@ -29,11 +29,9 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
-import static com.lrnews.api.values.ServiceList.SERVICE_FILE;
 import static com.lrnews.values.CommonTestStrings.UPLOAD_FACE_TO_DISK;
 
 @RestController
-@FeignClient(value = SERVICE_FILE)
 public class FileUploadController implements FileUploadControllerApi {
 
     private static final Logger logger = LoggerFactory.getLogger(FileUploadController.class);

@@ -5,15 +5,11 @@ import com.lrnews.graceresult.JsonResultObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.lrnews.api.values.ServiceList.SERVICE_USER;
-
 @RestController
-@FeignClient(value = SERVICE_USER)
 public class UserHelloController implements HelloControllerApi {
     @Value("${server.port}")
     private String port;
