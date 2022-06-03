@@ -2,7 +2,6 @@ package com.lrnews.api.controller.file;
 
 import com.lrnews.bo.AdminBO;
 import com.lrnews.graceresult.JsonResultObject;
-import feign.RequestLine;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
