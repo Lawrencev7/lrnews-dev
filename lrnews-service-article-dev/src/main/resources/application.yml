@@ -90,6 +90,8 @@ eureka:
     instance-id: ${spring.application.name}:${server.port} #指定服务的id
 
 feign:
+  hystrix:
+    enabled: true
   client:
     config:
       service-user:
@@ -98,3 +100,4 @@ feign:
 logging:
   level:
     com.lrnews.api.controller.user.UserInfoControllerApi: trace
+    com.netflix: trace

@@ -18,7 +18,7 @@ public class ArticleHelloController extends BaseController implements HelloContr
     private RabbitTemplate rabbitTemplate;
 
     @Autowired
-    private UserInfoControllerApi userService; //Target interface must mark with @FeignClient
+    private UserInfoControllerApi msUser; // Micro-service User. Target interface must mark with @FeignClient
 
     @Override
     public Object hello() {
@@ -46,6 +46,6 @@ public class ArticleHelloController extends BaseController implements HelloContr
 
     @RequestMapping("/test")
     public JsonResultObject test(){ // Version 2 - Feign
-        return JsonResultObject.ok(userService.getUserCommonInfo(""));
+        return JsonResultObject.ok(msUser.getUserCommonInfo(""));
     }
 }

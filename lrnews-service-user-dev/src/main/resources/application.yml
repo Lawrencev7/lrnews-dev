@@ -79,3 +79,20 @@ ribbon:
   MaxAutoRetriesNextServer: 2   # Max retry time for another server instance
   # When failed for ${MaxAutoRetries} time(s), ribbon will find next ${MaxAutoRetriesNextServer} server(s)
   # and retry ${MaxAutoRetries} time(s) for each server.
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2000   # 设置hystrix超时时间，超过2秒触发降级
+      circuitBreaker: # 配置断路器
+        enabled: true
+        requestVolumeThreshold: 10    # 设置在一个滚动窗口中，打开断路器的最少请求数。默认 20。
+        sleepWindowInMilliseconds: 15000    # 熔断后过几秒后尝试半开状态（请求重试），默认：5s
+        errorThresholdPercentage: 50  # 触发熔断的失败率（异常率/阈值），默认：50
+
+logging:
+  level:
+    com.netflix: trace

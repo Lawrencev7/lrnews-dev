@@ -34,3 +34,7 @@ management:
   health:
     redis:
       enabled: false
+
+logging:
+  level:
+    com.netflix: warn

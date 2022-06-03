@@ -1,5 +1,6 @@
 package com.lrnews.api.controller.user;
 
+import com.lrnews.api.controller.user.fallbacks.UserInfoCtrlFallback;
 import com.lrnews.bo.UpdateUserInfoBO;
 import com.lrnews.graceresult.JsonResultObject;
 import io.swagger.annotations.Api;
@@ -13,28 +14,28 @@ import javax.validation.Valid;
 
 import static com.lrnews.api.values.ServiceList.SERVICE_USER;
 
-@Api(value = "User info api", tags = {"An entry for user infos"})
+@Api(value = "User info api")
 //@RequestMapping("/user")
-@FeignClient(value = SERVICE_USER)
+@FeignClient(value = SERVICE_USER, fallbackFactory = UserInfoCtrlFallback.class)
 public interface UserInfoControllerApi {
 
-    @ApiOperation(value = "Interface for obtaining user full info", tags = {"Get user info"})
+    @ApiOperation(value = "Interface for obtaining user full info")
     @PostMapping("/user/getUserInfo")
     JsonResultObject getUserInfo(@RequestParam String userId);
 
-    @ApiOperation(value = "Interface for obtaining user common info", tags = {"Get user common info"})
+    @ApiOperation(value = "Interface for obtaining user common info")
     @PostMapping("/user/getCommonInfo")
     JsonResultObject getUserCommonInfo(@RequestParam String userId);
 
-    @ApiOperation(value = "Interface for updating user info", tags = {"Update user info"})
+    @ApiOperation(value = "Interface for updating user info")
     @PostMapping("/user/updateUserInfo")
     JsonResultObject updateUserInfo(@RequestBody @Valid UpdateUserInfoBO updateUserInfoBO);
 
-    @ApiOperation(value = "Query user info by user ids string", tags = {"Query by ids string"})
+    @ApiOperation(value = "Query user info by user ids string")
     @GetMapping("/user/queryUserByIds")
     JsonResultObject queryUserByIds(@RequestParam String userIds);
 
-    @ApiOperation(value = "Query personal page info", tags = {"Query user info on personal page"})
+    @ApiOperation(value = "Query personal page info")
     @GetMapping("/user/getPersonalPageInfo")
     JsonResultObject getPersonalPageInfo(@RequestParam String userIds,
                                          @ApiParam(name = "page", value = "Current query page")
@@ -42,5 +43,9 @@ public interface UserInfoControllerApi {
                                          @ApiParam(name = "pageSize", value = "Current page size")
                                          @RequestParam Integer pageSize,
                                          @RequestParam HttpServletRequest request);
+
+    @ApiOperation(value = "Simulate a block event")
+    @GetMapping("/user/simBlock")
+    JsonResultObject blockSimulator();
 
 }

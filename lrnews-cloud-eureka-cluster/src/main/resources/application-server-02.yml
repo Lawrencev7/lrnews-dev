@@ -9,6 +9,7 @@ server:
     uri-encoding: UTF-8
   port: ${port:7002}
 
+
 ############################################################
 #
 # 配置项目信息
@@ -34,3 +35,7 @@ management:
   health:
     redis:
       enabled: false
+
+logging:
+  level:
+    com.netflix: warn

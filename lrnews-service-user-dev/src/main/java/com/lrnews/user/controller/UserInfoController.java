@@ -15,6 +15,8 @@ import com.lrnews.utils.JsonUtils;
 import com.lrnews.vo.CommonUserVO;
 import com.lrnews.vo.PersonalPageInfoVO;
 import com.lrnews.vo.UserVO;
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +34,7 @@ import static com.lrnews.values.CommonApiDefStrings.SESSION_HEADER_USER_ID;
 import static com.lrnews.values.CommonRedisKeySet.*;
 
 @RestController
+@DefaultProperties(defaultFallback = "defaultFallback")
 public class UserInfoController extends BaseController implements UserInfoControllerApi {
 
     private static final Logger logger = LoggerFactory.getLogger(UserInfoController.class);
@@ -117,6 +120,14 @@ public class UserInfoController extends BaseController implements UserInfoContro
             CustomExceptionFactory.onException(ResponseStatusEnum.USER_NOT_EXIST_ERROR);
         }
 
+
+        //DEV-TEST ONLY
+        if(userIds.equals("DEV-TEST-SIM-RUNTIME-ERROR")){
+            System.out.println("Simulate a runtime error");
+            throw new RuntimeException("DEV-TEST-SIM-RUNTIME-ERROR");
+        }
+        //DEV-TEST ONLY
+
         List<CommonUserVO> userCommonInfoList = new ArrayList<>();
         List<String> idList = JsonUtils.jsonToList(userIds, String.class);
 
@@ -197,5 +208,31 @@ public class UserInfoController extends BaseController implements UserInfoContro
             redis.set(REDIS_MY_SUBSCRIBE_NUM_KEY + myId, myFansNum.toString());
             return myFansNum;
         }
+    }
+
+    @Override   // Set fallback function for one interface
+    @HystrixCommand//(fallbackMethod = "blockSimulatorFallback")
+    public JsonResultObject blockSimulator() {
+        // 1.Trigger an simple exception
+        int a = 1 / 0;
+
+        // 2.Simulate a timeout exception
+//        try {
+//            Thread.sleep(9999);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
+        return JsonResultObject.ok();
+    }
+
+    private JsonResultObject blockSimulatorFallback() {
+        logger.info("Hystrix fallback called: blockSimulatorFallback");
+        return JsonResultObject.ok("blockSimulatorFallback was called");
+    }
+
+    private JsonResultObject defaultFallback(){
+        logger.info("Hystrix: Global fallback");
+        return JsonResultObject.errorCustom(ResponseStatusEnum.SYSTEM_BUSY);
     }
 }
