@@ -39,3 +39,7 @@ management:
 logging:
   level:
     com.netflix: warn
+
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: localhost

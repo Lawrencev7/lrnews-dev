@@ -35,6 +35,5 @@ public class ArticleFSConsumer {
         return routingKey.equalsIgnoreCase(DOWNLOAD_ROUTING_KEY) ? download :
                 routingKey.equalsIgnoreCase(DELETE_ROUTING_KEY) ? delete :
                 (Consumer<String>) s -> logger.error("Match routing key failed.");
-
     }
 }

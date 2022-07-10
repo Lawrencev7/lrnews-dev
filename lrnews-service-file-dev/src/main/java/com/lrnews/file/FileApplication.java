@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @ComponentScan("com.lrnews")
 @EnableEurekaClient
-@EnableFeignClients({"com.lrnews.api.controller.file"})
+@EnableFeignClients
 public class FileApplication {
     public static void main(String[] args) {
         SpringApplication.run(FileApplication.class, args);

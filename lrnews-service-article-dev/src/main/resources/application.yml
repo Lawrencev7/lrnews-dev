@@ -101,3 +101,9 @@ logging:
   level:
     com.lrnews.api.controller.user.UserInfoControllerApi: trace
     com.netflix: trace
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
