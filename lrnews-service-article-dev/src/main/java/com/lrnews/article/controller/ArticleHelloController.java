@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/produce")
 public class ArticleHelloController extends BaseController implements HelloControllerApi {
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
+    private final RabbitTemplate rabbitTemplate;
 
-    @Autowired
-    private UserInfoControllerApi msUser; // Micro-service User. Target interface must mark with @FeignClient
+    private final UserInfoControllerApi msUser; // Micro-service User. Mark target interface with @FeignClient
+
+    public ArticleHelloController(RabbitTemplate rabbitTemplate, UserInfoControllerApi msUser) {
+        this.rabbitTemplate = rabbitTemplate;
+        this.msUser = msUser;
+    }
 
     @Override
     public Object hello() {

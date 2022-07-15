@@ -19,6 +19,7 @@
         <module>lrnews-service-article-fs</module>
         <module>lrnews-cloud-eureka</module>
         <module>lrnews-cloud-eureka-cluster</module>
+        <module>lrnews-cloud-zuul-server</module>
     </modules>
 
     <packaging>pom</packaging>

@@ -1,0 +1,53 @@
+############################################################
+#
+# Zuul service
+# Port: 7070
+#
+############################################################
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: 7070
+
+############################################################
+#
+# 配置项目信息
+#
+############################################################
+spring:
+  application:
+    name: service-zuul
+
+############################################################
+#
+# Eureka
+#
+############################################################
+eureka:
+  server:
+    hostname: eureka
+    port: 7000
+  client:
+    service-url:
+      defaultZone: http://eureka-cluster-7002.com:7002/eureka,
+        http://eureka-cluster-7003.com:7003/eureka,
+        http://eureka-cluster-7004.com:7004/eureka
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    instance-id: ${spring.application.name}:${server.port} #指定服务的id
+
+############################################################
+#
+# zuul路由规则
+# e.g: http://[网关地址]:[端口]/前缀/微服务实例ID/请求路由及参数
+#
+############################################################
+zuul:
+  routes:
+    service-article:              # 实例ID
+      path: /service-article/**   # 请求到service-article中的任何请求路径
+#      url: http://localhost:8001   转发到对应微服务所在的地址
+      service-id: service-article
+#    service-article: /service-article/** 路由ID和微服务实例ID相同时可以使用这样的简化配置
+    prefix: /api
