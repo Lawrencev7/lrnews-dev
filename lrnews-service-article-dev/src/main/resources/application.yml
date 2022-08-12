@@ -99,7 +99,7 @@ feign:
 
 logging:
   level:
-    com.lrnews.api.controller.user.UserInfoControllerApi: trace
+    com.lrnews.apzi.controller.user.UserInfoControllerApi: trace
     com.netflix: trace
 
 management:

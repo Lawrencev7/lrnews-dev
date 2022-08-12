@@ -1,6 +1,7 @@
 # Project exclude paths
 /*/target
 .idea
-/mybatis-generator-database/target/mybatis-generator-database-1.0-SNAPSHOT.jar
+/mybatis-generator-database/target/*
 */*.iml
 /dev-note
+
