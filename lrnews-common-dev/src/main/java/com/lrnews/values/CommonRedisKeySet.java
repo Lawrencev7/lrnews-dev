@@ -31,4 +31,8 @@ public class CommonRedisKeySet {
     public static final String REDIS_IP_READ_LINK_KEY = ":HAS:READ:IN24H:";
 
     public static final String REDIS_ARTICLE_COMMENT_COUNT_KEY = "COMMENT:COUNT:";
+
+    public static final String REDIS_ZUUL_IP_REQUEST_TIME_KEY = "ZUUL:IP:REQUEST:TIME:";
+
+    public static final String REDIS_ZUUL_BLOCKED_IP_KEY = "ZUUL:IP:BLOCKED:";
 }

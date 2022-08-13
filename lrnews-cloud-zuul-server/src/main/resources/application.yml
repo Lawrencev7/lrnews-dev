@@ -51,7 +51,6 @@ zuul:
   ribbon:
     eager-load:
       enabled: true
-  servlet-path
 
 ############################################################
 # 启用一下代码来启动actuator检测
@@ -70,3 +69,8 @@ zuul:
 #      enabled: true
 #
 ############################################################
+
+IpBlockSetting:
+    requestLimit: ${requestLimit:10}
+    timeInterval: ${interval:15} # seconds
+    limitTime: ${limit:15} # seconds

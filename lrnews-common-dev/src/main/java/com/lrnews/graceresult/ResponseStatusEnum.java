@@ -71,7 +71,9 @@ public enum ResponseStatusEnum {
     SYSTEM_ERROR(555, false, "Encounter a system error. Retry later or contact administrator to confirm it."),
     SYSTEM_OPERATION_ERROR(556, false, "操作失败，请重试或联系管理员"),
     SYSTEM_CONNECTION_FAIL(557, false, "Inner connection error of system occurs. Please contact admin"),
-    SYSTEM_BUSY(558, false, "Server is busy now, please retry later");
+    SYSTEM_BUSY(558, false, "Server is busy now, please retry later"),
+
+    REQUEST_BLOCKED(599, false, "You have been limited not to visit this site within few seconds");
 
     // 响应业务状态
     private final Integer status;
