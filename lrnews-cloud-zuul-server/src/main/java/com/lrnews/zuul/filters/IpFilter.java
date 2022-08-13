@@ -11,6 +11,7 @@ import com.netflix.zuul.exception.ZuulException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +21,7 @@ import static com.lrnews.values.CommonRedisKeySet.REDIS_ZUUL_BLOCKED_IP_KEY;
 import static com.lrnews.values.CommonRedisKeySet.REDIS_ZUUL_IP_REQUEST_TIME_KEY;
 
 @Component
+@RefreshScope // 开启自刷新
 public class IpFilter extends ZuulFilter {
     private static final Logger logger = LoggerFactory.getLogger(IpFilter.class);
 
@@ -56,6 +58,7 @@ public class IpFilter extends ZuulFilter {
     @Override
     public Object run() throws ZuulException {
         logger.info("IpFilter ===> start");
+        printConfigParam();
         RequestContext context = RequestContext.getCurrentContext();
         String requestIp = IPUtil.getRequestIp(context.getRequest());
         logger.debug("[Request Ip] " + requestIp);
@@ -91,5 +94,11 @@ public class IpFilter extends ZuulFilter {
     private boolean isIpLimited(String requestIp) {
         Optional<Long> expire = redis.getExpire(REDIS_ZUUL_BLOCKED_IP_KEY + requestIp);
         return expire.isPresent() && expire.get() > 0;
+    }
+
+    private void printConfigParam() {
+        System.out.println("\t requestLimit: " + requestLimit);
+        System.out.println("\t timeInterval: " + timeInterval);
+        System.out.println("\t limitTime: " + limitTime);
     }
 }

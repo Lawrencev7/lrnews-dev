@@ -1,0 +1,59 @@
+############################################################
+#
+#  config center
+# Port: 7080
+#
+############################################################
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: 7080
+
+############################################################
+#
+# 配置中心
+#
+############################################################
+spring:
+  application:
+    name: springcloud-config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Lawrencev7/lrnews-config-center.git
+          default-label: main
+
+############################################################
+#
+# Eureka
+#
+############################################################
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-cluster-7002.com:7002/eureka,
+        http://eureka-cluster-7003.com:7003/eureka,
+        http://eureka-cluster-7004.com:7004/eureka
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    instance-id: ${spring.application.name}:${server.port} #指定服务的id
+
+############################################################
+# 启用一下代码来启动actuator检测
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include=*:
+#  endpoint:
+#    health:
+#      #默认是NEVER
+#      enabled: true
+#      show-details: ALWAYS
+#    routes:
+#      enabled: true
+#
+############################################################
