@@ -38,6 +38,25 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  rabbitmq:
+    username: admin
+    password: admin
+    virtual-host: lrnews-rmq
+  cloud:
+    stream:
+      bindings:                               # 绑定通道和交换机
+        lrnewsOutput:                         # 定义生产者通道
+          destination: streamExchange         # 交换机名字
+        lrnewsInput:                          # 定义消费者通道
+          destination: streamExchange
+          group: gp2
+  zipkin:
+    base-url: http://192.168.1.8:9411/      # 配置采集服务的地址
+    sender:
+      type: web                             # 数据采集的通信方式，http或某些mq
+  sleuth:
+    sampler:
+      probability: 1                        # 采样率百分数(0~1, float)，为了测试方便写为1
 
 ############################################################
 #

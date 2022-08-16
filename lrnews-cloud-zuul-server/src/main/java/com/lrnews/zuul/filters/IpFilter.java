@@ -25,13 +25,13 @@ import static com.lrnews.values.CommonRedisKeySet.REDIS_ZUUL_IP_REQUEST_TIME_KEY
 public class IpFilter extends ZuulFilter {
     private static final Logger logger = LoggerFactory.getLogger(IpFilter.class);
 
-    @Value("${IpBlockSetting.requestLimit}")
+    @Value("#{${IpBlockSetting.requestLimit}}")
     private Integer requestLimit;
 
-    @Value("${IpBlockSetting.timeInterval}")
+    @Value("#{${IpBlockSetting.timeInterval}}")
     private Integer timeInterval;
 
-    @Value("${IpBlockSetting.limitTime}")
+    @Value("#{${IpBlockSetting.limitTime}}")
     private Integer limitTime;
 
     private final RedisOperator redis;
@@ -58,7 +58,7 @@ public class IpFilter extends ZuulFilter {
     @Override
     public Object run() throws ZuulException {
         logger.info("IpFilter ===> start");
-        printConfigParam();
+//        printConfigParam(); 该方法用于打印输出配置参数，以确认动态刷新是否生效
         RequestContext context = RequestContext.getCurrentContext();
         String requestIp = IPUtil.getRequestIp(context.getRequest());
         logger.debug("[Request Ip] " + requestIp);
@@ -96,9 +96,9 @@ public class IpFilter extends ZuulFilter {
         return expire.isPresent() && expire.get() > 0;
     }
 
-    private void printConfigParam() {
-        System.out.println("\t requestLimit: " + requestLimit);
-        System.out.println("\t timeInterval: " + timeInterval);
-        System.out.println("\t limitTime: " + limitTime);
-    }
+//    private void printConfigParam() {
+//        System.out.println("\t requestLimit: " + requestLimit);
+//        System.out.println("\t timeInterval: " + timeInterval);
+//        System.out.println("\t limitTime: " + limitTime);
+//    }
 }

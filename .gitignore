@@ -4,4 +4,4 @@
 /mybatis-generator-database/target/*
 */*.iml
 /dev-note
-
+.out-dep

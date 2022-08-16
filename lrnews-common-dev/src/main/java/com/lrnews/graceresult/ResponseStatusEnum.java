@@ -22,6 +22,7 @@ public enum ResponseStatusEnum {
     FILE_NOT_EXIST_ERROR(514, false, "你所查看的文件不存在！"),
     USER_STATUS_ERROR(515, false, "Error with user status parameter"),
     USER_NOT_EXIST_ERROR(516, false, "用户不存在！"),
+    LOSE_FACE_ID(517, false, "Your face id has lost due to system error. Please contact admin to re-upload."),
 
     USER_FROZEN(521, false, "用户已被冻结，请联系管理员！"),
     USER_UPDATE_ERROR(522, false, "用户信息更新失败，请联系管理员！"),

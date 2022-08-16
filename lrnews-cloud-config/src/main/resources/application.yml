@@ -23,6 +23,10 @@ spring:
         git:
           uri: https://github.com/Lawrencev7/lrnews-config-center.git
           default-label: main
+  rabbitmq:
+    username: admin
+    password: admin
+    virtual-host: lrnews-rmq
 
 ############################################################
 #
@@ -57,3 +61,16 @@ eureka:
 #      enabled: true
 #
 ############################################################
+
+############################################################
+# 配置刷新
+# 配置消息总线后，可以通过发送POST请求：
+#     POST http://localhost:7080/actuator/bus-refresh/{service-id}:{port}
+# 来实现向一个或多个服务刷新配置
+############################################################
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

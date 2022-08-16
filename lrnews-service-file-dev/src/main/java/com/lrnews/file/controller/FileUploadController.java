@@ -23,10 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.List;
+import java.util.*;
 
 import static com.lrnews.values.CommonTestStrings.UPLOAD_FACE_TO_DISK;
 
@@ -142,6 +139,8 @@ public class FileUploadController implements FileUploadControllerApi {
 
         try {
             File imgFile = readGridFSByFaceId(faceId);
+            if(Objects.isNull(imgFile))
+                return JsonResultObject.errorCustom(ResponseStatusEnum.LOSE_FACE_ID);
             // Wait for implementation: download file by browser
             return JsonResultObject.ok(imgFile.getAbsolutePath());
         } catch (IOException e) {

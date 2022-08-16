@@ -50,6 +50,21 @@ spring:
     username: admin
     password: admin
     virtual-host: lrnews-rmq
+  cloud:
+    stream:
+      bindings:                               # 绑定通道和交换机
+        lrnewsOutput:                         # 定义生产者通道
+          destination: streamExchange         # 交换机名字
+        lrnewsInput:                          # 定义消费者通道
+          destination: streamExchange         # 同一个微服务内配置生产者和消费者，可以测试自消费
+          group: gp1                          # 配置分组后，消息对组是持久化的，如果没有消费者使用，消息会一直存在队列中
+  zipkin:
+    base-url: http://192.168.1.8:9411/      # 配置采集服务的地址
+    sender:
+      type: web                             # 数据采集的通信方式，http或某些mq
+  sleuth:
+    sampler:
+      probability: 1                        # 采样率百分数(0~1, float)，为了测试方便写为1
 
 ############################################################
 #

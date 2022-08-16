@@ -1,0 +1,38 @@
+  cloud:
+    stream:
+      bindings:                               # 绑定通道和交换机
+        lrnewsOutput:                         # 定义生产者通道
+          destination: streamExchange         # 交换机名字
+        lrnewsInput:                          # 定义消费者通道
+          destination: streamExchange         # 同一个微服务内配置生产者和消费者，可以测试自消费
+          group: gp1
+
+Article服务有只有一个监听，同属gp1，所以10条消息都在这里被消费，结果如下：
+StreamConsumer: StreamService: [No.0-msg] was sent was consumed
+StreamConsumer: StreamService: [No.1-msg] was sent was consumed
+StreamConsumer: StreamService: [No.2-msg] was sent was consumed
+StreamConsumer: StreamService: [No.3-msg] was sent was consumed
+StreamConsumer: StreamService: [No.4-msg] was sent was consumed
+StreamConsumer: StreamService: [No.5-msg] was sent was consumed
+StreamConsumer: StreamService: [No.6-msg] was sent was consumed
+StreamConsumer: StreamService: [No.7-msg] was sent was consumed
+StreamConsumer: StreamService: [No.8-msg] was sent was consumed
+StreamConsumer: StreamService: [No.9-msg] was sent was consumed
+
+User服务启动了两个，有两个监听，都是gp2，所以会产生竞争，结果如下：
+[port 8013]
+StreamConsumer: StreamService: [No.1-msg] was sent was consumed
+StreamConsumer: StreamService: [No.2-msg] was sent was consumed
+StreamConsumer: StreamService: [No.5-msg] was sent was consumed
+StreamConsumer: StreamService: [No.7-msg] was sent was consumed
+StreamConsumer: StreamService: [No.9-msg] was sent was consumed
+[port 8003]
+StreamConsumer: StreamService: [No.0-msg] was sent was consumed
+StreamConsumer: StreamService: [No.3-msg] was sent was consumed
+StreamConsumer: StreamService: [No.4-msg] was sent was consumed
+StreamConsumer: StreamService: [No.6-msg] was sent was consumed
+StreamConsumer: StreamService: [No.8-msg] was sent was consumed
+
+监听绑定的核心是Channel中定义的两个队列名
+    String INPUT = "lrnewsInput";
+    String OUTPUT = "lrnewsOutput";

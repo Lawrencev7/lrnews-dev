@@ -25,6 +25,17 @@ spring:
       discovery:                # 启用服务发现，寻找配置中心服务
         enabled: true
         service-id: springcloud-config
+  rabbitmq:
+    username: admin
+    password: admin
+    virtual-host: lrnews-rmq
+  zipkin:
+    base-url: http://192.168.1.8:9411/      # 配置采集服务的地址
+    sender:
+      type: web                             # 数据采集的通信方式，http或某些mq
+  sleuth:
+    sampler:
+      probability: 1                        # 采样率百分数(0~1, float)，为了测试方便写为1
 
 ############################################################
 #
@@ -61,7 +72,7 @@ zuul:
       enabled: true
 
 ############################################################
-# 启用一下代码来启动actuator检测
+# 启用一以下代码来启动actuator检测
 #
 #management:
 #  endpoints:
