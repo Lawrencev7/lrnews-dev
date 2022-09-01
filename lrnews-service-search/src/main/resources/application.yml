@@ -1,0 +1,27 @@
+############################################################
+#
+# FastDFS server can not be plugin in dev machine.
+# This module provides mock file server.
+#
+############################################################
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: ${port:8006 }
+
+############################################################
+#
+# 配置项目信息
+#
+############################################################
+spring:
+  application:
+    name: service-file
+  data:
+    elasticsearch:
+      cluster-name: laros-elasticsearch # es版本6.8.6可以继续使用该形式
+      cluster-nodes: 'localhost:9200'
+  elasticsearch:
+    rest:
+      uris: [ http://127.0.0.1:9200 ]
+
