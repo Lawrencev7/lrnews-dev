@@ -1,5 +1,6 @@
 package com.lrnews.file.service.impl;
 
+import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import com.lrnews.file.service.UploaderService;
 import com.lrnews.utils.RandomStringName;
@@ -25,12 +26,10 @@ public class UploadServiceImpl implements UploaderService {
     @Override
     public String uploadFDFS(MultipartFile file, String fileExtName) throws IOException {
 
-//        StorePath path = fileClient.uploadFile(file.getInputStream(), file.getSize(), fileExtName, null);
-//        return path.getFullPath();
+        StorePath path = fileClient.uploadFile(
+                file.getInputStream(), file.getSize(), fileExtName, null);
 
-        String name = RandomStringName.getRandomFileName();
-        logger.info("Mock File Service - Mock file name {}", name);
-        return name;
+        return path.getFullPath();
     }
 
     @Override
@@ -40,7 +39,7 @@ public class UploadServiceImpl implements UploaderService {
 
 //        // Endpoint以杭州为例，其它Region请按实际情况填写。
 //        String endpoint = fileResource.getEndpoint();
-//        // 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录 https://ram.console.aliyun.com 创建RAM账号。
+//        // 获取id和secret
 //        String accessKeyId = aliyunResource.getAccessKeyID();
 //        String accessKeySecret = aliyunResource.getAccessKeySecret();
 //

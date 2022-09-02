@@ -71,51 +71,6 @@ public class FileUploadController implements FileUploadControllerApi {
         }
     }
 
-    private String checkFileAndGetExtName(String filename) {
-        String[] part = filename.split("\\.");
-        if (part.length != 2) {
-            logger.error("Check file - failed: Failed to extract file extend name.");
-            return "";
-        }
-
-        String fileExtName = part[1];
-        if (fileExtName.equalsIgnoreCase("jpg")
-                || fileExtName.equalsIgnoreCase("png")
-                || fileExtName.equalsIgnoreCase("jpeg")) {
-            logger.info("Check file - pass");
-            return fileExtName;
-        } else {
-            logger.error("Check file - failed: Unsupported file type.");
-            return "";
-        }
-    }
-
-//    @Override
-//    public JsonResultObject uploadAvatarTest(String userId, String filename) {
-//        if (filename == null) {
-//            logger.error("Test interface: Uploaded a null file");
-//            return JsonResultObject.errorCustom(ResponseStatusEnum.FILE_UPLOAD_NULL_ERROR);
-//        }
-//
-//        if (StringUtils.isBlank(filename)) {
-//            logger.error("Test interface: File name is blank");
-//            return JsonResultObject.errorCustom(ResponseStatusEnum.FILE_UPLOAD_FAILD);
-//        }
-//
-//        String extName = checkFileAndGetExtName(filename);
-//        if (StringUtils.isBlank(extName)) {
-//            return JsonResultObject.errorCustom(ResponseStatusEnum.FILE_FORMATTER_FAILD);
-//        }
-//
-//        try {
-//            String path = uploaderService.uploadFDFS(null, extName);
-//            return JsonResultObject.ok(fileResource.getHost() + "/" + path);
-//        } catch (IOException e) {
-//            logger.error("Test interface: File upload failed with exception {}" + e.getMessage());
-//            return JsonResultObject.errorCustom(ResponseStatusEnum.FILE_UPLOAD_FAILD);
-//        }
-//    }
-
     @Override
     public JsonResultObject uploadToGridFS(AdminBO adminBO) {
         // Base64 encoded file string
@@ -132,15 +87,16 @@ public class FileUploadController implements FileUploadControllerApi {
     }
 
     @Override
-    public JsonResultObject readAdminFace(@RequestParam String faceId, HttpServletRequest request, HttpServletResponse response) {
-        if (StringUtils.isBlank(faceId) || faceId.equalsIgnoreCase("null")) {
+    public JsonResultObject readFaceFile(@RequestParam String faceId, HttpServletRequest request, HttpServletResponse response) {
+        if (StringUtils.isBlank(faceId) || "null".equalsIgnoreCase(faceId)) {
             return JsonResultObject.errorCustom(ResponseStatusEnum.FILE_NOT_EXIST_ERROR);
         }
 
         try {
             File imgFile = readGridFSByFaceId(faceId);
-            if(Objects.isNull(imgFile))
+            if (Objects.isNull(imgFile)) {
                 return JsonResultObject.errorCustom(ResponseStatusEnum.LOSE_FACE_ID);
+            }
             // Wait for implementation: download file by browser
             return JsonResultObject.ok(imgFile.getAbsolutePath());
         } catch (IOException e) {
@@ -217,17 +173,29 @@ public class FileUploadController implements FileUploadControllerApi {
         }
     }
 
+    /**
+     * 检查文件扩展名是否支持并提取扩展名
+     * @param filename      完整的文件名
+     * @return              空字符串（如果检查未通过）或支持的文件的扩展名
+     *                      jpg, jpeg 或 png
+     */
+    private String checkFileAndGetExtName(String filename) {
+        String[] part = filename.split("\\.");
+        if (part.length != 2) {
+            logger.error("Check file - failed: Failed to extract file extend name.");
+            return "";
+        }
 
-    public static void main(String[] args) throws IOException {
-        File file = new File("/home/lr/Pictures/admin7777.png");
-        FileInputStream inputFile = new FileInputStream(file);
-        byte[] buffer = new byte[(int) file.length()];
-        int read = inputFile.read(buffer);
-        System.out.println(read);
-        inputFile.close();
-        byte[] bytes = Base64.getEncoder().encode(buffer);
-        System.out.println(Arrays.toString(bytes));
-        FileOutputStream fos = new FileOutputStream("/home/lr/lr/mycode/imooc-news/dev/lrnews/lrnews-service-file-dev/src/main/java/com/lrnews/file/controller/img64.txt");
-        fos.write(bytes);
+        String fileExtName = part[1];
+        if ("jpg".equalsIgnoreCase(fileExtName)
+                || "png".equalsIgnoreCase(fileExtName)
+                || "jpeg".equalsIgnoreCase(fileExtName)) {
+            logger.info("Check file - pass");
+            return fileExtName;
+        } else {
+            logger.error("Check file - failed: Unsupported file type.");
+            return "";
+        }
     }
+
 }
